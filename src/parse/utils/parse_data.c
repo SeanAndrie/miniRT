@@ -32,10 +32,7 @@ char    **parse_data(char *line, const size_t n_params)
             line++;
         params[i] = parse_param(&line, &skip);
         if (!params[i])
-        {
-            tok_free(params, i);
-            return (NULL);
-        }
+            return (tok_free(params, i), NULL);
         line += skip;
         i++;
     }

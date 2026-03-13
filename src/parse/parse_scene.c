@@ -15,22 +15,40 @@
 #include <core/scene.h>
 #include <core/parse.h>
 
+static void dispatch_error(const char *id)
+{
+    log_error(STDERR_FILENO, ERR_BASE, "failed to parse ");
+    if (*id == 'A')
+        ft_dprintf(STDERR_FILENO, "ambient light");
+    if (*id == 'C')
+        ft_dprintf(STDERR_FILENO, "camera");
+    if (*id == 'L')
+        ft_dprintf(STDERR_FILENO, "light");
+    if (ft_strcmp(id, "sp") == 0)
+        ft_dprintf(STDERR_FILENO, "sphere");
+    if (ft_strcmp(id, "pl") == 0)
+        ft_dprintf(STDERR_FILENO, "plane");
+    if (ft_strcmp(id, "cy") == 0)
+        ft_dprintf(STDERR_FILENO, "cylinder");
+    ft_dprintf(STDERR_FILENO, "\n");
+}
+
 static bool parse_dispatch(char *line, const char *id, t_scene *scene)
 {
     if (!line || !id || !scene)
-        return (false);
+        return (dispatch_error(id), false);
     if (*id == 'A' && !parse_ambient(++line, 2, scene))
-        return (false);
+        return (dispatch_error(id), false);
     if (*id == 'C' && !parse_camera(++line, 3, scene))
-        return (false);
+        return (dispatch_error(id), false);
     if (*id == 'L' && !parse_light(++line, 3, scene))
-        return (false);
+        return (dispatch_error(id), false);
     if (ft_strcmp(id, "sp") == 0 && !parse_sphere(++line, 3, scene))
-        return (false);
+        return (dispatch_error(id), false);
     if (ft_strcmp(id, "pl") == 0 && !parse_plane(++line, 3, scene))
-        return (false);
+        return (dispatch_error(id), false);
     if (ft_strcmp(id, "cy") == 0 && !parse_cylinder(++line, 5, scene))
-        return (false);
+        return (dispatch_error(id), false);
     return (true);
 }
 

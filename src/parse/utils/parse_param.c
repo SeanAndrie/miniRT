@@ -20,10 +20,11 @@ char	*parse_param(char **line, size_t *skip)
 	char	*end;
 
 	*skip = 0;
+	if (!line || !*line)
+		return (NULL);
 	end = *line;
-	if (*end == '-' || *end == '+')
-		end++;
-	while (*end && (ft_isdigit(*end) || *end == ',' || *end == '.'))
+	while (*end && (ft_isdigit(*end) || *end == ',' || *end == '.'
+			|| *end == '+' || *end == '-'))
 		end++;
 	sub = ft_substr(*line, 0, (end - *line));
 	if (!sub)
