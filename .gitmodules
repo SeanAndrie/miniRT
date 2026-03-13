@@ -1,0 +1,9 @@
+[submodule "minilibx-linux"]
+    path = minilibx-linux
+    url = git@github.com:SeanAndrie/minilibx-linux.git
+[submodule "libft"]
+    path = libft
+    url = git@github.com:SeanAndrie/libft-adapt.git
+[submodule "libtensr"]
+    path = libtensr
+    url = git@github.com:SeanAndrie/libtensr.git
