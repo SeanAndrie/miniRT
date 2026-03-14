@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:30:29 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/13 01:29:57 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/14 01:17:36 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_scene	*scene_init(const char *fname, const char *ext)
 	}
 	if (!has_valid_extension(fname, ext))
 		return (NULL);
-	scene = malloc(sizeof(t_scene));
+	scene = ft_calloc(1, sizeof(t_scene));
 	if (!scene)
 	{
 		log_error(ERR_WARNING, ERR_BASE, "scene allocation failed\n");
