@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   isect_obj.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/10 01:37:03 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/19 12:28:51 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/19 17:06:44 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/19 17:07:05 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include <core/render.h>
 
-# include <core/render.h>
-# include <core/parse.h>
-
-# define SCENE_FILE_EXT ".rt"
-
-#endif
+float	isect_obj(t_ray *ray, t_object *obj)
+{
+	if (obj->type == OBJ_SPHERE)
+		return (isect_sphere(ray, &obj->data.sphere));
+	return (0.0);
+}

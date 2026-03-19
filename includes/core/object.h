@@ -6,14 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 14:49:47 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/11 20:38:27 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/19 03:04:44 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
-typedef struct s_tensr	t_tensr;
+# include <libtensr_rt.h>
 
 /*---------------------------------------------------------------------*/
 /*                      1. SCENE OBJECTS                               */
@@ -21,25 +21,25 @@ typedef struct s_tensr	t_tensr;
 
 typedef struct s_sphere
 {
-	double radius;          // Sphere Radius
-	struct s_tensr *center; // Coordinates of sphere center
-	struct s_tensr *rgb;    // RGB Colors
+	float				radius;
+	t_vec3				center;
+	t_vec3				rgb;
 }						t_sphere;
 
 typedef struct s_plane
 {
-	struct s_tensr *point;  // Coordinates of point in plane
-	struct s_tensr *normal; // Normalized normal vector
-	struct s_tensr *rgb;    // RGB Colors
+	t_vec3				point;
+	t_vec3				normal;
+	t_vec3				rgb;
 }						t_plane;
 
 typedef struct s_cylinder
 {
-	double height;         // Cylinder Height
-	double radius;         // Cylinder Radius
-	struct s_tensr *point; // Coordinates of cylinder center
-	struct s_tensr *axis;  // Normalized axis vector of cylinder
-	struct s_tensr *rgb;   // RGB Colors
+	float				height;
+	float				radius;
+	t_vec3				point;
+	t_vec3				axis;
+	t_vec3				rgb;
 }						t_cylinder;
 
 typedef enum e_type
@@ -75,7 +75,7 @@ void					obj_cylinder(t_object *obj, t_cylinder *params);
 bool					obj_append(t_object **head, t_object *obj);
 bool					obj_prepend(t_object **head, t_object *obj);
 
-void	                obj_data_free(t_object *obj);
+void					obj_data_free(t_object *obj);
 void					obj_free(t_object **head);
 t_object				*obj_alloc(t_type obj_type);
 

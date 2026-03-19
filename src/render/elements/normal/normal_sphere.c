@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   normal_sphere.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/10 01:37:03 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/19 12:28:51 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/19 10:53:20 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/19 12:28:20 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include <core/render.h>
 
-# include <core/render.h>
-# include <core/parse.h>
-
-# define SCENE_FILE_EXT ".rt"
-
-#endif
+t_vec3  normal_sphere(t_vec3 point, t_sphere *sp)
+{
+    return (vec3_normalize(vec3_sub(point, sp->center)));
+}

@@ -13,19 +13,19 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-# include <libft.h>
+#include <stddef.h>
 
 # define ERR_BASE "miniRT"
 # define ERR_MISSING_EXT "missing file extension '%s'\n"
 # define ERR_INVALID_EXT "invalid file extension '%s' file extension must be '%s'\n"
 
-typedef struct s_tensr	t_tensr;
+typedef struct s_vec3   t_vec3;
 typedef struct s_scene	t_scene;
 
 bool					parse_scene(int fd, t_scene *scene);
 char					*parse_param(char **line, size_t *skip);
+bool                    parse_vector(const char *nptr, t_vec3 *v);
 char					**parse_data(char *line, const size_t n_params);
-t_tensr					*parse_vector(const char *nptr);
 
 bool					parse_camera(char *line, size_t n_params,
 							t_scene *scene);

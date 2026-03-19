@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   shade_ambient.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/10 01:37:03 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/19 12:28:51 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/19 15:34:33 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/19 16:08:31 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include <core/render.h>
 
-# include <core/render.h>
-# include <core/parse.h>
-
-# define SCENE_FILE_EXT ".rt"
-
-#endif
+t_vec3  shade_ambient(t_ambient *amb, t_vec3 rgb)
+{
+    return (vec3_scale(vec3_mul(amb->rgb, rgb), amb->ratio));
+}
