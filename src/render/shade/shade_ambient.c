@@ -12,7 +12,7 @@
 
 #include <core/render.h>
 
-t_vec3  shade_ambient(t_ambient *amb, t_vec3 rgb)
+t_vec3	shade_ambient(t_ambient *amb, t_vec3 rgb)
 {
-    return (vec3_scale(vec3_mul(amb->rgb, rgb), amb->ratio));
+	return (vec3_scale(vec3_mul(amb->rgb, rgb), amb->ratio));
 }

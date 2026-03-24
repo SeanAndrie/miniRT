@@ -12,9 +12,9 @@
 
 #include <core/object.h>
 
-void    obj_cylinder(t_object *obj, t_cylinder *params)
+void	obj_cylinder(t_object *obj, t_cylinder *params)
 {
-    if (!obj || !params)
-        return ;
-    obj->data.cylinder = *params;
+	if (!obj || !params)
+		return ;
+	obj->data.cylinder = *params;
 }

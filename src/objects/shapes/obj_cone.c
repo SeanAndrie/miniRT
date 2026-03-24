@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shade_diffuse.c                                    :+:      :+:    :+:   */
+/*   obj_cone.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/19 15:51:52 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 21:08:23 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/24 02:07:05 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/24 03:03:20 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/render.h>
-#include <float.h>
+#include <core/object.h>
 
-t_vec3	shade_diffuse(float ratio, t_vec3 light_rgb, t_hit *hit, t_vec3 L_hat)
+void	obj_cone(t_object *obj, t_cone *params)
 {
-	float	lambert;
-
-	lambert = fmaxf(0.0f, vec3_dot(hit->normal, L_hat));
-	return (vec3_scale(vec3_mul(hit->rgb, light_rgb), lambert * ratio));
+	if (!obj || !params)
+		return ;
+	obj->data.cone = *params;
 }

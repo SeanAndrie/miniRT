@@ -12,9 +12,9 @@
 
 #include <core/object.h>
 
-void    obj_sphere(t_object *obj, t_sphere *params)
+void	obj_sphere(t_object *obj, t_sphere *params)
 {
-    if (!obj || !params)
-        return ;
-    obj->data.sphere = *params;
+	if (!obj || !params)
+		return ;
+	obj->data.sphere = *params;
 }

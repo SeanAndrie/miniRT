@@ -12,7 +12,7 @@
 
 #include <core/render.h>
 
-t_vec3  normal_sphere(t_vec3 point, t_sphere *sp)
+t_vec3	normal_sphere(t_vec3 point, t_sphere *sp)
 {
-    return (vec3_normalize(vec3_sub(point, sp->center)));
+	return (vec3_normalize(vec3_sub(point, sp->center)));
 }

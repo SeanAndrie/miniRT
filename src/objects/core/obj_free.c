@@ -10,17 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <core/object.h>
+#include <stdlib.h>
 
-void    obj_free(t_object **head)
+void	obj_free(t_object **head)
 {
-    t_object *next;
+	t_object	*next;
 
-    while (*head)
-    {
-        next = (*head)->next;
-        free(*head);
-        *head = next;
-    }
+	while (*head)
+	{
+		next = (*head)->next;
+		free(*head);
+		*head = next;
+	}
 }

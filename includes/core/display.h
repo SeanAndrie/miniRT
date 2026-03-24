@@ -6,16 +6,16 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 15:29:14 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/19 11:09:28 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/24 23:43:16 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
+# define TITLE "miniRT"
 # define W 1920
 # define H 1080
-# define TITLE "miniRT"
 # define TARGET_TILES 64
 
 typedef struct s_tensr	t_tensr;
@@ -55,8 +55,8 @@ typedef struct s_display
 	t_tensr				*framebuf;
 }						t_display;
 
-bool					display_init(t_display *dis, const int width,
+t_display               *display_init(const int width,
 							const int height, char *title);
-void					display_free(t_display *dis);
+void					display_free(t_display *disp);
 
 #endif

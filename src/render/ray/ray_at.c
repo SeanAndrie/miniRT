@@ -12,7 +12,7 @@
 
 #include <core/render.h>
 
-t_vec3 ray_at(t_ray ray, float t)
+t_vec3	ray_at(t_ray ray, float t)
 {
-    return (vec3_add(ray.orig, vec3_scale(ray.dir, t)));
+	return (vec3_add(ray.orig, vec3_scale(ray.dir, t)));
 }

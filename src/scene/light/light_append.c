@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene_free.c                                       :+:      :+:    :+:   */
+/*   light_append.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/11 21:04:37 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/18 23:15:44 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/24 23:59:40 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/25 00:01:34 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtensr.h>
-#include <core/object.h>
+#include <libft.h>
+#include <libtensr_rt.h>
 #include <core/scene.h>
 
-void    scene_free(t_scene *scene)
+bool    light_append(t_light **head, t_light *light)
 {
-    if (!scene)
-        return ;
-    if (scene->cam.u)
+    t_light *last;
+
+    if (!light)
+        return (false);
+    if (!*head)
     {
-        tensr_free(scene->cam.u);
-        scene->cam.u = NULL;
+        *head = light;
+        return (true);
     }
-    if (scene->cam.v)
-    {
-        tensr_free(scene->cam.v);
-        scene->cam.v = NULL;
-    }
-    if (scene->head)
-    {
-        obj_free(&scene->head);
-        scene->head = NULL;
-    }
-    free(scene);
+    last = *head;
+    while (last->next)
+        last = last->next;
+    last->next = light;
+    return (true);
 }

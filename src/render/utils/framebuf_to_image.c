@@ -5,13 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/19 13:14:19 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/19 13:23:41 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/24 23:27:50 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/25 02:35:53 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
 #include <libtensr.h>
+#include <mlx.h>
 
 static t_tensr	*postprocess_framebuf(t_tensr *framebuf)
 {
@@ -29,26 +30,46 @@ static t_tensr	*postprocess_framebuf(t_tensr *framebuf)
 	return (out);
 }
 
+static inline unsigned int	rgb_to_argb(const uint8_t *src)
+{
+	return ((0xFF << 24) | (src[0] << 16) | (src[1] << 8) | src[2]);
+}
+
+static void	tensr_blit(t_tensr *src, char *dst, int line_len)
+{
+	size_t			x;
+	size_t			y;
+	uint8_t			*s_ptr;
+	char			*d_row;
+	unsigned int	*d_pixel;
+
+	s_ptr = (uint8_t *)src->data;
+	d_row = dst;
+	y = 0;
+	while (y < src->layout.shape[0])
+	{
+		x = 0;
+		d_pixel = (unsigned int *)d_row;
+		while (x < src->layout.shape[1])
+		{
+			*d_pixel = rgb_to_argb(s_ptr);
+			s_ptr += 3;
+			d_pixel++;
+			x++;
+		}
+		d_row += line_len;
+		y++;
+	}
+}
+
 bool	framebuf_to_image(t_display *disp)
 {
-	int		i;
-	uint8_t	*src;
-	char	*dst;
 	t_tensr	*out;
 
 	out = postprocess_framebuf(disp->framebuf);
 	if (!out)
 		return (false);
-	src = (uint8_t *)out->data;
-	dst = disp->image.addr;
-	i = 0;
-	while (i < disp->dim.width * disp->dim.height)
-	{
-		*(unsigned int *)(dst + i * (disp->image.bpp
-					/ 8)) = (0xFF << 24) | (src[i * 3 + 0] << 16) | (src[i * 3
-				+ 1] << 8) | (src[i * 3 + 2]);
-        i++;
-	}
-    tensr_free(out);
-    return (true);
+	tensr_blit(out, disp->image.addr, disp->image.line_len);
+	tensr_free(out);
+	return (true);
 }

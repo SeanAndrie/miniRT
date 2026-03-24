@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_sphere.c                                     :+:      :+:    :+:   */
+/*   parse_cone.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/13 01:49:59 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/25 00:14:51 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/24 02:09:21 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/25 00:14:44 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 #include <core/parse.h>
 #include <core/scene.h>
 #include <errno.h>
+#include <float.h>
 #include <libft.h>
+#include <math.h>
 
 static inline void	quick_free(char **params, t_object *obj)
 {
@@ -24,9 +26,21 @@ static inline void	quick_free(char **params, t_object *obj)
 		tok_free(params, -1);
 }
 
-bool	parse_sphere(char *line, const size_t n_params, t_scene *scene)
+static inline void	calculate_k(t_cone *co)
 {
-	t_sphere	sp;
+	co->k = tanf(co->theta * (M_PI / 180.0f));
+	co->k2 = co->k * co->k;
+}
+
+static bool	create_and_append(t_scene *scene, t_object *obj, t_cone *params)
+{
+	obj_cone(obj, params);
+	return (obj_append(&scene->objects, obj));
+}
+
+bool	parse_cone(char *line, const size_t n_params, t_scene *scene)
+{
+	t_cone		co;
 	t_object	*obj;
 	char		*endptr;
 	char		**params;
@@ -34,17 +48,21 @@ bool	parse_sphere(char *line, const size_t n_params, t_scene *scene)
 	if (!line || !scene || n_params == 0)
 		return (false);
 	params = parse_data(++line, n_params);
-	obj = obj_alloc(OBJ_SPHERE);
+	obj = obj_alloc(OBJ_CONE);
 	if (!params || !obj)
 		return (quick_free(params, obj), false);
-	if (!parse_vector(params[0], &sp.center))
+	if (!parse_vector(params[0], &co.apex))
 		return (quick_free(params, obj), false);
-	sp.radius = ft_strtof(params[1], &endptr) / 2.0;
+	if (!parse_vector(params[1], &co.axis))
+		return (quick_free(params, obj), false);
+	co.height = ft_strtof(params[2], &endptr);
+	co.theta = ft_strtof(params[3], &endptr);
 	if (*endptr != '\0' || errno == ERANGE)
 		return (quick_free(params, obj), false);
-	if (!parse_vector(params[2], &sp.rgb))
+	calculate_k(&co);
+	co.axis = vec3_normalize(co.axis);
+	if (!parse_vector(params[4], &co.rgb))
 		return (quick_free(params, obj), false);
 	tok_free(params, n_params);
-	obj_sphere(obj, &sp);
-	return (obj_append(&scene->objects, obj));
+	return (create_and_append(scene, obj, &co));
 }

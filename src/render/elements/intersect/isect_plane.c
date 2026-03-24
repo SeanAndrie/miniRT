@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shade_diffuse.c                                    :+:      :+:    :+:   */
+/*   isect_plane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/19 15:51:52 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 21:08:23 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/20 00:31:04 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/24 20:11:10 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
 
-t_vec3	shade_diffuse(float ratio, t_vec3 light_rgb, t_hit *hit, t_vec3 L_hat)
+float	isect_plane(t_ray *ray, t_plane *pl)
 {
-	float	lambert;
+	float	t;
+	float	denom;
 
-	lambert = fmaxf(0.0f, vec3_dot(hit->normal, L_hat));
-	return (vec3_scale(vec3_mul(hit->rgb, light_rgb), lambert * ratio));
+	denom = vec3_dot(ray->dir, pl->normal);
+	if (fabsf(denom) < 1e-6f)
+		return (0.0f);
+	t = vec3_dot(vec3_sub(pl->point, ray->orig), pl->normal) / denom;
+	if (t < 1e-4f)
+		return (0.0f);
+	return (t);
 }

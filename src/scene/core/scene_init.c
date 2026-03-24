@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <fcntl.h>
 #include <core/parse.h>
 #include <core/scene.h>
+#include <fcntl.h>
+#include <libft.h>
 
 static bool	has_valid_extension(const char *fname, const char *fext)
 {
@@ -38,21 +38,21 @@ static bool	has_valid_extension(const char *fname, const char *fext)
 	return (true);
 }
 
-static int read_file(const char *fname)
+static int	read_file(const char *fname)
 {
-    int fd;
+	int	fd;
 
-    fd = open(fname, O_RDONLY);
-    if (fd < 0)
+	fd = open(fname, O_RDONLY);
+	if (fd < 0)
 		log_error(ERR_WARNING, ERR_BASE, "'%s' not found\n", fname);
-    return (fd);
+	return (fd);
 }
 
 t_scene	*scene_init(const char *fname, const char *fext)
 {
-    int     fd;
+	int		fd;
 	t_scene	*scene;
-    bool    success;
+	bool	success;
 
 	if (!fname)
 	{
@@ -67,12 +67,12 @@ t_scene	*scene_init(const char *fname, const char *fext)
 		log_error(ERR_WARNING, ERR_BASE, "scene allocation failed\n");
 		return (NULL);
 	}
-    fd = read_file(fname);
-    if (fd < 0)
-        return (scene_free(scene), NULL);
-    success = parse_scene(fd, scene);
-    close(fd);
-    if (!success)
-        return (scene_free(scene), NULL);
-    return (scene);
+	fd = read_file(fname);
+	if (fd < 0)
+		return (scene_free(scene), NULL);
+	success = parse_scene(fd, scene);
+	close(fd);
+	if (!success)
+		return (scene_free(scene), NULL);
+	return (scene);
 }

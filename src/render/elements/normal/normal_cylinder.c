@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shade_diffuse.c                                    :+:      :+:    :+:   */
+/*   normal_cylinder.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/19 15:51:52 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 21:08:23 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/23 17:13:59 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/24 21:26:19 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
+#include <math.h>
 
-t_vec3	shade_diffuse(float ratio, t_vec3 light_rgb, t_hit *hit, t_vec3 L_hat)
+t_vec3	normal_cylinder(t_vec3 point, t_cylinder *cy, float t)
 {
-	float	lambert;
+	float	h;
+	t_vec3	p_on_axis;
 
-	lambert = fmaxf(0.0f, vec3_dot(hit->normal, L_hat));
-	return (vec3_scale(vec3_mul(hit->rgb, light_rgb), lambert * ratio));
+	if (cy->hit_loc == SURF_TOP)
+		return (cy->axis);
+	if (cy->hit_loc == SURF_BOT)
+		return (vec3_neg(cy->axis));
+	h = cy->l.axial + cy->d.axial * t;
+	p_on_axis = vec3_add(cy->point, vec3_scale(cy->axis, h));
+	return (vec3_normalize(vec3_sub(point, p_on_axis)));
 }

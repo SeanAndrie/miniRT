@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <core/parse.h>
+#include <stdlib.h>
 
-void    tok_free(char **tok, int n)
+void	tok_free(char **tok, int n)
 {
-    if (!tok)
-        return ;
-    if (n > 0)
-    {
-        while (--n >= 0)
-            free(tok[n]);
-    }
-    else if (n == -1)
-    {
-        while (tok[++n])
-            free(tok[n]);
-    }
-    free(tok);
+	if (!tok)
+		return ;
+	if (n > 0)
+	{
+		while (--n >= 0)
+			free(tok[n]);
+	}
+	else if (n == -1)
+	{
+		while (tok[++n])
+			free(tok[n]);
+	}
+	free(tok);
 }

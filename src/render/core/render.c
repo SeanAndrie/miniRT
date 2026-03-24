@@ -6,66 +6,60 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 14:35:23 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/19 17:09:30 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/25 00:44:57 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <math.h>
+#include <core/render.h>
 #include <libft.h>
 #include <libtensr.h>
-#include <core/render.h>
+#include <math.h>
+#include <mlx.h>
 
-static inline void	fill_color(float *ptr, t_vec3 *rgb)
+static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
 {
-	if (rgb)
-	{
-		ptr[0] = rgb->x;
-		ptr[1] = rgb->y;
-		ptr[2] = rgb->z;
-	}
-	else
-	{
-		ptr[0] = 0.0f;
-		ptr[1] = 0.0f;
-		ptr[2] = 0.0f;
-	}
-}
+	float		hit_t;
+	t_object	*curr;
+	float		light_dist;
+	t_ray		shadow_ray;
 
-static bool in_shadow(t_scene *scene, t_hit *hit, t_vec3 L_hat)
-{
-    float       hit_t;
-    t_object    *curr;
-    float       light_dist;
-    t_ray       shadow_ray;
-
-    light_dist = vec3_magnitude(vec3_sub(scene->light.point, hit->point));
-    shadow_ray.orig = vec3_add(hit->point, vec3_scale(hit->normal, 1e-4f));
-    shadow_ray.dir = L_hat;
-    curr = scene->head;
-    while (curr)
-    {
-        hit_t = isect_obj(&shadow_ray, curr);
-        if (hit_t > 1e-4f && hit_t < light_dist)
-            return (true);
-        curr = curr->next;
-    }
-    return (false);
+	light_dist = vec3_magnitude(vec3_sub(light->point, hit->point));
+	shadow_ray.orig = vec3_add(hit->point, vec3_scale(hit->normal, 1e-2f));
+	shadow_ray.dir = l_hat;
+	curr = scene->objects;
+	while (curr)
+	{
+		if (curr != hit->obj)
+		{
+			hit_t = isect_obj(&shadow_ray, curr);
+			if (hit_t > 1e-4f && hit_t < light_dist)
+				return (true);
+		}
+		curr = curr->next;
+	}
+	return (false);
 }
 
 static void	shade(t_scene *scene, t_hit *hit, float *ptr)
 {
 	t_vec3	rgb;
-	t_vec3	L_hat;
+	t_vec3	l_hat;
+	t_light	*curr;
 
-	L_hat = vec3_normalize(vec3_sub(scene->light.point, hit->point));
+	curr = scene->lights;
 	rgb = shade_ambient(&scene->amb, hit->rgb);
-    if (in_shadow(scene, hit, L_hat))
-    {
-	    vec3_add_ip(&rgb, shade_diffuse(&scene->light, hit, L_hat));
-	    vec3_add_ip(&rgb, shade_specular(scene, hit, L_hat, 32.0f));
-    }
-	fill_color(ptr, &rgb);
+	while (curr)
+	{
+		l_hat = vec3_normalize(vec3_sub(curr->point, hit->point));
+		if (!in_shadow(scene, hit, l_hat, curr))
+		{
+			vec3_add_ip(&rgb, shade_diffuse(curr->ratio, curr->rgb, hit,
+					l_hat));
+			vec3_add_ip(&rgb, shade_specular(scene, curr, hit, l_hat));
+		}
+		color_fill(ptr, &rgb);
+		curr = curr->next;
+	}
 }
 
 static bool	render_tile(t_tensr *framebuf, t_scene *scene, t_tile_map *tm)
@@ -86,11 +80,12 @@ static bool	render_tile(t_tensr *framebuf, t_scene *scene, t_tile_map *tm)
 		while (++idx[1] < tm->actual_w)
 		{
 			ray = ray_create(&scene->cam, tm->tx + idx[1], tm->ty + idx[0]);
-			ptr = (float *)tile->data + tensr_offset(&tile->layout, (size_t[]){idx[0], idx[1], 0});
+			ptr = (float *)tile->data + tensr_offset(&tile->layout,
+					(size_t[]){idx[0], idx[1], 0});
 			if (render_trace(&ray, &hit, scene))
 				shade(scene, &hit, ptr);
 			else
-				fill_color(ptr, NULL);
+				color_fill(ptr, NULL);
 		}
 	}
 	return (tensr_free(tile), true);
@@ -100,7 +95,7 @@ bool	render(t_display *disp, t_scene *scene)
 {
 	t_tile_map	tm;
 
-	if (!disp || !scene)
+	if (!disp || !scene || !render_init(disp, scene))
 		return (false);
 	tm.ty = 0;
 	while (tm.ty < disp->dim.height)

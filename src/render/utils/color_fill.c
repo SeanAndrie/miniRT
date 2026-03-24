@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shade_diffuse.c                                    :+:      :+:    :+:   */
+/*   color_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/19 15:51:52 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 21:08:23 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/23 22:42:16 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/23 22:42:44 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
+#include <libtensr_rt.h>
 
-t_vec3	shade_diffuse(float ratio, t_vec3 light_rgb, t_hit *hit, t_vec3 L_hat)
+void	color_fill(float *ptr, t_vec3 *rgb)
 {
-	float	lambert;
-
-	lambert = fmaxf(0.0f, vec3_dot(hit->normal, L_hat));
-	return (vec3_scale(vec3_mul(hit->rgb, light_rgb), lambert * ratio));
+	if (rgb)
+	{
+		ptr[0] = rgb->x;
+		ptr[1] = rgb->y;
+		ptr[2] = rgb->z;
+	}
+	else
+	{
+		ptr[0] = 0.0f;
+		ptr[1] = 0.0f;
+		ptr[2] = 0.0f;
+	}
 }

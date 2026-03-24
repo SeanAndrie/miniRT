@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
+#include <core/parse.h>
+#include <core/scene.h>
 #include <errno.h>
 #include <libft.h>
 #include <libtensr_rt.h>
-#include <core/parse.h>
-#include <core/scene.h>
+#include <math.h>
 
 static void	basis_vectors(t_basis *basis)
 {

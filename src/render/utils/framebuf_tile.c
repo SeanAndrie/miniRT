@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtensr.h>
 #include <core/render.h>
+#include <libtensr.h>
 
 t_tensr	*framebuf_tile(t_tensr *framebuf, t_tile_map *tm)
 {

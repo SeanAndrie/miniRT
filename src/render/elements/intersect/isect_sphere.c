@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 10:46:37 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/19 12:28:27 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/24 20:01:41 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 float	isect_sphere(t_ray *ray, t_sphere *sp)
 {
-	t_vec3	L;
+	t_vec3	l;
 	float	t0;
 	float	t1;
 	t_vec3	quad;
 	float	disc;
 
-	L = vec3_sub(ray->orig, sp->center);
+	l = vec3_sub(ray->orig, sp->center);
 	quad.x = vec3_dot(ray->dir, ray->dir);
-	quad.y = 2.0f * vec3_dot(ray->dir, L);
-	quad.z = vec3_dot(L, L) - (sp->radius * sp->radius);
+	quad.y = 2.0f * vec3_dot(ray->dir, l);
+	quad.z = vec3_dot(l, l) - (sp->radius * sp->radius);
 	disc = (quad.y * quad.y) - (4.0f * quad.x * quad.z);
 	if (disc < 0.0f)
 		return (0.0f);

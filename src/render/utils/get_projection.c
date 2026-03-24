@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shade_diffuse.c                                    :+:      :+:    :+:   */
+/*   get_projection.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/19 15:51:52 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 21:08:23 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/24 12:12:08 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/24 16:39:42 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
 
-t_vec3	shade_diffuse(float ratio, t_vec3 light_rgb, t_hit *hit, t_vec3 L_hat)
+t_project	get_projection(t_vec3 v, t_vec3 u_hat)
 {
-	float	lambert;
+	t_project	proj;
 
-	lambert = fmaxf(0.0f, vec3_dot(hit->normal, L_hat));
-	return (vec3_scale(vec3_mul(hit->rgb, light_rgb), lambert * ratio));
+	proj.axial = vec3_dot(v, u_hat);
+	proj.perp = vec3_sub(v, vec3_scale(u_hat, proj.axial));
+	return (proj);
 }

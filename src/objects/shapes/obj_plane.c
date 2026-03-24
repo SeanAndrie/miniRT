@@ -12,9 +12,9 @@
 
 #include <core/object.h>
 
-void    obj_plane(t_object *obj, t_plane *params)
+void	obj_plane(t_object *obj, t_plane *params)
 {
-    if (!obj || !params)
-        return ;
-    obj->data.plane = *params;
+	if (!obj || !params)
+		return ;
+	obj->data.plane = *params;
 }
