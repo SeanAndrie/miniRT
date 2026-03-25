@@ -6,52 +6,84 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 14:49:47 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/11 20:38:27 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/25 00:12:07 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECTS_H
-# define OBJECTS_H
+#ifndef OBJECT_H
+# define OBJECT_H
 
-typedef struct s_tensr	t_tensr;
+# include <libtensr_rt.h>
 
 /*---------------------------------------------------------------------*/
 /*                      1. SCENE OBJECTS                               */
 /*---------------------------------------------------------------------*/
 
+typedef struct s_project
+{
+	t_vec3				perp;
+	float				axial;
+}						t_project;
+
+typedef enum e_surface
+{
+	SURF_SIDE,
+	SURF_TOP,
+	SURF_BOT
+}						t_surface;
+
 typedef struct s_sphere
 {
-	double radius;          // Sphere Radius
-	struct s_tensr *center; // Coordinates of sphere center
-	struct s_tensr *rgb;    // RGB Colors
+	float				radius;
+	struct s_vec3		center;
+	struct s_vec3		rgb;
 }						t_sphere;
 
 typedef struct s_plane
 {
-	struct s_tensr *point;  // Coordinates of point in plane
-	struct s_tensr *normal; // Normalized normal vector
-	struct s_tensr *rgb;    // RGB Colors
+	struct s_vec3		point;
+	struct s_vec3		normal;
+	struct s_vec3		rgb;
 }						t_plane;
 
 typedef struct s_cylinder
 {
-	double height;         // Cylinder Height
-	double radius;         // Cylinder Radius
-	struct s_tensr *point; // Coordinates of cylinder center
-	struct s_tensr *axis;  // Normalized axis vector of cylinder
-	struct s_tensr *rgb;   // RGB Colors
+	enum e_surface		hit_loc;
+	float				height;
+	float				radius;
+	struct s_vec3		point;
+	struct s_vec3		axis;
+	struct s_vec3		rgb;
+	struct s_project	d;
+	struct s_project	l;
 }						t_cylinder;
+
+typedef struct s_cone
+{
+	enum e_surface		hit_loc;
+	float				height;
+	float				theta;
+	struct s_vec3		apex;
+	struct s_vec3		axis;
+	struct s_vec3		rgb;
+	float				k2;
+	float				k;
+	struct s_project	d;
+	struct s_project	l;
+}						t_cone;
 
 typedef enum e_type
 {
 	OBJ_PLANE,
 	OBJ_SPHERE,
 	OBJ_CYLINDER,
+	OBJ_CONE,
 	OBJ_UNKNOWN,
 }						t_type;
 
 typedef union u_data
 {
+	struct s_cone		cone;
 	struct s_plane		plane;
 	struct s_sphere		sphere;
 	struct s_cylinder	cylinder;
@@ -71,11 +103,12 @@ typedef struct s_object
 void					obj_plane(t_object *obj, t_plane *params);
 void					obj_sphere(t_object *obj, t_sphere *params);
 void					obj_cylinder(t_object *obj, t_cylinder *params);
+void					obj_cone(t_object *obj, t_cone *params);
 
 bool					obj_append(t_object **head, t_object *obj);
 bool					obj_prepend(t_object **head, t_object *obj);
 
-void	                obj_data_free(t_object *obj);
+void					obj_data_free(t_object *obj);
 void					obj_free(t_object **head);
 t_object				*obj_alloc(t_type obj_type);
 
