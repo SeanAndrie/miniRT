@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/render.h>
 #include <libtensr.h>
+#include <core/render.h>
 
 static void	normalize_rgb(t_scene *scene)
 {

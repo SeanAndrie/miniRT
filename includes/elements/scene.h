@@ -13,7 +13,7 @@
 #ifndef SCENE_H
 # define SCENE_H
 
-# include <core/object.h>
+# include <elements/object.h>
 
 /*---------------------------------------------------------------------*/
 /*                         1. SCENE ELEMENTS                           */

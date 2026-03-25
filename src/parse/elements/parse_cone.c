@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/object.h>
+#include <elements/object.h>
 #include <core/parse.h>
-#include <core/scene.h>
+#include <elements/scene.h>
 #include <errno.h>
 #include <float.h>
 #include <libft.h>

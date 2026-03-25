@@ -13,10 +13,11 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
+# define TARGET_TILES 64
+
 # define TITLE "miniRT"
 # define W 1920
 # define H 1080
-# define TARGET_TILES 64
 
 typedef struct s_tensr	t_tensr;
 

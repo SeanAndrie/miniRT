@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/object.h>
+#include <elements/object.h>
 #include <core/parse.h>
-#include <core/scene.h>
+#include <elements/scene.h>
 #include <libtensr.h>
 
 static inline void	quick_free(char **params, t_object *obj)

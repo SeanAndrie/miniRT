@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/parse.h>
-#include <core/scene.h>
+#include <elements/scene.h>
 #include <errno.h>
 #include <libft.h>
 

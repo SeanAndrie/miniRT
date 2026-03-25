@@ -16,7 +16,6 @@
 # include <core/parse.h>
 # include <core/render.h>
 # include <libft.h>
-# include <libtensr_rt.h>
 # include <mlx.h>
 
 # define SCENE_FILE_EXT ".rt"

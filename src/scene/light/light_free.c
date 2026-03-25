@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <core/scene.h>
+#include <elements/scene.h>
 
 void    light_free(t_light **head)
 {

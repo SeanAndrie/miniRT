@@ -12,7 +12,7 @@
 
 #include <libft.h>
 #include <libtensr_rt.h>
-#include <core/scene.h>
+#include <elements/scene.h>
 
 bool    light_prepend(t_light **head, t_light *light)
 {

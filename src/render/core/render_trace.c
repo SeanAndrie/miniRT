@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/render.h>
-#include <float.h>
 #include <math.h>
+#include <float.h>
+#include <core/render.h>
 
 static bool	fill_hit(t_ray *ray, t_isect *is, t_hit *hit)
 {

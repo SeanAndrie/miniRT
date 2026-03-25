@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/object.h>
-#include <core/scene.h>
+#include <elements/object.h>
+#include <elements/scene.h>
 #include <libtensr.h>
 
 void	coords_free(t_dev_coord *coords)

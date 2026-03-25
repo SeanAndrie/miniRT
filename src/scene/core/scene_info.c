@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/object.h>
-#include <core/scene.h>
+#include <elements/object.h>
+#include <elements/scene.h>
 #include <libtensr.h>
 #include <stdio.h>
 

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/parse.h>
-#include <stdlib.h>
 
 void	tok_free(char **tok, int n)
 {

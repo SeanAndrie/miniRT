@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/parse.h>
-#include <core/scene.h>
-#include <libft.h>
 #include <libtensr_rt.h>
+#include <core/parse.h>
+#include <elements/scene.h>
 
 bool	parse_vector(const char *nptr, t_vec3 *vec)
 {

@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/parse.h>
-#include <core/scene.h>
-#include <libtensr.h>
+#include <elements/scene.h>
 
 char	*parse_param(char **line, size_t *skip)
 {

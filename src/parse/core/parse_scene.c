@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/parse.h>
-#include <core/scene.h>
 #include <fcntl.h>
-#include <libft.h>
+#include <core/parse.h>
+#include <elements/scene.h>
 
 static void	dispatch_error(const char *id)
 {

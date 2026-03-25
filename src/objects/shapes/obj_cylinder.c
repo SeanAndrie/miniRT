@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/object.h>
+#include <elements/object.h>
 
 void	obj_cylinder(t_object *obj, t_cylinder *params)
 {

@@ -13,9 +13,8 @@
 #ifndef RENDER_H
 # define RENDER_H
 
-# include <display.h>
-# include <libtensr_rt.h>
-# include <scene.h>
+# include <core/display.h>
+# include <elements/scene.h>
 
 # define SPECULAR_SHINE 45.0f
 

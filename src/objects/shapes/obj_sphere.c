@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/object.h>
+#include <elements/object.h>
 
 void	obj_sphere(t_object *obj, t_sphere *params)
 {

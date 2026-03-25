@@ -13,7 +13,7 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-# include <stddef.h>
+# include <libft.h>
 
 # define ERR_BASE "miniRT"
 # define ERR_MISSING_EXT "missing file extension '%s'\n"

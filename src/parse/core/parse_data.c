@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/parse.h>
-#include <core/scene.h>
-#include <libft.h>
+#include <elements/scene.h>
 
 char	**parse_data(char *line, const size_t n_params)
 {

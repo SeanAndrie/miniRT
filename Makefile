@@ -12,7 +12,7 @@
 
 NAME := minirt
 CC := cc
-INCS := -Iincludes -Iincludes/core -Iincludes/utils -Ilibft/includes -Ilibtensr/includes -Iminilibx-linux
+INCS := -Iincludes -Iincludes/core -Iincludes/elements -Ilibft/includes -Ilibtensr/includes -Iminilibx-linux
 CFLAGS := -Wall -Werror -Wextra $(INCS) -O3
 
 MLX_FLAGS := -lXext -lX11 -lm -lz

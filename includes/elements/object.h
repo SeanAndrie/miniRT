@@ -21,7 +21,7 @@
 
 typedef struct s_project
 {
-	t_vec3				perp;
+	struct s_vec3		perp;
 	float				axial;
 }						t_project;
 

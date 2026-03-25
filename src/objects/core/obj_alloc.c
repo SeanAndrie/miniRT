@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <core/object.h>
+#include <elements/object.h>
 
 t_object	*obj_alloc(t_type obj_type)
 {

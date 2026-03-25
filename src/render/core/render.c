@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/render.h>
+#include <mlx.h>
+#include <math.h>
 #include <libft.h>
 #include <libtensr.h>
-#include <math.h>
-#include <mlx.h>
+#include <core/render.h>
 
 static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
 {
