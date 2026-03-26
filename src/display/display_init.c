@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/display.h>
+#include <setup/display.h>
 #include <libft.h>
 #include <libtensr.h>
 #include <math.h>

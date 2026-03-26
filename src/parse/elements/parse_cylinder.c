@@ -6,15 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 01:49:59 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/25 00:15:07 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/26 20:45:10 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <elements/object.h>
-#include <core/parse.h>
-#include <elements/scene.h>
-#include <errno.h>
 #include <libtensr.h>
+#include <setup/parse.h>
+#include <elements/scene.h>
+#include <elements/object.h>
 
 static inline void	quick_free(char **params, t_object *obj)
 {
@@ -28,7 +27,6 @@ bool	parse_cylinder(char *line, const size_t n_params, t_scene *scene)
 {
 	t_cylinder	cy;
 	t_object	*obj;
-	char		*endptr;
 	char		**params;
 
 	if (!line || !scene || n_params == 0)
@@ -37,15 +35,17 @@ bool	parse_cylinder(char *line, const size_t n_params, t_scene *scene)
 	obj = obj_alloc(OBJ_CYLINDER);
 	if (!params || !obj)
 		return (quick_free(params, obj), false);
-	if (!parse_vector(params[0], &cy.point))
+	if (!parse_vector(params[0], -INFINITY, INFINITY, &cy.point))
 		return (quick_free(params, obj), false);
-	if (!parse_vector(params[1], &cy.axis))
+	if (!parse_vector(params[1], -INFINITY, INFINITY, &cy.axis))
 		return (quick_free(params, obj), false);
-	cy.radius = ft_strtof(params[2], &endptr) / 2.0;
-	cy.height = ft_strtof(params[3], &endptr);
-	if (*endptr != '\0' || errno == ERANGE)
+    vec3_normalize_ip(&cy.axis);
+	if (!parse_scalar(params[2], 0.0f, INFINITY, &cy.radius))
 		return (quick_free(params, obj), false);
-	if (!parse_vector(params[4], &cy.rgb))
+	cy.radius /= 2.0;
+	if (!parse_scalar(params[3], 0.0f, INFINITY, &cy.height))
+		return (quick_free(params, obj), false);
+	if (!parse_vector(params[4], 0.0f, 255.0f, &cy.rgb))
 		return (quick_free(params, obj), false);
 	tok_free(params, n_params);
 	obj_cylinder(obj, &cy);

@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_free.c                                     :+:      :+:    :+:   */
+/*   parse_scalar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/15 15:49:20 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 21:11:57 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/26 17:17:19 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/26 17:29:44 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <setup/display.h>
-#include <libtensr.h>
-#include <mlx.h>
+#include <errno.h>
+#include <setup/parse.h>
 
-void	display_free(t_display *disp)
+bool    parse_scalar(const char *nptr, float min, float max, float *n)
 {
-	if (!disp || !disp->conn)
-		return ;
-	if (disp->framebuf)
-		tensr_free(disp->framebuf);
-	if (disp->image.image)
-		mlx_destroy_image(disp->conn, disp->image.image);
-	if (disp->window)
-		mlx_destroy_window(disp->conn, disp->window);
-	mlx_destroy_display(disp->conn);
-	free(disp->conn);
-	free(disp);
+    float   v;
+    char    *endptr;
+
+    if (!nptr || !*nptr)
+        return (false);
+    v = ft_strtof(nptr, &endptr);
+    if (*endptr != '\0' || errno == ERANGE)
+        return (false);
+    if (!scalar_in_range(v, min, max))
+        return (false);
+    *n = v;
+    return (true);
 }

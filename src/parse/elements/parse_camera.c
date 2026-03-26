@@ -6,16 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 18:25:26 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/19 12:51:52 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/26 23:45:20 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/parse.h>
-#include <elements/scene.h>
-#include <errno.h>
-#include <libft.h>
-#include <libtensr_rt.h>
 #include <math.h>
+#include <libtensr_rt.h>
+#include <setup/parse.h>
+#include <elements/scene.h>
 
 static void	basis_vectors(t_basis *basis)
 {
@@ -26,27 +24,28 @@ static void	basis_vectors(t_basis *basis)
 		world_up = (t_vec3){0, 0, 1};
 	if (fabsf(vec3_dot(basis->forward, world_up)) > 0.9999f)
 		world_up = (t_vec3){1, 0, 0};
-	basis->right = vec3_normalize(vec3_cross(world_up, basis->forward));
-	basis->up = vec3_normalize(vec3_cross(basis->forward, basis->right));
+	basis->right = vec3_normalize(vec3_cross(basis->forward, world_up));
+	basis->up = vec3_normalize(vec3_cross(basis->right, basis->forward));
 }
 
 bool	parse_camera(char *line, const size_t n_params, t_scene *scene)
 {
-	char	*endptr;
 	char	**params;
+	float	fov;
 
 	if (!line || !scene || n_params == 0)
 		return (false);
 	params = parse_data(line, n_params);
 	if (!params)
 		return (false);
-	if (!parse_vector(params[0], &scene->cam.point))
+	if (!parse_vector(params[0], -INFINITY, INFINITY, &scene->cam.point))
 		return (tok_free(params, n_params), false);
-	if (!parse_vector(params[1], &scene->cam.basis.forward))
+	if (!parse_vector(params[1], -INFINITY, INFINITY,
+			&scene->cam.basis.forward))
 		return (tok_free(params, n_params), false);
-	scene->cam.fov = ft_strtof(params[2], &endptr) * M_PI / 180.0;
-	if (*endptr != '\0' || errno == ERANGE)
+	if (!parse_scalar(params[2], 0.0f, 180.0f, &fov))
 		return (tok_free(params, n_params), false);
+	scene->cam.fov = fov * (M_PI / 180.0);
 	basis_vectors(&scene->cam.basis);
 	tok_free(params, n_params);
 	return (true);

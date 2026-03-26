@@ -11,10 +11,8 @@
 /* ************************************************************************** */
 
 #include <elements/object.h>
-#include <core/parse.h>
+#include <setup/parse.h>
 #include <elements/scene.h>
-#include <errno.h>
-#include <libft.h>
 
 static inline void	quick_free(char **params, t_object *obj)
 {
@@ -28,7 +26,6 @@ bool	parse_sphere(char *line, const size_t n_params, t_scene *scene)
 {
 	t_sphere	sp;
 	t_object	*obj;
-	char		*endptr;
 	char		**params;
 
 	if (!line || !scene || n_params == 0)
@@ -37,12 +34,12 @@ bool	parse_sphere(char *line, const size_t n_params, t_scene *scene)
 	obj = obj_alloc(OBJ_SPHERE);
 	if (!params || !obj)
 		return (quick_free(params, obj), false);
-	if (!parse_vector(params[0], &sp.center))
+	if (!parse_vector(params[0], -INFINITY, INFINITY, &sp.center))
 		return (quick_free(params, obj), false);
-	sp.radius = ft_strtof(params[1], &endptr) / 2.0;
-	if (*endptr != '\0' || errno == ERANGE)
+	if (!parse_scalar(params[1], 0.0f, INFINITY, &sp.radius))
 		return (quick_free(params, obj), false);
-	if (!parse_vector(params[2], &sp.rgb))
+	sp.radius /= 2.0;
+	if (!parse_vector(params[2], 0.0f, 255.0f, &sp.rgb))
 		return (quick_free(params, obj), false);
 	tok_free(params, n_params);
 	obj_sphere(obj, &sp);

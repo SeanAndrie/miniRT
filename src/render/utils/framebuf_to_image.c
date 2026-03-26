@@ -6,13 +6,18 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 23:27:50 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/25 02:35:53 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/27 00:37:37 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
 #include <libtensr.h>
 #include <mlx.h>
+
+static inline unsigned int	rgb_to_argb(const uint8_t *src)
+{
+	return ((0xFF << 24) | (src[0] << 16) | (src[1] << 8) | src[2]);
+}
 
 static t_tensr	*postprocess_framebuf(t_tensr *framebuf)
 {
@@ -28,11 +33,6 @@ static t_tensr	*postprocess_framebuf(t_tensr *framebuf)
 	out = tensr_cast(scaled, DT_U8);
 	tensr_free(scaled);
 	return (out);
-}
-
-static inline unsigned int	rgb_to_argb(const uint8_t *src)
-{
-	return ((0xFF << 24) | (src[0] << 16) | (src[1] << 8) | src[2]);
 }
 
 static void	tensr_blit(t_tensr *src, char *dst, int line_len)

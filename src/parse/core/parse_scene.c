@@ -6,18 +6,18 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:32:32 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 02:51:34 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/26 17:37:59 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>
-#include <core/parse.h>
 #include <elements/scene.h>
+#include <fcntl.h>
+#include <setup/parse.h>
 
 static void	dispatch_error(const char *id)
 {
 	ft_printf("Error\n");
-	log_error(STDERR_FILENO, ERR_BASE, "failed to parse ");
+	log_error(STDERR_FILENO, ERR_BASE, "parsing failure: ");
 	if (*id == 'A')
 		ft_dprintf(STDERR_FILENO, "ambient light");
 	if (*id == 'C')

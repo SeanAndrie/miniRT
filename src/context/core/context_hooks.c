@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_free.c                                     :+:      :+:    :+:   */
+/*   context_hooks.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/15 15:49:20 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 21:11:57 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/26 11:23:23 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/26 13:15:10 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <setup/display.h>
-#include <libtensr.h>
 #include <mlx.h>
+#include <core/context.h>
 
-void	display_free(t_display *disp)
+static int close_app(t_context *ctx)
 {
-	if (!disp || !disp->conn)
-		return ;
-	if (disp->framebuf)
-		tensr_free(disp->framebuf);
-	if (disp->image.image)
-		mlx_destroy_image(disp->conn, disp->image.image);
-	if (disp->window)
-		mlx_destroy_window(disp->conn, disp->window);
-	mlx_destroy_display(disp->conn);
-	free(disp->conn);
-	free(disp);
+    context_free(ctx);
+    exit(EXIT_SUCCESS);
+    return (0);
+}
+
+void	context_hooks(t_context *ctx)
+{
+	mlx_hook(ctx->disp->window, KeyPress, KeyPressMask, handle_keypress, ctx);
+    mlx_hook(ctx->disp->window, ButtonPress, ButtonPressMask, handle_mousepress, ctx);
+	mlx_hook(ctx->disp->window, DestroyNotify, 0, close_app, ctx);
 }

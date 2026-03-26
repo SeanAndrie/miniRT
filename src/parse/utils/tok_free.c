@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/parse.h>
+#include <setup/parse.h>
 
 void	tok_free(char **tok, int n)
 {

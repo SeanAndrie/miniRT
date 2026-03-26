@@ -6,13 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 02:47:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/25 00:16:20 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/26 15:36:32 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <float.h>
 #include <core/render.h>
+#include <elements/scene.h>
 
 static void	assign_rgb(t_hit *hit)
 {
@@ -51,21 +52,25 @@ static bool	fill_hit(t_ray *ray, t_hit *hit)
 
 bool	render_trace(t_ray *ray, t_hit *hit, t_scene *scene)
 {
+	size_t		i;
+	t_array		*arr;
 	t_object	*curr;
 	float		hit_t;
 
+	arr = &scene->obj_view;
 	hit->obj = NULL;
 	hit->t = FLT_MAX;
-	curr = scene->objects;
-	while (curr)
+	i = 0;
+	while (i < arr->len)
 	{
+		curr = ((t_object **)arr->data)[i];
 		hit_t = isect_obj(ray, curr);
 		if (hit_t > 1e-4f && hit_t < hit->t)
 		{
 			hit->t = hit_t;
 			hit->obj = curr;
 		}
-		curr = curr->next;
+		i++;
 	}
 	if (!fill_hit(ray, hit))
 		return (false);

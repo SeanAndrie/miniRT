@@ -6,20 +6,21 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 15:29:14 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 23:43:16 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/27 01:34:21 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# define TARGET_TILES 64
+# define TARGET_TILES 32
 
 # define TITLE "miniRT"
 # define W 1920
 # define H 1080
 
-typedef struct s_tensr	t_tensr;
+# include <mlx.h>
+# include <libtensr.h>
 
 typedef struct s_image
 {

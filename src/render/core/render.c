@@ -6,18 +6,17 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 14:35:23 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/25 00:44:57 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/27 00:39:14 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include <math.h>
 #include <libft.h>
-#include <libtensr.h>
 #include <core/render.h>
 
 static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
 {
+    size_t      i;
 	float		hit_t;
 	t_object	*curr;
 	float		light_dist;
@@ -26,30 +25,35 @@ static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
 	light_dist = vec3_magnitude(vec3_sub(light->point, hit->point));
 	shadow_ray.orig = vec3_add(hit->point, vec3_scale(hit->normal, 1e-2f));
 	shadow_ray.dir = l_hat;
-	curr = scene->objects;
-	while (curr)
+    i = 0;
+	while (i < scene->obj_view.len)
 	{
+        curr = ((t_object **)scene->obj_view.data)[i];
 		if (curr != hit->obj)
 		{
 			hit_t = isect_obj(&shadow_ray, curr);
 			if (hit_t > 1e-4f && hit_t < light_dist)
 				return (true);
 		}
-		curr = curr->next;
+        i++;
 	}
 	return (false);
 }
 
 static void	shade(t_scene *scene, t_hit *hit, float *ptr)
 {
+    size_t  i;
 	t_vec3	rgb;
+    t_array *arr;
+    t_light *curr;
 	t_vec3	l_hat;
-	t_light	*curr;
 
-	curr = scene->lights;
+    arr = &scene->lgt_view;
 	rgb = shade_ambient(&scene->amb, hit->rgb);
-	while (curr)
+    i = 0;
+	while (i < arr->len)
 	{
+        curr = ((t_light **)arr->data)[i];
 		l_hat = vec3_normalize(vec3_sub(curr->point, hit->point));
 		if (!in_shadow(scene, hit, l_hat, curr))
 		{
@@ -57,9 +61,9 @@ static void	shade(t_scene *scene, t_hit *hit, float *ptr)
 					l_hat));
 			vec3_add_ip(&rgb, shade_specular(scene, curr, hit, l_hat));
 		}
-		color_fill(ptr, &rgb);
-		curr = curr->next;
+        i++;
 	}
+	color_fill(ptr, &rgb);
 }
 
 static bool	render_tile(t_tensr *framebuf, t_scene *scene, t_tile_map *tm)
@@ -95,8 +99,6 @@ bool	render(t_display *disp, t_scene *scene)
 {
 	t_tile_map	tm;
 
-	if (!disp || !scene || !render_init(disp, scene))
-		return (false);
 	tm.ty = 0;
 	while (tm.ty < disp->dim.height)
 	{

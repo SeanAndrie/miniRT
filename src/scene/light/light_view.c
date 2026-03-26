@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_free.c                                     :+:      :+:    :+:   */
+/*   light_view.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/15 15:49:20 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 21:11:57 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/26 15:31:00 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/26 19:51:40 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <setup/display.h>
 #include <libtensr.h>
-#include <mlx.h>
+#include <elements/scene.h>
 
-void	display_free(t_display *disp)
+bool	light_view(t_array *arr, t_light *head)
 {
-	if (!disp || !disp->conn)
-		return ;
-	if (disp->framebuf)
-		tensr_free(disp->framebuf);
-	if (disp->image.image)
-		mlx_destroy_image(disp->conn, disp->image.image);
-	if (disp->window)
-		mlx_destroy_window(disp->conn, disp->window);
-	mlx_destroy_display(disp->conn);
-	free(disp->conn);
-	free(disp);
+	size_t	i;
+	t_light	*curr;
+    
+	if (!arr || !head)
+		return (false);
+	arr->len = light_len(head);
+	arr->data = malloc(sizeof(t_light *) * arr->len);
+	if (!arr->data)
+		return (false);
+	i = 0;
+	curr = head;
+	while (curr && i < arr->len)
+	{
+		((t_light **)arr->data)[i++] = curr;
+		curr = curr->next;
+	}
+    arr->dtype = DT_CUSTOM;
+	return (true);
 }

@@ -6,12 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 17:11:46 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/25 00:14:28 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/25 15:36:02 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libtensr.h>
 #include <core/render.h>
+#include <setup/display.h>
+#include <elements/scene.h>
 
 static void	normalize_rgb(t_scene *scene)
 {
