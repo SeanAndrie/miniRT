@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 11:23:23 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/26 13:15:10 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/27 03:46:41 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static int close_app(t_context *ctx)
 void	context_hooks(t_context *ctx)
 {
 	mlx_hook(ctx->disp->window, KeyPress, KeyPressMask, handle_keypress, ctx);
+	mlx_hook(ctx->disp->window, KeyRelease, KeyReleaseMask, handle_keyrelease, ctx);
     mlx_hook(ctx->disp->window, ButtonPress, ButtonPressMask, handle_mousepress, ctx);
 	mlx_hook(ctx->disp->window, DestroyNotify, 0, close_app, ctx);
 }

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/26 21:57:28 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/27 03:38:59 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ bool	context_init(t_context *ctx, char *fname)
 		return (false);
 	}
     ctx->select = NULL;
+    ctx->rotate = false;
 	return (true);
 }

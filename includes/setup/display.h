@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 15:29:14 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/27 01:34:21 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/27 03:56:38 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define TARGET_TILES 32
 
 # define TITLE "miniRT"
-# define W 1920
-# define H 1080
+# define W 800
+# define H 600
 
 # include <mlx.h>
 # include <libtensr.h>

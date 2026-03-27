@@ -6,7 +6,7 @@
 #    By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/10 01:40:38 by sgadinga          #+#    #+#              #
-#    Updated: 2026/03/26 16:58:25 by sgadinga         ###   ########.fr        #
+#    Updated: 2026/03/27 03:46:16 by sgadinga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ DISPLAY_SRCS := $(addprefix $(DISPLAY_DIR)/, display_init.c display_free.c)
 
 CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
 				 $(addprefix core/, context_init.c context_hooks.c context_free.c) \
-				 $(addprefix hooks/, handle_keypress.c handle_mousepress.c))
+				 $(addprefix hooks/, handle_keypress.c handle_mousepress.c handle_keyrelease.c dispatch_translate.c dispatch_rotate.c))
 
 SRCS := $(addprefix $(SRC_DIR)/, main.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(RENDER_SRCS) $(HOOKS_SRCS) $(CONTEXT_SRCS))
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
