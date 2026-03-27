@@ -44,6 +44,8 @@ void	dispatch_translate(int key_code, t_context *ctx)
 	}
 	if (obj->type == OBJ_SPHERE)
 		handle_translate(key_code, &obj->data.sphere.center, basis);
+    else if (obj->type == OBJ_PLANE)
+        handle_translate(key_code, &obj->data.plane.point, basis);
 	else if (obj->type == OBJ_CYLINDER)
 		handle_translate(key_code, &obj->data.cylinder.point, basis);
 	else if (obj->type == OBJ_CONE)
