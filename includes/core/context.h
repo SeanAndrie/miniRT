@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:59 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/27 04:19:14 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/29 19:12:02 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ typedef struct s_context
 {
 	struct s_display	*disp;
 	struct s_scene		*scene;
-	struct s_object		*select;
+	struct s_object		*s_obj;
+	struct s_light		*s_lgt;
 	char				*fname;
-	bool				rotate;
+	bool				extend;
+	size_t				next_i;
+	bool				property;
 }						t_context;
 
 # define TRANS_SPEED 1.0f
 # define ROTATE_ANGLE 0.1f
+# define PROP_INCREMENT 0.5f
 
 // X11 KeySym
 # define XK_r 0x0072
@@ -51,17 +55,21 @@ typedef struct s_context
 # define MOUSE_SCROLLUP 4
 # define MOUSE_SCROLLDOWN 5
 
-// Translation
+// Property Mode
+# define XK_p 0x0070
+#define XK_h 0x0068
+#define XK_t 0x0074
+
+// Light Selection Mode
+# define XK_l 0x006c
+
+// Translation/Rotation
 # define XK_a 0x0061
 # define XK_s 0x0073
-# define XK_w 0x0077
+# define XK_w 0x0077 // Property Mode: Width
 # define XK_d 0x0064
 # define XK_q 0x0071
 # define XK_e 0x0065
-
-// Rotation
-# define XK_Left 0xff51
-# define XK_Right 0xff53
 
 // Rotation toggle
 # define XK_Shift_L 0xffe1
@@ -77,5 +85,12 @@ int						handle_mousepress(int button, int x, int y,
 
 void					dispatch_rotate(int key_code, t_context *ctx);
 void					dispatch_translate(int key_code, t_context *ctx);
+void					dispatch_property(int key_code, t_context *ctx);
+
+int						close_app(t_context *ctx);
+void					reset_app(t_context *ctx);
+
+bool					movement_keys(int key_code);
+bool					property_keys(int key_code);
 
 #endif

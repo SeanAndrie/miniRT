@@ -1,22 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   context_hooks.c                                    :+:      :+:    :+:   */
+/*   reset_app.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/26 11:23:23 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/29 15:56:39 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/29 17:21:24 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/29 17:40:51 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
+#include <core/render.h>
 #include <core/context.h>
 
-void	context_hooks(t_context *ctx)
+void reset_app(t_context *ctx)
 {
-	mlx_hook(ctx->disp->window, KeyPress, KeyPressMask, handle_keypress, ctx);
-	mlx_hook(ctx->disp->window, KeyRelease, KeyReleaseMask, handle_keyrelease, ctx);
-    mlx_hook(ctx->disp->window, ButtonPress, ButtonPressMask, handle_mousepress, ctx);
-	mlx_hook(ctx->disp->window, DestroyNotify, 0, close_app, ctx);
+   scene_free(ctx->scene);
+    ctx->scene = scene_init(ctx->fname, SCENE_FILE_EXT);
+    if (!ctx->scene)
+        close_app(ctx);
+    render_init(ctx->disp, ctx->scene);
+    render(ctx->disp, ctx->scene);
 }

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/27 03:38:59 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/29 18:46:36 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ bool	context_init(t_context *ctx, char *fname)
 		scene_free(ctx->scene);
 		return (false);
 	}
-    ctx->select = NULL;
-    ctx->rotate = false;
+    ctx->next_i = 0;
+    ctx->s_obj = NULL;
+    ctx->s_lgt = NULL;
+    ctx->extend = false;
+    ctx->property = false;
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 02:46:55 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/27 04:17:56 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/29 17:35:20 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	dispatch_rotate(int key_code, t_context *ctx)
 		angle = -ROTATE_ANGLE;
 	else
 		return ;
-	obj = ctx->select;
+	obj = ctx->s_obj;
     basis = &ctx->scene->cam.basis;
     if (!obj)
         rotate_camera(key_code, basis, angle);

@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   context_hooks.c                                    :+:      :+:    :+:   */
+/*   movemet_keys.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/26 11:23:23 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/29 15:56:39 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/29 15:55:12 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/29 15:55:26 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include <core/context.h>
 
-void	context_hooks(t_context *ctx)
+bool	movement_keys(int key_code)
 {
-	mlx_hook(ctx->disp->window, KeyPress, KeyPressMask, handle_keypress, ctx);
-	mlx_hook(ctx->disp->window, KeyRelease, KeyReleaseMask, handle_keyrelease, ctx);
-    mlx_hook(ctx->disp->window, ButtonPress, ButtonPressMask, handle_mousepress, ctx);
-	mlx_hook(ctx->disp->window, DestroyNotify, 0, close_app, ctx);
+	return (key_code == XK_a || key_code == XK_s || key_code == XK_w
+		|| key_code == XK_d || key_code == XK_q || key_code == XK_e);
 }
