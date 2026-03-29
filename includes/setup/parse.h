@@ -17,8 +17,8 @@
 # include <stdbool.h>
 
 # define ERR_BASE "miniRT"
-# define ERR_MISSING_EXT "missing file extension '%s'\n"
-# define ERR_INVALID_EXT "invalid ext '%s', expected '%s'\n"
+# define ERR_MISSING_EXT "%s: missing file extension '%s'\n"
+# define ERR_INVALID_EXT "%s: invalid extension '%s', expected '%s'\n"
 
 typedef struct s_vec3	t_vec3;
 typedef struct s_scene	t_scene;

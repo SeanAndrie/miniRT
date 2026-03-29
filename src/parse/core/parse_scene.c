@@ -20,18 +20,20 @@ static void	dispatch_error(const char *id)
 	log_error(STDERR_FILENO, ERR_BASE, "parsing failure: ");
 	if (*id == 'A')
 		ft_dprintf(STDERR_FILENO, "ambient light");
-	if (*id == 'C')
+	else if (*id == 'C')
 		ft_dprintf(STDERR_FILENO, "camera");
-	if (*id == 'L')
+	else if (*id == 'L')
 		ft_dprintf(STDERR_FILENO, "light");
-	if (ft_strcmp(id, "sp") == 0)
+	else if (ft_strcmp(id, "sp") == 0)
 		ft_dprintf(STDERR_FILENO, "sphere");
-	if (ft_strcmp(id, "pl") == 0)
+	else if (ft_strcmp(id, "pl") == 0)
 		ft_dprintf(STDERR_FILENO, "plane");
-	if (ft_strcmp(id, "cy") == 0)
+	else if (ft_strcmp(id, "cy") == 0)
 		ft_dprintf(STDERR_FILENO, "cylinder");
-	if (ft_strcmp(id, "co") == 0)
+	else if (ft_strcmp(id, "co") == 0)
 		ft_dprintf(STDERR_FILENO, "cone");
+	else
+		ft_dprintf(STDERR_FILENO, "invalid identifier");
 	ft_dprintf(STDERR_FILENO, "\n");
 }
 
@@ -41,17 +43,17 @@ static bool	parse_dispatch(char *line, const char *id, t_scene *scene)
 		return (dispatch_error(id), false);
 	if (*id == 'A' && !parse_ambient(++line, 2, scene))
 		return (dispatch_error(id), false);
-	if (*id == 'C' && !parse_camera(++line, 3, scene))
+	else if (*id == 'C' && !parse_camera(++line, 3, scene))
 		return (dispatch_error(id), false);
-	if (*id == 'L' && !parse_light(++line, 3, scene))
+	else if (*id == 'L' && !parse_light(++line, 3, scene))
 		return (dispatch_error(id), false);
-	if (ft_strcmp(id, "sp") == 0 && !parse_sphere(++line, 3, scene))
+	else if (ft_strcmp(id, "sp") == 0 && !parse_sphere(++line, 3, scene))
 		return (dispatch_error(id), false);
-	if (ft_strcmp(id, "pl") == 0 && !parse_plane(++line, 3, scene))
+	else if (ft_strcmp(id, "pl") == 0 && !parse_plane(++line, 3, scene))
 		return (dispatch_error(id), false);
-	if (ft_strcmp(id, "cy") == 0 && !parse_cylinder(++line, 5, scene))
+	else if (ft_strcmp(id, "cy") == 0 && !parse_cylinder(++line, 5, scene))
 		return (dispatch_error(id), false);
-	if (ft_strcmp(id, "co") == 0 && !parse_cone(++line, 5, scene))
+	else if (ft_strcmp(id, "co") == 0 && !parse_cone(++line, 5, scene))
 		return (dispatch_error(id), false);
 	return (true);
 }
@@ -60,7 +62,7 @@ static bool	parse_line(char *line, t_scene *scene)
 {
 	char	*id;
 	char	*end;
-	bool	success;
+	bool	result;
 
 	if (!line || !scene)
 		return (false);
@@ -72,9 +74,9 @@ static bool	parse_line(char *line, t_scene *scene)
 	id = ft_substr(line, 0, (end - line));
 	if (!id)
 		return (false);
-	success = parse_dispatch(line, id, scene);
+	result = parse_dispatch(line, id, scene);
 	free(id);
-	return (success);
+	return (result);
 }
 
 bool	parse_scene(int fd, t_scene *scene)
