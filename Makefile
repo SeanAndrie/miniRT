@@ -31,32 +31,35 @@ DISPLAY_DIR := display
 CONTEXT_DIR := context
 
 SCENE_SRCS := $(addprefix $(SCENE_DIR)/, \
-			    $(addprefix core/, scene_init.c scene_info.c scene_free.c) \
-				$(addprefix light/, light_append.c light_prepend.c light_free.c light_len.c light_view.c))
+	$(addprefix core/, scene_init.c scene_info.c scene_free.c) \
+	$(addprefix light/, light_append.c light_prepend.c light_free.c light_len.c light_view.c))
 
 PARSE_SRCS := $(addprefix $(PARSE_DIR)/core/, parse_scene.c parse_data.c parse_vector.c parse_scalar.c) \
-				$(addprefix $(PARSE_DIR)/elements/, parse_ambient.c parse_camera.c parse_light.c parse_sphere.c parse_plane.c parse_cylinder.c parse_cone.c) \
-				$(addprefix $(PARSE_DIR)/utils/, tok_free.c scalar_in_range.c)
+	$(addprefix $(PARSE_DIR)/elements/, parse_ambient.c parse_camera.c parse_light.c parse_sphere.c parse_plane.c parse_cylinder.c parse_cone.c) \
+	$(addprefix $(PARSE_DIR)/utils/, tok_free.c scalar_in_range.c)
 
 RENDER_SRCS := $(addprefix $(RENDER_DIR)/, \
-				 $(addprefix core/, render.c render_init.c render_trace.c) \
-			   	 $(addprefix elements/intersect/, isect_obj.c isect_sphere.c isect_plane.c isect_cylinder.c isect_cone.c) \
-				 $(addprefix elements/normal/, normal_sphere.c normal_plane.c normal_cylinder.c normal_cone.c) \
-				 $(addprefix ray/, ray_at.c ray_create.c) \
-				 $(addprefix shade/, shade_ambient.c shade_diffuse.c shade_specular.c) \
-				 $(addprefix utils/, get_projection.c color_fill.c framebuf_to_image.c framebuf_tile.c))
+	$(addprefix core/, render.c render_init.c render_trace.c) \
+	$(addprefix elements/intersect/, isect_obj.c isect_sphere.c isect_plane.c isect_cylinder.c isect_cone.c) \
+	$(addprefix elements/normal/, normal_sphere.c normal_plane.c normal_cylinder.c normal_cone.c) \
+	$(addprefix ray/, ray_at.c ray_create.c) \
+	$(addprefix shade/, shade_ambient.c shade_diffuse.c shade_specular.c) \
+	$(addprefix utils/, get_projection.c color_fill.c framebuf_to_image.c framebuf_tile.c))
 
 OBJECT_SRCS := $(addprefix $(OBJECT_DIR)/, \
-			   	 $(addprefix core/, obj_alloc.c obj_free.c obj_prepend.c obj_append.c obj_len.c obj_view.c) \
-				 $(addprefix shapes/, obj_sphere.c obj_plane.c obj_cylinder.c obj_cone.c))
+	$(addprefix core/, obj_alloc.c obj_free.c obj_prepend.c obj_append.c obj_len.c obj_view.c) \
+	$(addprefix shapes/, obj_sphere.c obj_plane.c obj_cylinder.c obj_cone.c))
 
 DISPLAY_SRCS := $(addprefix $(DISPLAY_DIR)/, display_init.c display_free.c)
 
-CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
-				 $(addprefix core/, context_init.c context_hooks.c context_free.c) \
-				 $(addprefix hooks/, handle_keypress.c handle_mousepress.c handle_keyrelease.c dispatch_translate.c dispatch_rotate.c))
 
-SRCS := $(addprefix $(SRC_DIR)/, main.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(RENDER_SRCS) $(HOOKS_SRCS) $(CONTEXT_SRCS))
+
+CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
+	$(addprefix core/, context_init.c context_hooks.c context_free.c) \
+	$(addprefix hooks/handle/, handle_keypress.c handle_mousepress.c handle_keyrelease.c) \
+	$(addprefix hooks/dispatch/, dispatch_translate.c dispatch_rotate.c))
+
+SRCS := $(addprefix $(SRC_DIR)/, main.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(RENDER_SRCS) $(CONTEXT_SRCS))
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: libft/libft.a libtensr/libtensr.a minilibx-linux/libmlx.a $(NAME)
