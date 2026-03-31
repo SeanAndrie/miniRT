@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 17:11:46 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/25 15:36:02 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/31 00:22:30 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,37 +44,14 @@ static void	normalize_rgb(t_scene *scene)
 	}
 }
 
-static bool	create_uv_grids(t_camera *cam, t_dim *dim)
+bool	render_init(t_display *d, t_scene *s)
 {
-	float	con;
-
-	con = tanf(cam->fov / 2);
-	cam->coords.u_range = tensr_linspace(-(dim->aspect * con), (dim->aspect
-				* con), dim->width, DT_F32);
-	if (!cam->coords.u_range)
+	if (!d || !s)
 		return (false);
-	cam->coords.v_range = tensr_linspace(con, -con, dim->height, DT_F32);
-	if (!cam->coords.v_range)
-		return (tensr_free(cam->coords.u_range), false);
-	return (true);
-}
-
-bool	render_init(t_display *disp, t_scene *scene)
-{
-	t_dim	*dim;
-
-	if (!disp || !scene)
+	normalize_rgb(s);
+	if (!camera_init(&s->cam, d->width, d->height, d->aspect))
 		return (false);
-	normalize_rgb(scene);
-	dim = &disp->dim;
-	if (!create_uv_grids(&scene->cam, dim))
-		return (false);
-	disp->framebuf = tensr_full(0.0, 3, (size_t[]){dim->height, dim->width, 3},
-			DT_F32);
-	if (!disp->framebuf)
-	{
-		coords_free(&scene->cam.coords);
-		return (false);
-	}
-	return (true);
+    if (!frame_init(&d->frame, d->width, d->height))
+        return (false);
+    return (true);
 }

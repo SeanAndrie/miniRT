@@ -6,15 +6,16 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 03:08:09 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 20:43:09 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/30 19:09:21 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/render.h>
-#include <float.h>
-#include <libft.h>
-#include <libtensr_rt.h>
 #include <math.h>
+#include <libft.h>
+#include <float.h>
+#include <libtensr_rt.h>
+#include <core/render.h>
+#include <core/render.h>
 
 static bool	is_inside_cone(float l_ax, float d_ax, float height, float t)
 {
@@ -84,8 +85,8 @@ float	isect_cone(t_ray *ray, t_cone *co)
 	t_vec3	quad;
 
 	co->hit_loc = SURF_SIDE;
-	co->l = get_projection(vec3_sub(ray->orig, co->apex), co->axis);
-	co->d = get_projection(ray->dir, co->axis);
+	co->l = vec3_project(vec3_sub(ray->orig, co->apex), co->axis);
+	co->d = vec3_project(ray->dir, co->axis);
 	quad.x = vec3_dot(co->d.perp, co->d.perp) - (co->k2 * (co->d.axial
 				* co->d.axial));
 	t = 0.0f;

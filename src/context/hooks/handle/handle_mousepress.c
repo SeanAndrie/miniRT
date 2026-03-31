@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 12:58:35 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/29 17:53:45 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/31 18:49:53 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,15 @@ static void	print_type(t_object *obj)
 
 static	void object_select(int x, int y, t_context *ctx)
 {
-	t_ray	ray;
-	t_hit	hit;
+    t_camera    *cam;
+	t_ray	    ray;
+	t_hit	    hit;
 
     ctx->s_lgt = NULL;
-	ray = ray_create(&ctx->scene->cam, x, y);
-    if (!render_trace(&ray, &hit, ctx->scene))
+    cam = &ctx->scene->cam;
+	// ray = ray_create(&ctx->scene->cam, x, y);
+    ray = ray_create(cam->point, cam->rdir.out, x, y);
+    if (!render_trace(ray, &hit, ctx->scene))
         return ;
     ctx->s_obj = hit.obj;
     print_type(hit.obj);

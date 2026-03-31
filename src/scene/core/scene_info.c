@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>        #+:+#         #+:+# */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 01:16:51 by sgadinga          #+#    #+##+        #+*/
-/*   Updated: 2026/03/25 00:23:22 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/30 13:18:06 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,6 @@ static void	print_camera(t_camera *cam)
 {
 	printf("+ CAMERA\n");
 	printf("     - fov: %f\n", cam->fov);
-	print_vec3("point", cam->point);
-	print_vec3("forward", cam->basis.forward);
-	print_vec3("right", cam->basis.right);
-	print_vec3("up", cam->basis.up);
 	printf("\n");
 }
 

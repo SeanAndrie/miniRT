@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   framebuf_tile.c                                    :+:      :+:    :+:   */
+/*   tile_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/19 16:56:03 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/19 17:04:09 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/30 04:12:29 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/30 04:13:55 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/render.h>
 #include <libtensr.h>
+#include <core/render.h>
 
-t_tensr	*framebuf_tile(t_tensr *framebuf, t_tile_map *tm)
+void    tile_free(t_tile *tile)
 {
-	t_slice	slices[2];
-
-	slices[0] = (t_slice){.axis = 0, .start = tm->ty, .end = tm->ty
-		+ tm->actual_h, .step = 1};
-	slices[1] = (t_slice){.axis = 1, .start = tm->tx, .end = tm->tx
-		+ tm->actual_w, .step = 1};
-	return (tensr_slice(framebuf, 2, slices));
+    if (!tile)
+        return ;
+    if (tile->buffer)
+    {
+        tensr_free(tile->buffer);
+        tile->buffer = NULL;
+    }
+    if (tile->rdir)
+    {
+        tensr_free(tile->rdir);
+        tile->rdir = NULL;
+    }
 }

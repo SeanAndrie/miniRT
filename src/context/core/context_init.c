@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/29 18:46:36 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/30 13:52:04 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ bool	context_init(t_context *ctx, char *fname)
 	ctx->scene = scene_init(fname, SCENE_FILE_EXT);
 	if (!ctx->scene)
 		return (false);
-	scene_info(ctx->scene);
+	// scene_info(ctx->scene);
     ctx->fname = fname;
-	ctx->disp = display_init(W, H, TITLE);
+	ctx->disp = display_init(W, H);
 	if (!ctx->disp)
 	{
 		scene_free(ctx->scene);

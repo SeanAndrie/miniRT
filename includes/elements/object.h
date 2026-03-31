@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 14:49:47 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/26 15:38:33 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/30 03:08:20 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 /*---------------------------------------------------------------------*/
 
 typedef struct s_array t_array;
-
-typedef struct s_project
-{
-	struct s_vec3		perp;
-	float				axial;
-}						t_project;
 
 typedef enum e_surface
 {

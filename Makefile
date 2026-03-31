@@ -6,7 +6,7 @@
 #    By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/10 01:40:38 by sgadinga          #+#    #+#              #
-#    Updated: 2026/03/29 18:48:20 by sgadinga         ###   ########.fr        #
+#    Updated: 2026/03/31 19:12:25 by sgadinga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ CONTEXT_DIR := context
 
 SCENE_SRCS := $(addprefix $(SCENE_DIR)/, \
 	$(addprefix core/, scene_init.c scene_info.c scene_free.c) \
-	$(addprefix light/, light_append.c light_prepend.c light_free.c light_len.c light_view.c))
+	$(addprefix elements/light/, light_append.c light_prepend.c light_free.c light_len.c light_view.c) \
+	$(addprefix elements/camera/, camera_init.c camera_basis.c camera_coords.c camera_rdir.c camera_free.c))
 
 PARSE_SRCS := $(addprefix $(PARSE_DIR)/core/, parse_scene.c parse_data.c parse_vector.c parse_scalar.c) \
 	$(addprefix $(PARSE_DIR)/elements/, parse_ambient.c parse_camera.c parse_light.c parse_sphere.c parse_plane.c parse_cylinder.c parse_cone.c) \
@@ -40,17 +41,19 @@ PARSE_SRCS := $(addprefix $(PARSE_DIR)/core/, parse_scene.c parse_data.c parse_v
 
 RENDER_SRCS := $(addprefix $(RENDER_DIR)/, \
 	$(addprefix core/, render.c render_init.c render_trace.c) \
-	$(addprefix elements/intersect/, isect_obj.c isect_sphere.c isect_plane.c isect_cylinder.c isect_cone.c) \
+	$(addprefix elements/isect/, isect_obj.c isect_sphere.c isect_plane.c isect_cylinder.c isect_cone.c) \
 	$(addprefix elements/normal/, normal_sphere.c normal_plane.c normal_cylinder.c normal_cone.c) \
 	$(addprefix ray/, ray_at.c ray_create.c) \
-	$(addprefix shade/, shade_ambient.c shade_diffuse.c shade_specular.c) \
-	$(addprefix utils/, get_projection.c color_fill.c framebuf_to_image.c framebuf_tile.c))
+	$(addprefix shade/, shade_apply.c shade_ambient.c shade_diffuse.c shade_specular.c)\
+	$(addprefix tile/, tile_create.c tile_free.c))
 
 OBJECT_SRCS := $(addprefix $(OBJECT_DIR)/, \
 	$(addprefix core/, obj_alloc.c obj_free.c obj_prepend.c obj_append.c obj_len.c obj_view.c) \
 	$(addprefix shapes/, obj_sphere.c obj_plane.c obj_cylinder.c obj_cone.c))
 
-DISPLAY_SRCS := $(addprefix $(DISPLAY_DIR)/, display_init.c display_free.c)
+DISPLAY_SRCS := $(addprefix $(DISPLAY_DIR)/, \
+	$(addprefix core/, display_init.c display_free.c) \
+	$(addprefix frame/, frame_blit.c frame_free.c frame_init.c))
 
 CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
 	$(addprefix core/, context_init.c context_hooks.c context_free.c) \

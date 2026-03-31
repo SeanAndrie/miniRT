@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 18:25:26 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/26 23:45:20 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/30 23:02:22 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,6 @@
 #include <libtensr_rt.h>
 #include <setup/parse.h>
 #include <elements/scene.h>
-
-static void	basis_vectors(t_basis *basis)
-{
-	t_vec3	world_up;
-
-	world_up = (t_vec3){0, 1, 0};
-	if (fabsf(vec3_dot(basis->forward, world_up)) > 0.9999f)
-		world_up = (t_vec3){0, 0, 1};
-	if (fabsf(vec3_dot(basis->forward, world_up)) > 0.9999f)
-		world_up = (t_vec3){1, 0, 0};
-	basis->right = vec3_normalize(vec3_cross(basis->forward, world_up));
-	basis->up = vec3_normalize(vec3_cross(basis->right, basis->forward));
-}
 
 bool	parse_camera(char *line, const size_t n_params, t_scene *scene)
 {
@@ -46,7 +33,6 @@ bool	parse_camera(char *line, const size_t n_params, t_scene *scene)
 	if (!parse_scalar(params[2], 0.0f, 180.0f, &fov))
 		return (tok_free(params, n_params), false);
 	scene->cam.fov = fov * (M_PI / 180.0);
-	basis_vectors(&scene->cam.basis);
 	tok_free(params, n_params);
 	return (true);
 }

@@ -6,21 +6,30 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 15:29:14 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/27 03:56:38 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/31 01:29:32 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# define TARGET_TILES 32
+# define N_TILES 128
 
 # define TITLE "miniRT"
-# define W 800
-# define H 600
+# define W 1280
+# define H 720
 
-# include <mlx.h>
 # include <libtensr.h>
+# include <mlx.h>
+
+typedef struct s_tile_dim
+{
+	int					w;
+	int					h;
+	int					count;
+	int					count_x;
+	int					count_y;
+}						t_tile_dim;
 
 typedef struct s_image
 {
@@ -31,34 +40,30 @@ typedef struct s_image
 	int					line_len;
 }						t_image;
 
-typedef struct s_tiles
+typedef struct s_frame
 {
-	int					w;
-	int					h;
-	int					count;
-	int					count_x;
-	int					count_y;
-}						t_tiles;
-
-typedef struct s_dim
-{
-	int					width;
-	int					height;
-	float               aspect;
-}						t_dim;
+	struct s_tensr		*out;
+	struct s_tensr		*buffer;
+	struct s_tensr		*scaled;
+	struct s_tensr		*clamped;
+	struct s_tile_dim	tile_dim;
+}						t_frame;
 
 typedef struct s_display
 {
-	struct s_dim		dim;
-	struct s_tiles		tiles;
 	struct s_image		image;
+	struct s_frame		frame;
 	void				*conn;
+	int					width;
+	int					height;
+	float				aspect;
 	void				*window;
-	t_tensr				*framebuf;
 }						t_display;
 
-t_display               *display_init(const int width,
-							const int height, char *title);
+t_display				*display_init(const int width, const int height);
 void					display_free(t_display *disp);
+bool					frame_init(t_frame *frame, const int width,
+							const int height);
+void					frame_free(t_frame *frame);
 
 #endif

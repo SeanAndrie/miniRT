@@ -6,14 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 16:23:43 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/25 15:34:42 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/30 03:22:00 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <elements/scene.h>
-#include <core/render.h>
-#include <float.h>
 #include <math.h>
+#include <float.h>
+#include <core/render.h>
+#include <elements/scene.h>
 
 t_vec3	shade_specular(t_scene *scene, t_light *light, t_hit *hit, t_vec3 L_hat)
 {

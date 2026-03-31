@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 14:35:23 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/27 00:39:14 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/03/31 00:58:25 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/03/31 18:56:10 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,106 +14,70 @@
 #include <libft.h>
 #include <core/render.h>
 
-static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
+static inline t_vec3	extract_dir(const t_tensr *rdir, int x, int y)
 {
-    size_t      i;
-	float		hit_t;
-	t_object	*curr;
-	float		light_dist;
-	t_ray		shadow_ray;
+	size_t	offset;
 
-	light_dist = vec3_magnitude(vec3_sub(light->point, hit->point));
-	shadow_ray.orig = vec3_add(hit->point, vec3_scale(hit->normal, 1e-2f));
-	shadow_ray.dir = l_hat;
-    i = 0;
-	while (i < scene->obj_view.len)
-	{
-        curr = ((t_object **)scene->obj_view.data)[i];
-		if (curr != hit->obj)
-		{
-			hit_t = isect_obj(&shadow_ray, curr);
-			if (hit_t > 1e-4f && hit_t < light_dist)
-				return (true);
-		}
-        i++;
-	}
-	return (false);
+	offset = tensr_offset(&rdir->layout, (size_t[]){x, y, 0});
+	return (*(t_vec3 *)((float *)rdir->data + offset));
 }
 
-static void	shade(t_scene *scene, t_hit *hit, float *ptr)
+static inline void	update_basis(t_basis *basis)
 {
-    size_t  i;
-	t_vec3	rgb;
-    t_array *arr;
-    t_light *curr;
-	t_vec3	l_hat;
-
-    arr = &scene->lgt_view;
-	rgb = shade_ambient(&scene->amb, hit->rgb);
-    i = 0;
-	while (i < arr->len)
-	{
-        curr = ((t_light **)arr->data)[i];
-		l_hat = vec3_normalize(vec3_sub(curr->point, hit->point));
-		if (!in_shadow(scene, hit, l_hat, curr))
-		{
-			vec3_add_ip(&rgb, shade_diffuse(curr->ratio, curr->rgb, hit,
-					l_hat));
-			vec3_add_ip(&rgb, shade_specular(scene, curr, hit, l_hat));
-		}
-        i++;
-	}
-	color_fill(ptr, &rgb);
+	ft_memcpy(basis->forward_t->data, &basis->forward, sizeof(t_vec3));
+	ft_memcpy(basis->right_t->data, &basis->right, sizeof(t_vec3));
+	ft_memcpy(basis->up_t->data, &basis->up, sizeof(t_vec3));
 }
 
-static bool	render_tile(t_tensr *framebuf, t_scene *scene, t_tile_map *tm)
+static bool	render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
 {
-	t_ray	ray;
+	int		x;
+	int		y;
 	t_hit	hit;
+	t_tile	tile;
 	float	*ptr;
-	t_tensr	*tile;
-	int		idx[2];
 
-	tile = framebuf_tile(framebuf, tm);
-	if (!tile)
+	if (!tile_create(&tile, frame->buffer, scene->cam.rdir.out, tm))
 		return (false);
-	idx[0] = -1;
-	while (++idx[0] < tm->actual_h)
+	y = -1;
+	while (++y < tm->actual_h)
 	{
-		idx[1] = -1;
-		while (++idx[1] < tm->actual_w)
+		x = -1;
+		while (++x < tm->actual_w)
 		{
-			ray = ray_create(&scene->cam, tm->tx + idx[1], tm->ty + idx[0]);
-			ptr = (float *)tile->data + tensr_offset(&tile->layout,
-					(size_t[]){idx[0], idx[1], 0});
-			if (render_trace(&ray, &hit, scene))
-				shade(scene, &hit, ptr);
+			ptr = (float *)tile.buffer->data
+				+ tensr_offset(&tile.buffer->layout, (size_t[]){y, x, 0});
+			if (render_trace(ray_create(scene->cam.point, tile.rdir, x, y), &hit, scene))
+				shade_apply(scene, &hit, ptr);
 			else
 				color_fill(ptr, NULL);
 		}
 	}
-	return (tensr_free(tile), true);
+	return (tile_free(&tile), true);
 }
 
 bool	render(t_display *disp, t_scene *scene)
 {
 	t_tile_map	tm;
 
+	update_basis(&scene->cam.basis);
+	if (!camera_rdir(&scene->cam))
+		return (false);
 	tm.ty = 0;
-	while (tm.ty < disp->dim.height)
+	while (tm.ty < disp->height)
 	{
 		tm.tx = 0;
-		while (tm.tx < disp->dim.width)
+		while (tm.tx < disp->width)
 		{
-			tm.actual_w = ft_min(disp->tiles.w, disp->dim.width - tm.tx);
-			tm.actual_h = ft_min(disp->tiles.h, disp->dim.height - tm.ty);
-			if (!render_tile(disp->framebuf, scene, &tm))
+			tm.actual_w = ft_min(disp->frame.tile_dim.w, disp->width - tm.tx);
+			tm.actual_h = ft_min(disp->frame.tile_dim.h, disp->height - tm.ty);
+			if (!render_tile(&disp->frame, scene, &tm))
 				return (false);
-			tm.tx += disp->tiles.w;
+			tm.tx += disp->frame.tile_dim.w;
 		}
-		tm.ty += disp->tiles.h;
+		tm.ty += disp->frame.tile_dim.h;
 	}
-	if (!framebuf_to_image(disp))
+	if (!frame_blit(disp))
 		return (false);
 	mlx_put_image_to_window(disp->conn, disp->window, disp->image.image, 0, 0);
 	return (true);

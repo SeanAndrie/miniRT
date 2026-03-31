@@ -6,14 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:09:36 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 20:43:38 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/30 19:10:04 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/render.h>
+#include <math.h>
 #include <float.h>
 #include <libft.h>
-#include <math.h>
+#include <core/render.h>
 
 static float	isect_disk(t_ray *ray, t_plane pl, float radius)
 {
@@ -91,8 +91,8 @@ float	isect_cylinder(t_ray *ray, t_cylinder *cy)
 	t_vec3	quad;
 
 	cy->hit_loc = SURF_SIDE;
-	cy->l = get_projection(vec3_sub(ray->orig, cy->point), cy->axis);
-	cy->d = get_projection(ray->dir, cy->axis);
+	cy->l = vec3_project(vec3_sub(ray->orig, cy->point), cy->axis);
+	cy->d = vec3_project(ray->dir, cy->axis);
 	quad.x = vec3_dot(cy->d.perp, cy->d.perp);
 	t = 0.0f;
 	if (fabsf(quad.x) > 1e-6f)

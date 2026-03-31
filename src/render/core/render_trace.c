@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 02:47:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/26 15:36:32 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/03/31 18:55:14 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static void	assign_rgb(t_hit *hit)
 		hit->rgb = hit->obj->data.cone.rgb;
 }
 
-static void	assign_normal(t_vec3 ray_dir, t_hit *hit)
+static void	assign_normal(t_hit *hit)
 {
 	if (hit->obj->type == OBJ_SPHERE)
 		hit->normal = normal_sphere(hit->point, &hit->obj->data.sphere);
 	else if (hit->obj->type == OBJ_PLANE)
-		hit->normal = normal_plane(ray_dir, &hit->obj->data.plane);
+		hit->normal = normal_plane(hit->ray_dir, &hit->obj->data.plane);
 	else if (hit->obj->type == OBJ_CYLINDER)
 		hit->normal = normal_cylinder(hit->point, &hit->obj->data.cylinder,
 				hit->t);
@@ -40,17 +40,18 @@ static void	assign_normal(t_vec3 ray_dir, t_hit *hit)
 		hit->normal = normal_cone(hit->point, &hit->obj->data.cone, hit->t);
 }
 
-static bool	fill_hit(t_ray *ray, t_hit *hit)
+static bool	fill_hit(t_ray ray, t_hit *hit)
 {
 	if (!hit->obj)
 		return (false);
-	hit->point = ray_at(*ray, hit->t);
-	assign_normal(ray->dir, hit);
+	hit->point = ray_at(ray, hit->t);
+    hit->ray_dir = ray.dir;
+	assign_normal(hit);
 	assign_rgb(hit);
 	return (true);
 }
 
-bool	render_trace(t_ray *ray, t_hit *hit, t_scene *scene)
+bool	render_trace(t_ray ray, t_hit *hit, t_scene *scene)
 {
 	size_t		i;
 	t_array		*arr;
@@ -64,7 +65,7 @@ bool	render_trace(t_ray *ray, t_hit *hit, t_scene *scene)
 	while (i < arr->len)
 	{
 		curr = ((t_object **)arr->data)[i];
-		hit_t = isect_obj(ray, curr);
+		hit_t = isect_obj(&ray, curr);
 		if (hit_t > 1e-4f && hit_t < hit->t)
 		{
 			hit->t = hit_t;
@@ -72,7 +73,5 @@ bool	render_trace(t_ray *ray, t_hit *hit, t_scene *scene)
 		}
 		i++;
 	}
-	if (!fill_hit(ray, hit))
-		return (false);
-	return (true);
+	return (fill_hit(ray, hit));
 }
