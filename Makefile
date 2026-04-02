@@ -6,7 +6,7 @@
 #    By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/10 01:40:38 by sgadinga          #+#    #+#              #
-#    Updated: 2026/03/31 19:12:25 by sgadinga         ###   ########.fr        #
+#    Updated: 2026/04/02 03:39:22 by sgadinga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ RENDER_SRCS := $(addprefix $(RENDER_DIR)/, \
 	$(addprefix elements/normal/, normal_sphere.c normal_plane.c normal_cylinder.c normal_cone.c) \
 	$(addprefix ray/, ray_at.c ray_create.c) \
 	$(addprefix shade/, shade_apply.c shade_ambient.c shade_diffuse.c shade_specular.c)\
+	$(addprefix pool/, pool_init.c pool_run.c pool_join.c pool_free.c) \
 	$(addprefix tile/, tile_create.c tile_free.c))
 
 OBJECT_SRCS := $(addprefix $(OBJECT_DIR)/, \

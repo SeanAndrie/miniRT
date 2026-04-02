@@ -6,13 +6,13 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 00:58:25 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/31 18:56:10 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:45:54 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <libft.h>
 #include <core/render.h>
+#include <libft.h>
+#include <math.h>
 
 static inline t_vec3	extract_dir(const t_tensr *rdir, int x, int y)
 {
@@ -29,54 +29,73 @@ static inline void	update_basis(t_basis *basis)
 	ft_memcpy(basis->up_t->data, &basis->up, sizeof(t_vec3));
 }
 
-static bool	render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
-{
-	int		x;
-	int		y;
-	t_hit	hit;
-	t_tile	tile;
-	float	*ptr;
+// static bool	render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
+// {
+// 	int		x;
+// 	int		y;
+// 	t_hit	hit;
+// 	t_tile	tile;
+// 	float	*ptr;
+//
+// 	if (!tile_create(&tile, frame->buffer, scene->cam.rdir.out, tm))
+// 		return (false);
+// 	y = -1;
+// 	while (++y < tm->actual_h)
+// 	{
+// 		x = -1;
+// 		while (++x < tm->actual_w)
+// 		{
+// 			ptr = (float *)tile.buffer->data
+// 				+ tensr_offset(&tile.buffer->layout, (size_t[]){y, x, 0});
+// 			if (render_trace(ray_create(scene->cam.point, tile.rdir, x, y),
+// 					&hit, scene))
+// 				shade_apply(scene, &hit, ptr);
+// 			else
+// 				color_fill(ptr, NULL);
+// 		}
+// 	}
+// 	return (tile_free(&tile, 1), true);
+// }
+//
+// bool	render(t_display *disp, t_scene *scene)
+// {
+// 	t_tile_map	tm;
+//
+// 	update_basis(&scene->cam.basis);
+// 	if (!camera_rdir(&scene->cam))
+// 		return (false);
+// 	tm.ty = 0;
+// 	while (tm.ty < disp->height)
+// 	{
+// 		tm.tx = 0;
+// 		while (tm.tx < disp->width)
+// 		{
+// 			tm.actual_w = ft_min(disp->frame.tile_dim.width, disp->width
+// 					- tm.tx);
+// 			tm.actual_h = ft_min(disp->frame.tile_dim.height, disp->height
+// 					- tm.ty);
+// 			if (!render_tile(&disp->frame, scene, &tm))
+// 				return (false);
+// 			tm.tx += disp->frame.tile_dim.width;
+// 		}
+// 		tm.ty += disp->frame.tile_dim.height;
+// 	}
+// 	if (!frame_blit(disp))
+// 		return (false);
+// 	mlx_put_image_to_window(disp->conn, disp->window, disp->image.image, 0, 0);
+// 	return (true);
+// }
 
-	if (!tile_create(&tile, frame->buffer, scene->cam.rdir.out, tm))
+bool	render(t_pool *pool, t_display *disp, t_scene *scene)
+{
+	if (!pool || !disp || !scene)
 		return (false);
-	y = -1;
-	while (++y < tm->actual_h)
-	{
-		x = -1;
-		while (++x < tm->actual_w)
-		{
-			ptr = (float *)tile.buffer->data
-				+ tensr_offset(&tile.buffer->layout, (size_t[]){y, x, 0});
-			if (render_trace(ray_create(scene->cam.point, tile.rdir, x, y), &hit, scene))
-				shade_apply(scene, &hit, ptr);
-			else
-				color_fill(ptr, NULL);
-		}
-	}
-	return (tile_free(&tile), true);
-}
-
-bool	render(t_display *disp, t_scene *scene)
-{
-	t_tile_map	tm;
-
 	update_basis(&scene->cam.basis);
 	if (!camera_rdir(&scene->cam))
 		return (false);
-	tm.ty = 0;
-	while (tm.ty < disp->height)
-	{
-		tm.tx = 0;
-		while (tm.tx < disp->width)
-		{
-			tm.actual_w = ft_min(disp->frame.tile_dim.w, disp->width - tm.tx);
-			tm.actual_h = ft_min(disp->frame.tile_dim.h, disp->height - tm.ty);
-			if (!render_tile(&disp->frame, scene, &tm))
-				return (false);
-			tm.tx += disp->frame.tile_dim.w;
-		}
-		tm.ty += disp->frame.tile_dim.h;
-	}
+	if (!pool_run(pool))
+		return (false);
+	pool_join(pool);
 	if (!frame_blit(disp))
 		return (false);
 	mlx_put_image_to_window(disp->conn, disp->window, disp->image.image, 0, 0);

@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tile_free.c                                        :+:      :+:    :+:   */
+/*   pool_join.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/30 04:12:29 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 02:38:39 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/02 03:34:00 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/02 03:38:11 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtensr.h>
 #include <core/render.h>
 
-void    tile_free(t_tile *tile, size_t n)
+bool    pool_join(t_pool *pool)
 {
     size_t  i;
 
-    if (!tile || n == 0)
-        return ;
+    if (!pool || !pool->workers)
+        return (false);
     i = 0;
-    while (i < n)
+    while (i < pool->n_workers)
     {
-        if (tile->buffer)
-        {
-            tensr_free(tile->buffer);
-            tile->buffer = NULL;
-        }
-        if (tile->rdir)
-        {
-            tensr_free(tile->rdir);
-            tile->rdir = NULL;
-        }
+        if (pthread_join(pool->workers[i]->thread, NULL) != 0)
+            return (false);
         i++;
     }
+    return (true);
 }

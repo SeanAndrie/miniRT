@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 01:36:14 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/27 00:10:56 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:42:43 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	main(int ac, char **av)
 	}
 	if (!context_init(&ctx, av[1]))
 		return (1);
-    if (!render_init(ctx.disp, ctx.scene))
+    if (!render_init(&ctx.pool, ctx.disp, ctx.scene))
     {
         context_free(&ctx);
         return (1);
     }
-	if (!render(ctx.disp, ctx.scene))
+	if (!render(&ctx.pool, ctx.disp, ctx.scene))
 	{
 		context_free(&ctx);
 		return (1);

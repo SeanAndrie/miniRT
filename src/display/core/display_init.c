@@ -38,7 +38,5 @@ t_display	*display_init(const int width, const int height)
 	disp->width = width;
 	disp->height = height;
 	disp->aspect = (float)width / (float)height;
-	if (!frame_init(&disp->frame, width, height))
-		return (display_free(disp), NULL);
 	return (disp);
 }

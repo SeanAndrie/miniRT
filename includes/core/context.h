@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:59 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/31 17:18:08 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 02:55:14 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,9 @@
 // Rotation toggle
 # define XK_Shift_L 0xffe1
 
-typedef struct s_worker
-{
-    struct s_tile       tile;
-    struct s_scene      *scene;
-    pthread_t           thread;
-}                       t_worker;
-
-typedef struct s_pool
-{
-    struct s_tensr      *rdir;
-    struct s_tensr      *buffer;
-    size_t              n_workers;
-}                       t_pool;
-
 typedef struct s_context
 {
+    struct s_pool       pool;
 	struct s_display	*disp;
 	struct s_scene		*scene;
 	struct s_object		*s_obj;
@@ -87,7 +74,6 @@ typedef struct s_context
 	char				*fname;
 	bool				extend;
 	size_t				next_i;
-    struct s_pool       pool;
 	bool				property;
 }						t_context;
 

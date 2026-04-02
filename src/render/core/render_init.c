@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 17:11:46 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/31 00:22:30 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:19:40 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,16 @@ static void	normalize_rgb(t_scene *scene)
 	}
 }
 
-bool	render_init(t_display *d, t_scene *s)
+bool	render_init(t_pool *pool, t_display *disp, t_scene *scene)
 {
-	if (!d || !s)
+	if (!pool || !disp || !scene)
 		return (false);
-	normalize_rgb(s);
-	if (!camera_init(&s->cam, d->width, d->height, d->aspect))
+	normalize_rgb(scene);
+	if (!camera_init(&scene->cam, disp->width, disp->height, disp->aspect))
 		return (false);
-    if (!frame_init(&d->frame, d->width, d->height))
+    if (!frame_init(&disp->frame, disp->width, disp->height))
+        return (false);
+    if (!pool_init(pool, disp, scene))
         return (false);
     return (true);
 }

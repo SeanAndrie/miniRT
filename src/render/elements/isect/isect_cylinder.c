@@ -6,14 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:09:36 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/30 19:10:04 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 04:20:57 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
+#include <core/render.h>
 #include <float.h>
 #include <libft.h>
-#include <core/render.h>
+#include <math.h>
 
 static float	isect_disk(t_ray *ray, t_plane pl, float radius)
 {
@@ -29,7 +29,8 @@ static float	isect_disk(t_ray *ray, t_plane pl, float radius)
 	return (t);
 }
 
-static void	isect_cylinder_caps(t_ray *ray, t_cylinder *cy, float *t)
+static void	isect_cylinder_caps(t_ray *ray, t_surface *hit_loc, t_cylinder *cy,
+		float *t)
 {
 	t_vec3	bot;
 	t_vec3	top;
@@ -44,13 +45,13 @@ static void	isect_cylinder_caps(t_ray *ray, t_cylinder *cy, float *t)
 	if (t_cap > 1e-4f && (t_cap < *t || *t < 1e-4f))
 	{
 		*t = t_cap;
-		cy->hit_loc = SURF_BOT;
+		*hit_loc = SURF_BOT;
 	}
 	t_cap = isect_disk(ray, (t_plane){top, cy->axis, rgb}, cy->radius);
 	if (t_cap > 1e-4f && (t_cap < *t || *t < 1e-4f))
 	{
 		*t = t_cap;
-		cy->hit_loc = SURF_TOP;
+		*hit_loc = SURF_TOP;
 	}
 }
 
@@ -85,22 +86,24 @@ static float	solve_quadratic(t_vec3 quad, float l_ax, float d_ax,
 	return (t);
 }
 
-float	isect_cylinder(t_ray *ray, t_cylinder *cy)
+float	isect_cylinder(t_ray *ray, t_surface *hit_loc, t_cylinder *cy)
 {
-	float	t;
-	t_vec3	quad;
+	float		t;
+	t_project	d;
+	t_project	l;
+	t_vec3		quad;
 
-	cy->hit_loc = SURF_SIDE;
-	cy->l = vec3_project(vec3_sub(ray->orig, cy->point), cy->axis);
-	cy->d = vec3_project(ray->dir, cy->axis);
-	quad.x = vec3_dot(cy->d.perp, cy->d.perp);
+	*hit_loc = SURF_SIDE;
+	l = vec3_project(vec3_sub(ray->orig, cy->point), cy->axis);
+	d = vec3_project(ray->dir, cy->axis);
+	quad.x = vec3_dot(d.perp, d.perp);
 	t = 0.0f;
 	if (fabsf(quad.x) > 1e-6f)
 	{
-		quad.y = 2.0f * vec3_dot(cy->d.perp, cy->l.perp);
-		quad.z = vec3_dot(cy->l.perp, cy->l.perp) - (cy->radius * cy->radius);
-		t = solve_quadratic(quad, cy->l.axial, cy->d.axial, cy);
+		quad.y = 2.0f * vec3_dot(d.perp, l.perp);
+		quad.z = vec3_dot(l.perp, l.perp) - (cy->radius * cy->radius);
+		t = solve_quadratic(quad, l.axial, d.axial, cy);
 	}
-	isect_cylinder_caps(ray, cy, &t);
+	isect_cylinder_caps(ray, hit_loc, cy, &t);
 	return (t);
 }

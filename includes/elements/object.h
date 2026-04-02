@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 14:49:47 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/30 03:08:20 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 04:19:38 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@
 /*---------------------------------------------------------------------*/
 
 typedef struct s_array t_array;
-
-typedef enum e_surface
-{
-	SURF_SIDE,
-	SURF_TOP,
-	SURF_BOT
-}						t_surface;
 
 typedef struct s_sphere
 {
@@ -45,19 +38,15 @@ typedef struct s_plane
 
 typedef struct s_cylinder
 {
-	enum e_surface		hit_loc;
 	float				height;
 	float				radius;
 	struct s_vec3		point;
 	struct s_vec3		axis;
 	struct s_vec3		rgb;
-	struct s_project	d;
-	struct s_project	l;
 }						t_cylinder;
 
 typedef struct s_cone
 {
-	enum e_surface		hit_loc;
 	float				height;
 	float				theta;
 	struct s_vec3		apex;
@@ -65,8 +54,6 @@ typedef struct s_cone
 	struct s_vec3		rgb;
 	float				k2;
 	float				k;
-	struct s_project	d;
-	struct s_project	l;
 }						t_cone;
 
 typedef enum e_type

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:30:29 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/26 19:52:30 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:02:25 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_scene	*scene_init(const char *fname, const char *fext)
 
 	if (!fname || !fext)
 		return (NULL);
-	scene = malloc(sizeof(t_scene));
+	scene = ft_calloc(1, sizeof(t_scene));
 	if (!scene)
 	{
 		log_error(ERR_WARNING, ERR_BASE, "scene allocation failed\n");

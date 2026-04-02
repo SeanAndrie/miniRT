@@ -6,16 +6,15 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 03:08:09 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/30 19:09:21 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 04:28:08 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <libft.h>
+#include <core/render.h>
 #include <float.h>
+#include <libft.h>
 #include <libtensr_rt.h>
-#include <core/render.h>
-#include <core/render.h>
+#include <math.h>
 
 static bool	is_inside_cone(float l_ax, float d_ax, float height, float t)
 {
@@ -41,7 +40,7 @@ static float	isect_disk(t_ray *ray, t_plane pl, float radius)
 	return (t);
 }
 
-static void	isect_cone_cap(t_ray *ray, t_cone *co, float *t)
+static void	isect_cone_cap(t_ray *ray, t_surface *hit_loc, t_cone *co, float *t)
 {
 	t_vec3	rgb;
 	t_vec3	base;
@@ -55,7 +54,7 @@ static void	isect_cone_cap(t_ray *ray, t_cone *co, float *t)
 	if (t_cap > 1e-4f && (t_cap < *t || *t < 1e-4f))
 	{
 		*t = t_cap;
-		co->hit_loc = SURF_BOT;
+		*hit_loc = SURF_BOT;
 	}
 }
 
@@ -79,25 +78,27 @@ static float	solve_quadratic(t_vec3 quad, float l_ax, float d_ax, t_cone *co)
 	return (t);
 }
 
-float	isect_cone(t_ray *ray, t_cone *co)
+float	isect_cone(t_ray *ray, t_surface *hit_loc, t_cone *co)
 {
-	float	t;
-	t_vec3	quad;
+	float		t;
+	t_project	d;
+	t_project	l;
+	t_vec3		quad;
 
-	co->hit_loc = SURF_SIDE;
-	co->l = vec3_project(vec3_sub(ray->orig, co->apex), co->axis);
-	co->d = vec3_project(ray->dir, co->axis);
-	quad.x = vec3_dot(co->d.perp, co->d.perp) - (co->k2 * (co->d.axial
-				* co->d.axial));
+	*hit_loc = SURF_SIDE;
+	l = vec3_project(vec3_sub(ray->orig, co->apex), co->axis);
+	d = vec3_project(ray->dir, co->axis);
+	quad.x = vec3_dot(d.perp, d.perp) - (co->k2 * (d.axial
+				* d.axial));
 	t = 0.0f;
 	if (fabsf(quad.x) > 1e-6f)
 	{
-		quad.y = 2.0f * (vec3_dot(co->l.perp, co->d.perp) - (co->k2
-					* (co->l.axial * co->d.axial)));
-		quad.z = vec3_dot(co->l.perp, co->l.perp) - (co->k2 * (co->l.axial
-					* co->l.axial));
-		t = solve_quadratic(quad, co->l.axial, co->d.axial, co);
+		quad.y = 2.0f * (vec3_dot(l.perp, d.perp) - (co->k2
+					* (l.axial * d.axial)));
+		quad.z = vec3_dot(l.perp, l.perp) - (co->k2 * (l.axial
+					* l.axial));
+		t = solve_quadratic(quad, l.axial, d.axial, co);
 	}
-	isect_cone_cap(ray, co, &t);
+	isect_cone_cap(ray, hit_loc, co, &t);
 	return (t);
 }

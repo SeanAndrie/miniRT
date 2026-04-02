@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#  +:     +#           */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 03:21:19 by sgadinga          #+#   #+    #+#        */
-/*   Updated: 2026/03/30 13:49:19 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 04:32:17 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
 		curr = ((t_object **)scene->obj_view.data)[i];
 		if (curr != hit->obj)
 		{
-			hit_t = isect_obj(&shadow_ray, curr);
+			hit_t = isect_obj(&shadow_ray, &hit->loc, curr);
 			if (hit_t > 1e-4f && hit_t < light_dist)
 				return (true);
 		}

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 21:35:06 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/31 17:32:12 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:19:55 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,5 @@ bool    camera_basis(t_camera *cam)
 	basis->up = vec3_normalize(vec3_cross(basis->right, basis->forward));
     if (!basis_alloc(basis))
         return (false);
-    tensr_metadata("forward", basis->forward_t);
-    tensr_metadata("right", basis->right_t);
-    tensr_metadata("up", basis->up_t);
     return (true);
 }

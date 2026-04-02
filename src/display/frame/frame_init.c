@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 23:20:48 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/30 23:39:07 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 02:58:26 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static t_tile_dim calculate_tile_dims(const int width, const int height)
 {
     t_tile_dim  dim;
 
-    dim.w = ft_max(1, width / (int)sqrtf(N_TILES));
-    dim.h = ft_max(1, height / (int)sqrtf(N_TILES));
-    dim.count_x = (width + dim.w - 1) / dim.w;
-    dim.count_y = (height + dim.h - 1) / dim.h;
+    dim.width = ft_max(1, width / (int)sqrtf(N_TILES));
+    dim.height = ft_max(1, height / (int)sqrtf(N_TILES));
+    dim.count_x = (width + dim.width - 1) / dim.width;
+    dim.count_y = (height + dim.height - 1) / dim.height;
     dim.count = dim.count_x * dim.count_y;
     return (dim);
 }

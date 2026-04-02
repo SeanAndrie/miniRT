@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 14:47:37 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/30 03:01:09 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:43:36 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void handle_movement(int key_code, t_context *ctx)
         dispatch_rotate(key_code, ctx);
     else
         dispatch_translate(key_code, ctx);
-    render(ctx->disp, ctx->scene);
+    render(&ctx->pool, ctx->disp, ctx->scene);
 }
 
 static void handle_property(int key_code, t_context *ctx)
@@ -30,7 +30,7 @@ static void handle_property(int key_code, t_context *ctx)
     if (!ctx->s_obj)
         return ;
     dispatch_property(key_code, ctx);
-    render(ctx->disp, ctx->scene);
+    render(&ctx->pool, ctx->disp, ctx->scene);
 }
 
 int	handle_keypress(int key_code, t_context *ctx)

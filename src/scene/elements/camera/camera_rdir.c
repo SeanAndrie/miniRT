@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 21:38:02 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/31 18:22:55 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 03:46:14 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ bool	camera_rdir(t_camera *cam)
 		return (rdir_free(rdir), false);
 	if (!tensr_add(basis->forward_t, rdir->sum_s, rdir->dir))
 		return (rdir_free(rdir), false);
-	rdir->out = tensr_normalize(rdir->dir, NULL);
+	tensr_normalize(rdir->dir, rdir->out);
 	return (rdir->out != NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 04:06:17 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/31 18:22:43 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 04:35:30 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ bool	tile_create(t_tile *tile, t_tensr *buffer, t_tensr *rdir,
         tensr_free(tile->buffer);
         return (false);
     }
+    tile->width = tm->actual_w;
+    tile->height = tm->actual_h;
     return (true);
 }
