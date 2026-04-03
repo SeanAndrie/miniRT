@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   property_keys.c                                    :+:      :+:    :+:   */
+/*   tween_rotation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/29 18:24:01 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 13:14:02 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/03 13:29:30 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/03 15:24:59 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/context.h>
 
-bool	property_keys(int key_code)
+t_tween tween_rotation(t_vec3 *dir)
 {
-	return (key_code == XK_R || key_code == XK_H || key_code == XK_T);
+    return ((t_tween){
+        .curr = dir,
+        .target = *dir,
+        .update = tween_slerp_update
+    });
 }

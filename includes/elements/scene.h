@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 20:29:16 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/31 18:23:40 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 23:02:10 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ typedef struct s_camera
 	struct s_vec3		point;
 	struct s_basis		basis;
 	struct s_coord		coords;
+    bool                allocd;
 }						t_camera;
 
 typedef struct s_ambient
 {
 	float				ratio;
 	struct s_vec3		rgb;
+    bool                allocd;
 }						t_ambient;
 
 typedef struct s_light

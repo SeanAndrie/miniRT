@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 11:34:30 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/25 00:04:13 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:03:21 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_object	*obj_alloc(t_type obj_type)
 	obj = malloc(sizeof(t_object));
 	if (!obj)
 		return (NULL);
+    obj->opt.cb_scale = 0.0f;
 	obj->type = obj_type;
 	obj->next = NULL;
 	return (obj);

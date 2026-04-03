@@ -6,14 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 15:29:14 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 04:38:45 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 22:46:12 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# define N_TILES 64
+# define N_TILES 128
 
 # define TITLE "miniRT"
 # define W 800
@@ -64,6 +64,7 @@ t_display				*display_init(const int width, const int height);
 void					display_free(t_display *disp);
 bool					frame_init(t_frame *frame, const int width,
 							const int height);
+bool				    frame_blit(t_display *disp);
 void					frame_free(t_frame *frame);
 
 #endif

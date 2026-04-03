@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:32:32 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/26 17:37:59 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/04 00:08:18 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	dispatch_error(const char *id)
 	ft_printf("Error\n");
 	log_error(STDERR_FILENO, ERR_BASE, "parsing failure: ");
 	if (*id == 'A')
-		ft_dprintf(STDERR_FILENO, "ambient light");
+		ft_dprintf(STDERR_FILENO, "(1 per scene) ambient light");
 	else if (*id == 'C')
-		ft_dprintf(STDERR_FILENO, "camera");
+		ft_dprintf(STDERR_FILENO, "(1 per scene) camera");
 	else if (*id == 'L')
 		ft_dprintf(STDERR_FILENO, "light");
 	else if (ft_strcmp(id, "sp") == 0)
@@ -34,7 +34,6 @@ static void	dispatch_error(const char *id)
 		ft_dprintf(STDERR_FILENO, "cone");
 	else
 		ft_dprintf(STDERR_FILENO, "invalid identifier");
-	ft_dprintf(STDERR_FILENO, "\n");
 }
 
 static bool	parse_dispatch(char *line, const char *id, t_scene *scene)
@@ -82,11 +81,14 @@ static bool	parse_line(char *line, t_scene *scene)
 bool	parse_scene(int fd, t_scene *scene)
 {
 	char	*line;
+	int		line_no;
 
 	if (fd < 0 || !scene)
 		return (false);
+	line_no = 0;
 	while (true)
 	{
+		line_no++;
 		line = get_next_line(fd);
 		if (!line)
 			break ;
@@ -94,6 +96,7 @@ bool	parse_scene(int fd, t_scene *scene)
 		{
 			free(line);
 			close(fd);
+			ft_dprintf(STDERR_FILENO, " | line no. %d\n", line_no);
 			return (false);
 		}
 		free(line);

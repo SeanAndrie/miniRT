@@ -6,11 +6,12 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#  +:     +#           */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 03:21:19 by sgadinga          #+#   #+    #+#        */
-/*   Updated: 2026/04/02 04:32:17 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 21:37:48 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
+#include <float.h>
 
 void	color_fill(float *ptr, t_vec3 *rgb)
 {
@@ -63,20 +64,21 @@ void	shade_apply(t_scene *scene, t_hit *hit, float *ptr)
 	t_vec3	l_hat;
 
 	arr = &scene->lgt_view;
+	if (hit->obj->opt.cb_scale > 0.0f)
+		hit->rgb = shade_checker(hit, hit->obj->opt.cb_scale);
 	rgb = shade_ambient(&scene->amb, hit->rgb);
-	i = 0;
-	while (i < arr->len)
+	i = -1;
+	while (++i < arr->len)
 	{
 		curr = ((t_light **)arr->data)[i];
 		l_hat = vec3_normalize(vec3_sub(curr->point, hit->point));
-		if (vec3_dot(hit->normal, l_hat) > 0.0f && !in_shadow(scene, hit,
-				l_hat, curr))
+		if (vec3_dot(hit->normal, l_hat) > 0.0f && !in_shadow(scene, hit, l_hat,
+				curr))
 		{
 			vec3_add_ip(&rgb, shade_diffuse(curr->ratio, curr->rgb, hit,
 					l_hat));
 			vec3_add_ip(&rgb, shade_specular(scene, curr, hit, l_hat));
 		}
-		i++;
 	}
 	color_fill(ptr, &rgb);
 }

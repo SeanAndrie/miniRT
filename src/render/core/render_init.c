@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 17:11:46 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 03:19:40 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 17:51:47 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	render_init(t_pool *pool, t_display *disp, t_scene *scene)
 		return (false);
     if (!frame_init(&disp->frame, disp->width, disp->height))
         return (false);
-    if (!pool_init(pool, disp, scene))
+    if (MULTITHREADED && !pool_init(pool, disp, scene))
         return (false);
     return (true);
 }

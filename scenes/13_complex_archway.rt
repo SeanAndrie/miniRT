@@ -1,0 +1,73 @@
+# 13_complex_archway.rt
+#
+# Scene: A stone archway in a courtyard, with a glowing sphere on a pedestal.
+# Two colored lights — warm from the left, cool from the right — cast
+# overlapping shadows and color mixing across the floor and pillars.
+#
+# Layout (top-down):
+#
+#        back wall (Z=22)
+#   ___________________________
+#  |                           |
+#  |   [L-pillar]   [R-pillar] |
+#  |       \   [arch]   /      |
+#  |        \  [sp]    /       |
+#  |    [sp-L] [ped] [sp-R]    |
+#  |___________________________|
+#
+#        camera (Z=-25)
+#
+
+# --- Ambient ---
+A 0.15 255,240,220
+
+# --- Camera ---
+# Positioned in front, slightly elevated, looking slightly down into scene
+C 0,4,-25 0,-0.1,1 65
+
+# --- Lights ---
+# Warm key light — upper left
+L -12,14,0 0.85 255,200,120
+# Cool fill light — upper right
+L 12,10,5 0.5 120,180,255
+
+# --- Floor ---
+pl 0,-2,0 0,1,0 180,160,130
+
+# --- Ceiling (far above, acts as sky cap) ---
+pl 0,14,0 0,1,0 40,40,60
+
+# --- Back wall ---
+pl 0,0,22 0,0,-1 160,150,140
+
+# --- Left wall ---
+pl -14,0,0 1,0,0 150,140,130
+
+# --- Right wall ---
+pl 14,0,0 -1,0,0 150,140,130
+
+# --- Archway ---
+# Left pillar: vertical, tall stone column
+cy -6,-2,12 0,1,0 1.4 12 140,130,120
+# Right pillar
+cy 6,-2,12 0,1,0 1.4 12 140,130,120
+# Arch crossbeam: horizontal cylinder along X axis connecting the two pillars
+cy 0,9,12 1,0,0 1.4 15 140,130,120
+
+# --- Pedestal (short wide cylinder) ---
+cy 0,-2,12 0,1,0 1.8 3 120,110,100
+
+# --- Central glowing sphere on pedestal ---
+sp 0,2.5,12 2.2 255,220,180
+
+# --- Flanking decorative spheres on the floor ---
+sp -4,-0.5,8 1.4 180,80,60
+sp 4,-0.5,8 1.4 60,100,200
+
+# --- Background detail spheres near back wall ---
+sp -9,1,18 2 100,120,100
+sp 9,1,18 2 100,120,100
+
+# --- Small accent spheres at pillar bases ---
+sp -6,-1.2,10 0.7 160,140,80
+sp 6,-1.2,10 0.7 160,140,80

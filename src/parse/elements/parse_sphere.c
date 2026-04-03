@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 01:49:59 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/25 00:14:51 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 17:10:58 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ bool	parse_sphere(char *line, const size_t n_params, t_scene *scene)
 	if (!parse_vector(params[2], 0.0f, 255.0f, &sp.rgb))
 		return (quick_free(params, obj), false);
 	tok_free(params, n_params);
+    parse_optional(ft_strchr(line, '|'), &obj->opt);
 	obj_sphere(obj, &sp);
 	return (obj_append(&scene->objects, obj));
 }

@@ -6,7 +6,7 @@
 #    By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/10 01:40:38 by sgadinga          #+#    #+#              #
-#    Updated: 2026/04/02 03:39:22 by sgadinga         ###   ########.fr        #
+#    Updated: 2026/04/03 21:37:24 by sgadinga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SCENE_SRCS := $(addprefix $(SCENE_DIR)/, \
 	$(addprefix elements/light/, light_append.c light_prepend.c light_free.c light_len.c light_view.c) \
 	$(addprefix elements/camera/, camera_init.c camera_basis.c camera_coords.c camera_rdir.c camera_free.c))
 
-PARSE_SRCS := $(addprefix $(PARSE_DIR)/core/, parse_scene.c parse_data.c parse_vector.c parse_scalar.c) \
+PARSE_SRCS := $(addprefix $(PARSE_DIR)/core/, parse_scene.c parse_data.c parse_vector.c parse_orient.c parse_scalar.c parse_optional.c) \
 	$(addprefix $(PARSE_DIR)/elements/, parse_ambient.c parse_camera.c parse_light.c parse_sphere.c parse_plane.c parse_cylinder.c parse_cone.c) \
 	$(addprefix $(PARSE_DIR)/utils/, tok_free.c scalar_in_range.c)
 
@@ -44,7 +44,7 @@ RENDER_SRCS := $(addprefix $(RENDER_DIR)/, \
 	$(addprefix elements/isect/, isect_obj.c isect_sphere.c isect_plane.c isect_cylinder.c isect_cone.c) \
 	$(addprefix elements/normal/, normal_sphere.c normal_plane.c normal_cylinder.c normal_cone.c) \
 	$(addprefix ray/, ray_at.c ray_create.c) \
-	$(addprefix shade/, shade_apply.c shade_ambient.c shade_diffuse.c shade_specular.c)\
+	$(addprefix shade/, shade_apply.c shade_ambient.c shade_diffuse.c shade_specular.c shade_checker.c)\
 	$(addprefix pool/, pool_init.c pool_run.c pool_join.c pool_free.c) \
 	$(addprefix tile/, tile_create.c tile_free.c))
 
@@ -57,9 +57,10 @@ DISPLAY_SRCS := $(addprefix $(DISPLAY_DIR)/, \
 	$(addprefix frame/, frame_blit.c frame_free.c frame_init.c))
 
 CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
-	$(addprefix core/, context_init.c context_hooks.c context_free.c) \
+	$(addprefix core/, context_init.c context_hooks.c context_reset.c context_free.c) \
 	$(addprefix hooks/handle/, handle_keypress.c handle_mousepress.c handle_keyrelease.c) \
 	$(addprefix hooks/dispatch/, dispatch_translate.c dispatch_rotate.c dispatch_property.c) \
+	$(addprefix hooks/tween/, tween_update.c tween_lerp_update.c tween_slerp_update.c tween_translation.c tween_rotation.c) \
     $(addprefix utils/, close_app.c reset_app.c movement_keys.c property_keys.c))
 
 SRCS := $(addprefix $(SRC_DIR)/, main.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(RENDER_SRCS) $(CONTEXT_SRCS))

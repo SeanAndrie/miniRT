@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudabi.ae>   #+#    #+#              */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 03:39:47 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 04:30:25 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:53:51 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 t_vec3	normal_cone(t_hit *hit, t_cone *co)
 {
 	float	h;
-	t_project	d;
 	t_project	l;
+	t_project	d;
 	t_vec3	p_on_axis;
 
 	if (hit->loc == SURF_BOT)

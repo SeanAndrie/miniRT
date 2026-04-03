@@ -1,0 +1,16 @@
+# 10_bonus_checkerboard.rt
+# BONUS: Checkerboard texture on floor plane and/or sphere
+# This scene has a large flat plane prominently in view to showcase the pattern
+# Implementation detail: your parser must handle a "checker" flag or texture tag
+
+A 0.2 255,255,255
+
+C 0,8,-25 0,-0.25,1 65
+
+L -6,14,-2 0.85 255,255,255
+
+pl 0,-1,0 0,1,0 255,255,255 | cb:2.0f
+
+sp 0,3,12 5 255,255,255 | cb:1.5f
+
+cy 10,0,12 0,1,0 3 12 80,80,255

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 14:47:37 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 03:43:36 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 17:27:39 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,40 +18,41 @@
 
 static void handle_movement(int key_code, t_context *ctx)
 {
+    ctx->dirty = true;
     if (ctx->extend)
         dispatch_rotate(key_code, ctx);
     else
         dispatch_translate(key_code, ctx);
-    render(&ctx->pool, ctx->disp, ctx->scene);
 }
 
 static void handle_property(int key_code, t_context *ctx)
 {
+    ctx->dirty = true;
     if (!ctx->s_obj)
         return ;
     dispatch_property(key_code, ctx);
-    render(&ctx->pool, ctx->disp, ctx->scene);
 }
 
 int	handle_keypress(int key_code, t_context *ctx)
 {
-    if (key_code == XK_Esc)
+    if (key_code == XK_ESC)
         return (close_app(ctx), 0);
-    if (!ctx->property && key_code == XK_r)
+    if (!ctx->property && key_code == XK_R)
         return (reset_app(ctx), 0);
-    if (key_code == XK_Shift_L)
+    if (key_code == XK_SHIFT_L)
         ctx->extend = true;
-    if (key_code == XK_p)
+    if (key_code == XK_P)
         ctx->property ^= 1;
     if (!ctx->property && movement_keys(key_code))
         handle_movement(key_code, ctx);
     if (ctx->property && property_keys(key_code))
         handle_property(key_code, ctx);
-    if (ctx->extend && key_code == XK_l)
+    if (ctx->extend && key_code == XK_L)
     {
         ctx->s_obj = NULL;
         ctx->s_lgt = ((t_light **)ctx->scene->lgt_view.data)[ctx->next_i];
         ctx->next_i = (ctx->next_i + 1) % ctx->scene->lgt_view.len;
+        ctx->tw_trans = tween_translation(&ctx->s_lgt->point);
     }
     return (0);
 }

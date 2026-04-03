@@ -6,13 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:25:34 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/26 17:29:57 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 17:03:40 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libtensr_rt.h>
 #include <setup/parse.h>
 #include <elements/scene.h>
+#include <stdio.h>
 
 bool	parse_vector(const char *nptr, float min, float max, t_vec3 *vec)
 {
@@ -26,7 +27,7 @@ bool	parse_vector(const char *nptr, float min, float max, t_vec3 *vec)
 		return (false);
 	i = 0;
 	while (tok[i])
-		i++;
+        i++;
 	if (i > 3 || i < 3)
 		return (tok_free(tok, -1), false);
 	vec->x = ft_strtof(tok[0], NULL);

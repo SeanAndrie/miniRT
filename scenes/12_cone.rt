@@ -1,0 +1,19 @@
+# 12_bonus_cone.rt
+# BONUS: Cone as a second-degree object
+# Scene has a cone pointing upward, beside a sphere and a plane
+# Implementation: requires ray-cone intersection
+
+A 0.2 255,255,255
+
+C 0,6,-22 0,-0.2,1 65
+
+L −8,14,0 0.85 255,255,255
+
+pl 0,-3,0 0,1,0 160,160,160
+
+# Cone: center of base, axis direction, half-angle degrees, height, color
+co 0,-3,12 0,1,0 20 14 180,120,40
+
+sp −8,1,12 4 80,180,255
+
+cy 8,0,12 0,1,0 2.5 10 80,200,80

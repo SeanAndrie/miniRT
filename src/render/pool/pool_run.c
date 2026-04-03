@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 02:55:46 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 04:32:31 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 15:19:07 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static bool	render_tile(t_tile *tile, t_scene *scene)
 		x = -1;
 		while (++x < tile->width)
 		{
-			ptr = (float *)tile->buffer->data + tensr_offset(&tile->buffer->layout,
-					(size_t[]){y, x, 0});
+			ptr = (float *)tile->buffer->data
+				+ tensr_offset(&tile->buffer->layout, (size_t[]){y, x, 0});
 			ray = ray_create(scene->cam.point, tile->rdir, x, y);
 			if (render_trace(ray, &hit, scene))
 				shade_apply(scene, &hit, ptr);

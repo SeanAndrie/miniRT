@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/27 02:46:55 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/29 17:35:20 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 18:02:37 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void	rodrigues_rotate(t_vec3 *v, t_vec3 ax, float angle)
 {
+	float	c;
 	t_vec3	c1;
 	t_vec3	c2;
 	t_vec3	div;
-	float	c;
 
 	c = cosf(angle);
 	div = vec3_cross(ax, *v);
@@ -27,68 +27,51 @@ static void	rodrigues_rotate(t_vec3 *v, t_vec3 ax, float angle)
 	vec3_add_ip(v, vec3_add(c1, c2));
 }
 
-static void rotate_camera(int key_code, t_basis *b, float angle)
+static t_vec3	rotation_axis(int key_code, t_basis *b)
 {
-    if (key_code == XK_w || key_code == XK_s)
-    {
-        rodrigues_rotate(&b->forward, b->right, angle);
-        rodrigues_rotate(&b->up, b->right, angle);
-    }
-    else if (key_code == XK_a || key_code == XK_d)
-    {
-        rodrigues_rotate(&b->forward, b->up, angle);
-        rodrigues_rotate(&b->right, b->up, angle);
-    }
-    else if (key_code == XK_q || key_code == XK_e)
-    {
-        rodrigues_rotate(&b->right, b->forward, angle);
-        rodrigues_rotate(&b->up, b->forward, angle);
-    }
-    vec3_normalize_ip(&b->forward);
-    vec3_normalize_ip(&b->right);
-    vec3_normalize_ip(&b->up);
+	if (key_code == XK_W || key_code == XK_S)
+		return (b->right);
+	else if (key_code == XK_A || key_code == XK_D)
+		return (b->up);
+	return (b->forward);
 }
 
-static void rotate_object(t_object *obj, t_basis *basis, int key_code, float angle)
+static void	handle_rotation(int key_code, t_context *ctx, t_basis *b,
+		const float angle)
 {
-    if (obj->type == OBJ_CYLINDER)
-    {
-        if (key_code == XK_w || key_code == XK_s)
-            rodrigues_rotate(&obj->data.cylinder.axis, basis->right, angle);
-        else if (key_code == XK_a || key_code == XK_d)
-            rodrigues_rotate(&obj->data.cylinder.axis, basis->up, angle);
-        else if (key_code == XK_q || key_code == XK_e)
-            rodrigues_rotate(&obj->data.cylinder.axis, basis->forward, angle);
-        vec3_normalize_ip(&obj->data.cylinder.axis);
-    }
-    else if (obj->type == OBJ_CONE)
-    {
-        if (key_code == XK_w || key_code == XK_s)
-            rodrigues_rotate(&obj->data.cone.axis, basis->right, angle);
-        else if (key_code == XK_a || key_code == XK_d)
-            rodrigues_rotate(&obj->data.cone.axis, basis->up, angle);
-        else if (key_code == XK_q || key_code == XK_e)
-            rodrigues_rotate(&obj->data.cone.axis, basis->forward, angle);
-        vec3_normalize_ip(&obj->data.cone.axis);
-    }
+	t_vec3	ax;
+
+	ax = rotation_axis(key_code, b);
+	if (!ctx->s_obj)
+	{
+		if (!ctx->tw_rotate.curr)
+			ctx->tw_rotate = tween_rotation(&ctx->scene->cam.basis.forward);
+	}
+	else if (ctx->s_obj->type == OBJ_CYLINDER)
+	{
+		if (!ctx->tw_rotate.curr)
+			ctx->tw_rotate = tween_rotation(&ctx->s_obj->data.cylinder.axis);
+	}
+	else if (ctx->s_obj->type == OBJ_CONE)
+	{
+		if (!ctx->tw_rotate.curr)
+			ctx->tw_rotate = tween_rotation(&ctx->s_obj->data.cone.axis);
+	}
+	else
+		return ;
+	ctx->tw_rotate.target = *ctx->tw_rotate.curr;
+	rodrigues_rotate(&ctx->tw_rotate.target, ax, angle);
 }
 
 void	dispatch_rotate(int key_code, t_context *ctx)
 {
-	t_object	*obj;
-	float		angle;
-    t_basis     *basis;
+	float	angle;
 
-	if (key_code == XK_w || key_code == XK_a || key_code == XK_q)
-		angle = ROTATE_ANGLE;
-	else if (key_code == XK_s || key_code == XK_d || key_code == XK_e)
+	if (key_code == XK_W || key_code == XK_A || key_code == XK_Q)
 		angle = -ROTATE_ANGLE;
+	else if (key_code == XK_S || key_code == XK_D || key_code == XK_E)
+		angle = ROTATE_ANGLE;
 	else
 		return ;
-	obj = ctx->s_obj;
-    basis = &ctx->scene->cam.basis;
-    if (!obj)
-        rotate_camera(key_code, basis, angle);
-    else
-        rotate_object(obj, basis, key_code, angle);
+	handle_rotation(key_code, ctx, &ctx->scene->cam.basis, angle);
 }

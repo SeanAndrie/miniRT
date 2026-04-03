@@ -6,14 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 03:30:51 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/26 20:48:19 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 23:51:57 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <elements/object.h>
-#include <setup/parse.h>
 #include <elements/scene.h>
 #include <libtensr.h>
+#include <setup/parse.h>
 
 static inline void	quick_free(char **params, t_object *obj)
 {
@@ -32,17 +32,19 @@ bool	parse_plane(char *line, const size_t n_params, t_scene *scene)
 	if (!line || !scene || n_params == 0)
 		return (false);
 	params = parse_data(++line, n_params);
+	if (!params)
+		return (false);
 	obj = obj_alloc(OBJ_PLANE);
-	if (!params || !obj)
+	if (!obj)
 		return (quick_free(params, obj), false);
 	if (!parse_vector(params[0], -INFINITY, INFINITY, &pl.point))
 		return (quick_free(params, obj), false);
-	if (!parse_vector(params[1], -INFINITY, INFINITY, &pl.normal))
+	if (!parse_orient(params[1], &pl.normal))
 		return (quick_free(params, obj), false);
-    vec3_normalize_ip(&pl.normal);
 	if (!parse_vector(params[2], 0.0f, 255.0f, &pl.rgb))
 		return (quick_free(params, obj), false);
 	tok_free(params, n_params);
 	obj_plane(obj, &pl);
+	parse_optional(ft_strchr(line, '|'), &obj->opt);
 	return (obj_append(&scene->objects, obj));
 }

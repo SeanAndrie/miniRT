@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 12:58:35 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/31 18:49:53 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 17:52:46 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,56 @@ static void	print_type(t_object *obj)
 	ft_printf("\n");
 }
 
-static	void object_select(int x, int y, t_context *ctx)
+static void	dispatch_selection(t_object *obj, t_context *ctx)
 {
-    t_camera    *cam;
-	t_ray	    ray;
-	t_hit	    hit;
+	ctx->tw_rotate.curr = NULL;
+	if (!obj)
+	{
+		ctx->tw_trans = tween_translation(&ctx->scene->cam.point);
+		return ;
+	}
+	if (obj->type == OBJ_SPHERE)
+		ctx->tw_trans = tween_translation(&obj->data.sphere.center);
+	else if (obj->type == OBJ_PLANE)
+		ctx->tw_trans = tween_translation(&obj->data.plane.point);
+	else if (obj->type == OBJ_CYLINDER)
+	{
+		ctx->tw_trans = tween_translation(&obj->data.cylinder.point);
+		ctx->tw_rotate = tween_rotation(&obj->data.cylinder.axis);
+	}
+	else if (obj->type == OBJ_CONE)
+	{
+		ctx->tw_trans = tween_translation(&obj->data.cone.apex);
+		ctx->tw_rotate = tween_rotation(&obj->data.cone.axis);
+	}
+}
 
-    ctx->s_lgt = NULL;
-    cam = &ctx->scene->cam;
-	// ray = ray_create(&ctx->scene->cam, x, y);
-    ray = ray_create(cam->point, cam->rdir.out, x, y);
-    if (!render_trace(ray, &hit, ctx->scene))
-        return ;
-    ctx->s_obj = hit.obj;
-    print_type(hit.obj);
+static void	object_select(int x, int y, t_context *ctx)
+{
+	t_ray		ray;
+	t_hit		hit;
+	t_camera	*cam;
+
+	cam = &ctx->scene->cam;
+	ray = ray_create(cam->point, cam->rdir.out, x, y);
+	if (!render_trace(ray, &hit, ctx->scene))
+		return ;
+	ctx->s_obj = hit.obj;
+	dispatch_selection(ctx->s_obj, ctx);
+	print_type(hit.obj);
 }
 
 int	handle_mousepress(int button, int x, int y, t_context *ctx)
 {
 	if (button == MOUSE_RIGHT)
-    {
+	{
 		ctx->s_obj = NULL;
-        ctx->s_lgt = NULL;
-    }
+		ctx->s_lgt = NULL;
+		ctx->tw_rotate.curr = NULL;
+		ctx->tw_trans = tween_translation(&ctx->scene->cam.point);
+        ctx->property = false;
+	}
 	if (button == MOUSE_LEFT)
-        object_select(x, y, ctx);
+		object_select(x, y, ctx);
 	return (0);
 }

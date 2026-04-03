@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 02:05:02 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/03/26 17:31:20 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 23:37:33 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	parse_ambient(char *line, const size_t n_params, t_scene *scene)
 {
 	char	**params;
 
-	if (!line || !scene || n_params == 0)
+	if (!line || !scene || scene->amb.allocd || n_params == 0)
 		return (false);
 	params = parse_data(line, n_params);
 	if (!params)
@@ -27,5 +27,6 @@ bool	parse_ambient(char *line, const size_t n_params, t_scene *scene)
 	if (!parse_vector(params[1], 0.0f, 255.0f, &scene->amb.rgb))
 		return (tok_free(params, n_params), false);
 	tok_free(params, n_params);
+    scene->amb.allocd = true;
 	return (true);
 }

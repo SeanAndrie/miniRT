@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 14:49:47 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 04:19:38 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/02 17:00:27 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 /*---------------------------------------------------------------------*/
 
 typedef struct s_array t_array;
+
+typedef struct s_options
+{
+    float               cb_scale;
+}                       t_options;
 
 typedef struct s_sphere
 {
@@ -77,6 +82,7 @@ typedef struct s_object
 {
 	enum e_type			type;
 	union u_data		data;
+    struct s_options    opt;
 	struct s_object		*next;
 }						t_object;
 

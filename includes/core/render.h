@@ -6,13 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 23:12:45 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 04:36:19 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/03 22:42:39 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_H
 # define RENDER_H
 
+# define MULTITHREADED true
 # define N_THREADS 8
 # define SPECULAR_SHINE 45.0f
 
@@ -79,13 +80,11 @@ typedef struct s_pool
 	size_t			worker_tiles;
 }					t_pool;
 
-// bool				render(t_display *disp, t_scene *scene);
-bool				render(t_pool *pool, t_display *disp, t_scene *scene);
+bool				render(t_display *disp, t_scene *scene);
+bool				render_threaded(t_pool *pool, t_display *disp,
+						t_scene *scene);
 bool				render_init(t_pool *pool, t_display *disp, t_scene *scene);
-// bool				render_trace(t_vec3 orig, t_vec3 dir, t_hit *hit,
-// 						t_scene *scene);
 bool				render_trace(t_ray ray, t_hit *hit, t_scene *scene);
-bool				frame_blit(t_display *disp);
 
 // float				isect_obj(t_ray *ray, t_object *obj);
 float				isect_obj(t_ray *ray, t_surface *hit_loc, t_object *obj);
@@ -109,6 +108,7 @@ t_ray				ray_create(t_vec3 orig, const t_tensr *rdir, int x, int y);
 // t_ray				ray_create(t_camera *cam, int x, int y);
 
 void				shade_apply(t_scene *scene, t_hit *hit, float *ptr);
+t_vec3				shade_checker(t_hit *hit, const float scale);
 t_vec3				shade_ambient(t_ambient *amb, t_vec3 rgb);
 t_vec3				shade_diffuse(float ratio, t_vec3 light_rgb, t_hit *hit,
 						t_vec3 L_hat);

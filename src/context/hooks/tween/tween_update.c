@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   property_keys.c                                    :+:      :+:    :+:   */
+/*   tween_update.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/29 18:24:01 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 13:14:02 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/02 13:59:55 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/03 15:23:17 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/context.h>
 
-bool	property_keys(int key_code)
+void	tween_update(t_context *ctx, const float t)
 {
-	return (key_code == XK_R || key_code == XK_H || key_code == XK_T);
+	bool	trans_done;
+	bool	rot_done;
+
+	trans_done = !ctx->tw_trans.curr
+		|| ctx->tw_trans.update(&ctx->tw_trans, t);
+	rot_done = !ctx->tw_rotate.curr
+		|| ctx->tw_rotate.update(&ctx->tw_rotate, t);
+	if (trans_done && rot_done)
+		ctx->dirty = false;
 }

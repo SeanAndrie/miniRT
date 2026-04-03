@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   property_keys.c                                    :+:      :+:    :+:   */
+/*   context_reset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/29 18:24:01 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 13:14:02 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/03 15:58:18 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/03 16:02:22 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/context.h>
 
-bool	property_keys(int key_code)
+void	context_reset(t_context *ctx)
 {
-	return (key_code == XK_R || key_code == XK_H || key_code == XK_T);
+	if (!ctx)
+		return ;
+	ctx->s_obj = NULL;
+	ctx->s_lgt = NULL;
+	ctx->extend = false;
+	ctx->property = false;
+	ctx->dirty = true;
+	ctx->tw_trans = tween_translation(&ctx->scene->cam.point);
+	ctx->tw_rotate.target = ctx->scene->cam.basis.forward;
+	ctx->tw_rotate.curr = NULL;
+	ctx->tw_rotate.target = ctx->scene->cam.basis.forward;
 }
