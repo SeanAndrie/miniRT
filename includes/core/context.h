@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:59 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/04 00:20:17 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/06 03:03:12 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <setup/display.h>
 
 # define SCENE_FILE_EXT ".rt"
+
+# define TEXT_COLOR 0xFFFFFF
+# define LINE_HEIGHT 20
 
 # define TRANS_SPEED 1.0f
 # define ROTATE_ANGLE 0.1f
@@ -93,6 +96,7 @@ typedef struct s_context
 }						t_context;
 
 bool					context_init(t_context *ctx, char *fname);
+int						context_loop(t_context *ctx);
 void					context_hooks(t_context *ctx);
 void					context_reset(t_context *ctx);
 void					context_free(t_context *context);
@@ -117,5 +121,9 @@ bool					tween_slerp_update(t_tween *tw, float t);
 bool					tween_lerp_update(t_tween *tw, float t);
 t_tween					tween_rotation(t_vec3 *pos);
 t_tween					tween_translation(t_vec3 *pos);
+
+void					interface_render(t_context *ctx, const int line_h);
+void					interface_object(t_context *ctx, int x, int *y,
+							const int line_h);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/10 01:40:38 by sgadinga          #+#    #+#              #
-#    Updated: 2026/04/05 17:28:05 by sgadinga         ###   ########.fr        #
+#    Updated: 2026/04/06 01:20:40 by sgadinga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,11 +57,12 @@ DISPLAY_SRCS := $(addprefix $(DISPLAY_DIR)/, \
 	$(addprefix frame/, frame_blit.c frame_free.c frame_init.c))
 
 CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
-	$(addprefix core/, context_init.c context_hooks.c context_reset.c context_free.c) \
+	$(addprefix core/, context_init.c context_loop.c context_hooks.c context_reset.c context_free.c) \
 	$(addprefix hooks/handle/, handle_keypress.c handle_mousepress.c handle_keyrelease.c) \
 	$(addprefix hooks/dispatch/, dispatch_translate.c dispatch_rotate.c dispatch_property.c) \
 	$(addprefix hooks/tween/, tween_update.c tween_lerp_update.c tween_slerp_update.c tween_translation.c tween_rotation.c) \
-    $(addprefix utils/, close_app.c reset_app.c movement_keys.c property_keys.c))
+    $(addprefix utils/, close_app.c reset_app.c movement_keys.c property_keys.c) \
+	$(addprefix interface/, interface_render.c interface_object.c))
 
 SRCS := $(addprefix $(SRC_DIR)/, main.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(RENDER_SRCS) $(CONTEXT_SRCS))
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

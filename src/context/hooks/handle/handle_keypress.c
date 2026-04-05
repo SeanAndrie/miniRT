@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 14:47:37 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/03 17:27:39 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/06 03:21:48 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	handle_keypress(int key_code, t_context *ctx)
     if (key_code == XK_SHIFT_L)
         ctx->extend = true;
     if (key_code == XK_P)
+    {
         ctx->property ^= 1;
+        ctx->dirty = true;
+    }
     if (!ctx->property && movement_keys(key_code))
         handle_movement(key_code, ctx);
     if (ctx->property && property_keys(key_code))
@@ -53,6 +56,7 @@ int	handle_keypress(int key_code, t_context *ctx)
         ctx->s_lgt = ((t_light **)ctx->scene->lgt_view.data)[ctx->next_i];
         ctx->next_i = (ctx->next_i + 1) % ctx->scene->lgt_view.len;
         ctx->tw_trans = tween_translation(&ctx->s_lgt->point);
+        ctx->dirty = true;
     }
     return (0);
 }

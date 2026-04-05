@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 23:12:45 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/05 17:27:35 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/06 01:44:30 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 # define N_THREADS 8
 # define SPECULAR_SHINE 45.0f
 
-# include <elements/scene.h>
-# include <libtensr_rt.h>
 # include <pthread.h>
+# include <libtensr_rt.h>
 # include <setup/display.h>
+# include <elements/scene.h>
 
 typedef enum e_surface
 {
