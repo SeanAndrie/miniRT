@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/13 01:02:57 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/04/03 17:06:11 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/05 18:07:52 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/05 18:07:53 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

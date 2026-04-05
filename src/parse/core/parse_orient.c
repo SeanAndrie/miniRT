@@ -20,9 +20,9 @@ bool	parse_orient(const char *nptr, t_vec3 *vec)
 
 	if (!nptr || !vec)
 		return (false);
-	if (!parse_vector(nptr, -1.0f, 1.0f, &temp))
+	if (!parse_vector(nptr, -INFINITY, INFINITY, &temp))
 		return (false);
-	if (vec3_dot(temp, temp) < 1e-6f) // zero vector check
+	if (vec3_dot(temp, temp) < 1e-6f)
 		return (false);
 	*vec = vec3_normalize(temp);
 	return (true);

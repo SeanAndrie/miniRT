@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_alloc.c                                        :+:      :+:    :+:   */
+/*   ray_reflect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/11 11:34:30 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/05 17:33:24 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/05 16:07:11 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/05 16:10:48 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <elements/object.h>
+#include <core/render.h>
 
-t_object	*obj_alloc(t_type obj_type)
+t_vec3  ray_reflect(t_vec3 dir, t_vec3 normal)
 {
-	t_object	*obj;
-
-	if (obj_type == OBJ_UNKNOWN)
-		return (NULL);
-	obj = malloc(sizeof(t_object));
-	if (!obj)
-		return (NULL);
-    ft_memset(&obj->opt, 0, sizeof(t_options));
-	obj->type = obj_type;
-	obj->next = NULL;
-	return (obj);
+    return (vec3_sub(dir, vec3_scale(normal, vec3_dot(dir, normal) * 2)));
 }

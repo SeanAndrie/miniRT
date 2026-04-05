@@ -3,82 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   shade_apply.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#  +:     +#           */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/30 03:21:19 by sgadinga          #+#   #+    #+#        */
-/*   Updated: 2026/04/03 21:37:48 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/05 17:14:11 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/05 17:39:15 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
 
-void	color_fill(float *ptr, t_vec3 *rgb)
+static t_vec3	render_reflect(t_ray ray, t_scene *scene, int depth);
+static t_vec3	render_reflect_hit(t_hit *hit, t_scene *scene, int depth);
+
+static t_vec3	render_reflect(t_ray ray, t_scene *scene, int depth)
 {
-	if (rgb)
-	{
-		ptr[0] = rgb->x;
-		ptr[1] = rgb->y;
-		ptr[2] = rgb->z;
-	}
-	else
-	{
-		ptr[0] = 0.0f;
-		ptr[1] = 0.0f;
-		ptr[2] = 0.0f;
-	}
+	t_hit	hit;
+
+	if (depth <= 0 || !render_trace(ray, &hit, scene))
+		return ((t_vec3){0, 0, 0});
+	return (render_reflect_hit(&hit, scene, depth));
 }
 
-static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
+static t_vec3	render_reflect_hit(t_hit *hit, t_scene *scene, int depth)
 {
-	size_t		i;
-	float		hit_t;
-	t_object	*curr;
-	float		light_dist;
-	t_ray		shadow_ray;
-
-	light_dist = vec3_magnitude(vec3_sub(light->point, hit->point));
-	shadow_ray.orig = vec3_add(hit->point, vec3_scale(hit->normal, 1e-2f));
-	shadow_ray.dir = l_hat;
-	i = 0;
-	while (i < scene->obj_view.len)
-	{
-		curr = ((t_object **)scene->obj_view.data)[i];
-		if (curr != hit->obj)
-		{
-			hit_t = isect_obj(&shadow_ray, &hit->loc, curr);
-			if (hit_t > 1e-4f && hit_t < light_dist)
-				return (true);
-		}
-		i++;
-	}
-	return (false);
-}
-
-void	shade_apply(t_scene *scene, t_hit *hit, float *ptr)
-{
-	size_t	i;
 	t_vec3	rgb;
-	t_array	*arr;
-	t_light	*curr;
-	t_vec3	l_hat;
+	t_ray	ref_ray;
+	float	ref_factor;
 
-	arr = &scene->lgt_view;
-	if (hit->obj->opt.cb_scale > 0.0f)
-		hit->rgb = shade_checker(hit, hit->obj->opt.cb_scale);
-	rgb = shade_ambient(&scene->amb, hit->rgb);
-	i = -1;
-	while (++i < arr->len)
-	{
-		curr = ((t_light **)arr->data)[i];
-		l_hat = vec3_normalize(vec3_sub(curr->point, hit->point));
-		if (vec3_dot(hit->normal, l_hat) > 0.0f && !in_shadow(scene, hit, l_hat,
-				curr))
-		{
-			vec3_add_ip(&rgb, shade_diffuse(curr->ratio, curr->rgb, hit,
-					l_hat));
-			vec3_add_ip(&rgb, shade_specular(scene, curr, hit, l_hat));
-		}
-	}
-	color_fill(ptr, &rgb);
+	ref_factor = hit->obj->opt.reflectivity;
+	rgb = shade_color(scene, hit);
+	if (ref_factor <= 0.0f || depth <= 0)
+		return (rgb);
+	ref_ray.orig = vec3_add(hit->point, vec3_scale(hit->normal, 1e-4f));
+	ref_ray.dir = ray_reflect(hit->ray.dir, hit->normal);
+	return (vec3_add(vec3_scale(rgb, 1.0f - ref_factor),
+			vec3_scale(render_reflect(ref_ray, scene, depth - 1), ref_factor)));
+}
+
+t_vec3	shade_apply(t_scene *scene, t_hit *hit)
+{
+	if (!scene || !hit)
+		return ((t_vec3){0, 0, 0});
+	if (hit->obj->opt.reflectivity > 0.0f)
+		return (render_reflect_hit(hit, scene, 3));
+	return (shade_color(scene, hit));
 }

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 02:55:46 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 15:19:07 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/05 17:31:34 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static bool	render_tile(t_tile *tile, t_scene *scene)
 				+ tensr_offset(&tile->buffer->layout, (size_t[]){y, x, 0});
 			ray = ray_create(scene->cam.point, tile->rdir, x, y);
 			if (render_trace(ray, &hit, scene))
-				shade_apply(scene, &hit, ptr);
+                color_fill(ptr, shade_apply(scene, &hit));
 			else
-				color_fill(ptr, NULL);
+				color_fill(ptr, (t_vec3){0, 0, 0});
 		}
 	}
 	return (true);

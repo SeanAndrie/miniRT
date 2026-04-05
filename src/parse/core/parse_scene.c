@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:32:32 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/05 16:02:27 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/05 17:04:00 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static bool	parse_dispatch(char *line, const char *id, t_scene *scene)
 {
 	if (!line || !id || !scene)
 		return (false);
-	if (!is_valid_id(id))
-    {
+	if (*id != ' ' && !is_valid_id(id))
+	{
 		ft_dprintf(STDERR_FILENO, "invalid identifier '%s'", id);
-        return (false);
-    }
+		return (false);
+	}
 	if (*id == 'A' && !parse_ambient(++line, 2, scene))
 		return (dispatch_error(id), false);
 	else if (*id == 'C' && !parse_camera(++line, 3, scene))
@@ -69,6 +69,8 @@ static bool	parse_line(char *line, t_scene *scene)
 		return (false);
 	while (*line && ft_isspace(*line))
 		line++;
+	if (*line == '\0' || *line == '/' || *line == '#')
+		return (true);
 	end = line;
 	while (*end && ft_isalpha(*end))
 		end++;

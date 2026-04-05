@@ -6,14 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 02:47:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 04:31:32 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/05 17:13:11 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <float.h>
 #include <core/render.h>
 #include <elements/scene.h>
+#include <float.h>
+#include <math.h>
 
 static void	assign_rgb(t_hit *hit)
 {
@@ -43,7 +43,7 @@ static bool	fill_hit(t_ray ray, t_hit *hit)
 {
 	if (!hit->obj)
 		return (false);
-    hit->ray = ray;
+	hit->ray = ray;
 	hit->point = ray_at(hit->ray, hit->t);
 	assign_normal(hit);
 	assign_rgb(hit);

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 18:47:12 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/03 16:55:59 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/05 17:40:34 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**parse_data(char *line, const size_t n_params)
 	char	**params;
 
 	if (!line || n_params == 0)
-		return (false);
+		return (NULL);
 	params = malloc(sizeof(char *) * (n_params + 1));
 	if (!params)
 		return (NULL);

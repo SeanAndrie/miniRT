@@ -53,7 +53,11 @@ bool	render_init(t_pool *pool, t_display *disp, t_scene *scene)
 		return (false);
     if (!frame_init(&disp->frame, disp->width, disp->height))
         return (false);
-    if (MULTITHREADED && !pool_init(pool, disp, scene))
-        return (false);
+    if (MULTITHREADED)
+    {
+        ft_printf("Multithreading : ON\n");
+        if (!pool_init(pool, disp, scene))
+            return (false);
+    }
     return (true);
 }
