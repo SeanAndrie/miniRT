@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:32:32 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/04 00:08:18 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/05 16:02:27 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 static void	dispatch_error(const char *id)
 {
-	ft_printf("Error\n");
 	log_error(STDERR_FILENO, ERR_BASE, "parsing failure: ");
 	if (*id == 'A')
 		ft_dprintf(STDERR_FILENO, "(1 per scene) ambient light");
@@ -32,14 +31,17 @@ static void	dispatch_error(const char *id)
 		ft_dprintf(STDERR_FILENO, "cylinder");
 	else if (ft_strcmp(id, "co") == 0)
 		ft_dprintf(STDERR_FILENO, "cone");
-	else
-		ft_dprintf(STDERR_FILENO, "invalid identifier");
 }
 
 static bool	parse_dispatch(char *line, const char *id, t_scene *scene)
 {
 	if (!line || !id || !scene)
-		return (dispatch_error(id), false);
+		return (false);
+	if (!is_valid_id(id))
+    {
+		ft_dprintf(STDERR_FILENO, "invalid identifier '%s'", id);
+        return (false);
+    }
 	if (*id == 'A' && !parse_ambient(++line, 2, scene))
 		return (dispatch_error(id), false);
 	else if (*id == 'C' && !parse_camera(++line, 3, scene))

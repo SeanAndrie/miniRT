@@ -6,7 +6,7 @@
 #    By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/03/10 01:40:38 by sgadinga          #+#    #+#              #
-#    Updated: 2026/04/03 21:37:24 by sgadinga         ###   ########.fr        #
+#    Updated: 2026/04/05 15:34:59 by sgadinga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SCENE_SRCS := $(addprefix $(SCENE_DIR)/, \
 
 PARSE_SRCS := $(addprefix $(PARSE_DIR)/core/, parse_scene.c parse_data.c parse_vector.c parse_orient.c parse_scalar.c parse_optional.c) \
 	$(addprefix $(PARSE_DIR)/elements/, parse_ambient.c parse_camera.c parse_light.c parse_sphere.c parse_plane.c parse_cylinder.c parse_cone.c) \
-	$(addprefix $(PARSE_DIR)/utils/, tok_free.c scalar_in_range.c)
+	$(addprefix $(PARSE_DIR)/utils/, tok_free.c scalar_in_range.c is_valid_id.c)
 
 RENDER_SRCS := $(addprefix $(RENDER_DIR)/, \
 	$(addprefix core/, render.c render_init.c render_trace.c) \

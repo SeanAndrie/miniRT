@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 00:14:10 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/03 16:37:07 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/05 15:34:38 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ bool						parse_cone(char *line, const size_t n_params,
 
 bool						scalar_in_range(float n, float min, float max);
 void						tok_free(char **tok, int n);
+bool						is_valid_id(const char *id);
 
 #endif
