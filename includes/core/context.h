@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:59 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/06 03:03:12 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/08 03:43:31 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@
 // Rotation toggle
 # define XK_SHIFT_L 0xffe1
 
+// Toggle UI
+#define XK_U 0x0075
+
 typedef struct s_tween
 {
 	t_vec3				*curr;
@@ -91,6 +94,7 @@ typedef struct s_context
 	bool				dirty;
 	bool				extend;
 	bool				property;
+    bool                show_ui;
 	struct s_tween		tw_trans;
 	struct s_tween		tw_rotate;
 }						t_context;

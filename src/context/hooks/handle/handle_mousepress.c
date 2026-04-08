@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 12:58:35 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/06 03:20:48 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/08 03:45:24 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,14 @@ int	handle_mousepress(int button, int x, int y, t_context *ctx)
 		ctx->s_lgt = NULL;
 		ctx->tw_rotate.curr = NULL;
 		ctx->tw_trans = tween_translation(&ctx->scene->cam.point);
-        ctx->property = false;
+		ctx->property = false;
 	}
 	if (button == MOUSE_LEFT)
-    {
-        ctx->s_lgt = NULL;
+	{
+		ctx->s_lgt = NULL;
 		object_select(x, y, ctx);
-    }
-    ctx->dirty = true;
+	}
+	if (ctx->show_ui)
+		ctx->dirty = true;
 	return (0);
 }

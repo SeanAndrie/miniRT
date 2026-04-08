@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 23:12:45 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/06 01:44:30 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/08 02:40:21 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@
 # define SPECULAR_SHINE 45.0f
 
 # include <pthread.h>
+# include <semaphore.h>
 # include <libtensr_rt.h>
 # include <setup/display.h>
 # include <elements/scene.h>
+
+typedef struct s_worker t_worker;
+typedef struct s_pool   t_pool;
 
 typedef enum e_surface
 {
@@ -73,10 +77,10 @@ typedef struct s_worker
 
 typedef struct s_pool
 {
-	struct s_worker	**workers;
 	struct s_tile	*tiles;
 	size_t			n_tiles;
 	size_t			n_workers;
+	struct s_worker	**workers;
 	size_t			worker_tiles;
 }					t_pool;
 

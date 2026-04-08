@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 14:47:37 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/06 03:21:48 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/08 03:49:10 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,17 @@ static void handle_property(int key_code, t_context *ctx)
     dispatch_property(key_code, ctx);
 }
 
+static void handle_light_cycle(t_context *ctx)
+{
+    ctx->s_obj = NULL;
+    ctx->s_obj = NULL;
+    ctx->s_lgt = ((t_light **)ctx->scene->lgt_view.data)[ctx->next_i];
+    ctx->next_i = (ctx->next_i + 1) % ctx->scene->lgt_view.len;
+    ctx->tw_trans = tween_translation(&ctx->s_lgt->point);
+    if (ctx->show_ui)
+        ctx->dirty = true;
+}
+
 int	handle_keypress(int key_code, t_context *ctx)
 {
     if (key_code == XK_ESC)
@@ -44,6 +55,12 @@ int	handle_keypress(int key_code, t_context *ctx)
     if (key_code == XK_P)
     {
         ctx->property ^= 1;
+        if (ctx->show_ui)
+            ctx->dirty = true;
+    }
+    if (key_code == XK_U)
+    {
+        ctx->show_ui ^= 1;
         ctx->dirty = true;
     }
     if (!ctx->property && movement_keys(key_code))
@@ -51,12 +68,6 @@ int	handle_keypress(int key_code, t_context *ctx)
     if (ctx->property && property_keys(key_code))
         handle_property(key_code, ctx);
     if (ctx->extend && key_code == XK_L)
-    {
-        ctx->s_obj = NULL;
-        ctx->s_lgt = ((t_light **)ctx->scene->lgt_view.data)[ctx->next_i];
-        ctx->next_i = (ctx->next_i + 1) % ctx->scene->lgt_view.len;
-        ctx->tw_trans = tween_translation(&ctx->s_lgt->point);
-        ctx->dirty = true;
-    }
+        handle_light_cycle(ctx);
     return (0);
 }
