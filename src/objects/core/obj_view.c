@@ -13,17 +13,17 @@
 #include <libtensr.h>
 #include <elements/object.h>
 
-bool	obj_view(t_array *arr, t_object *head)
+t_bool obj_view(t_array *arr, t_object *head)
 {
 	size_t		i;
 	t_object	*curr;
 
 	if (!arr || !head)
-		return (false);
+		return (FALSE);
 	arr->len = obj_len(head);
 	arr->data = malloc(sizeof(t_object *) * arr->len);
 	if (!arr->data)
-		return (false);
+		return (FALSE);
 	curr = head;
 	i = 0;
 	while (curr && i < arr->len)
@@ -32,5 +32,5 @@ bool	obj_view(t_array *arr, t_object *head)
 		curr = curr->next;
 	}
 	arr->dtype = DT_CUSTOM;
-	return (true);
+	return (TRUE);
 }

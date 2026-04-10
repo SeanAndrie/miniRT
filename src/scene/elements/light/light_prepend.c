@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <libtensr_rt.h>
+#include <libvec3.h>
 #include <elements/scene.h>
 
-bool    light_prepend(t_light **head, t_light *light)
+t_bool    light_prepend(t_light **head, t_light *light)
 {
     if (!light)
-        return (false);
+        return (FALSE);
     light->next = *head;
-    return (true);
+    return (TRUE);
 }

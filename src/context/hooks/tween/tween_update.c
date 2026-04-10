@@ -14,13 +14,13 @@
 
 void	tween_update(t_context *ctx, const float t)
 {
-	bool	trans_done;
-	bool	rot_done;
+	t_bool trans_done;
+	t_bool rot_done;
 
 	trans_done = !ctx->tw_trans.curr
 		|| ctx->tw_trans.update(&ctx->tw_trans, t);
 	rot_done = !ctx->tw_rotate.curr
 		|| ctx->tw_rotate.update(&ctx->tw_rotate, t);
 	if (trans_done && rot_done)
-		ctx->dirty = false;
+		ctx->dirty = FALSE;
 }

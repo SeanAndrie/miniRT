@@ -25,27 +25,27 @@ static t_tile_dim calculate_tile_dims(const int width, const int height)
     return (dim);
 }
 
-bool    frame_init(t_frame *frame, const int width, const int height)
+t_bool frame_init(t_frame *frame, const int width, const int height)
 {
     int     ndim;
     size_t  *shape;
 
     if (!frame)
-        return (false);
+        return (FALSE);
     ndim = 3;
     shape = (size_t[]){height, width, 3};
     frame->buffer = tensr_full(0.0, ndim, shape, DT_F32);
     if (!frame->buffer)
-        return (false);
+        return (FALSE);
     frame->clamped = tensr_full(0.0, ndim, shape, DT_F32);
     if (!frame->clamped)
-        return (frame_free(frame), false);
+        return (frame_free(frame), FALSE);
     frame->scaled = tensr_full(0.0, ndim, shape, DT_F32);
     if (!frame->scaled)
-        return (frame_free(frame), false);
+        return (frame_free(frame), FALSE);
     frame->out = tensr_full(0, ndim, shape, DT_U8);
     if (!frame->out)
-        return (frame_free(frame), false);
+        return (frame_free(frame), FALSE);
     frame->tile_dim = calculate_tile_dims(width, height);
-    return (true);
+    return (TRUE);
 }

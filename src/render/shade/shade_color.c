@@ -20,7 +20,7 @@ void	color_fill(float *ptr, t_vec3 rgb)
 	ptr[2] = rgb.z;
 }
 
-static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
+static t_bool in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
 {
 	size_t		i;
 	float		hit_t;
@@ -39,11 +39,11 @@ static bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
 		{
 			hit_t = isect_obj(&shadow_ray, &hit->loc, curr);
 			if (hit_t > 1e-4f && hit_t < light_dist)
-				return (true);
+				return (TRUE);
 		}
 		i++;
 	}
-	return (false);
+	return (FALSE);
 }
 
 t_vec3  shade_color(t_scene *scene, t_hit *hit)

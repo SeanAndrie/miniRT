@@ -13,7 +13,7 @@
 #include <core/context.h>
 #include <math.h>
 
-static void	modify_property(float *v_ptr, bool extend)
+static void	modify_property(float *v_ptr, t_bool extend)
 {
 	if (extend)
 	{

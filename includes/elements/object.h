@@ -6,15 +6,15 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 14:49:47 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/05 16:19:24 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/10 23:08:26 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECT_H
 # define OBJECT_H
 
-# include <libtensr_rt.h>
-# include <stdbool.h>
+# include <libft.h>
+# include <libvec3.h>
 
 /*---------------------------------------------------------------------*/
 /*                      1. SCENE OBJECTS                               */
@@ -97,13 +97,11 @@ void					obj_cylinder(t_object *obj, t_cylinder *params);
 void					obj_cone(t_object *obj, t_cone *params);
 
 t_object				*obj_alloc(t_type obj_type);
-bool	                obj_view(t_array *arr, t_object *head);
+t_bool	                obj_view(t_array *arr, t_object *head);
 
 size_t					obj_len(t_object *head);
-bool					obj_append(t_object **head, t_object *obj);
-bool					obj_prepend(t_object **head, t_object *obj);
+t_bool					obj_append(t_object **head, t_object *obj);
+t_bool					obj_prepend(t_object **head, t_object *obj);
 void					obj_free(t_object **head);
-
-
 
 #endif

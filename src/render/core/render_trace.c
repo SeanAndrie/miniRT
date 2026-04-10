@@ -39,18 +39,18 @@ static void	assign_normal(t_hit *hit)
 		hit->normal = normal_cone(hit, &hit->obj->data.cone);
 }
 
-static bool	fill_hit(t_ray ray, t_hit *hit)
+static t_bool fill_hit(t_ray ray, t_hit *hit)
 {
 	if (!hit->obj)
-		return (false);
+		return (FALSE);
 	hit->ray = ray;
 	hit->point = ray_at(hit->ray, hit->t);
 	assign_normal(hit);
 	assign_rgb(hit);
-	return (true);
+	return (TRUE);
 }
 
-bool	render_trace(t_ray ray, t_hit *hit, t_scene *scene)
+t_bool render_trace(t_ray ray, t_hit *hit, t_scene *scene)
 {
 	size_t		i;
 	t_array		*arr;

@@ -54,14 +54,14 @@ typedef struct s_camera
 	struct s_vec3		point;
 	struct s_basis		basis;
 	struct s_coord		coords;
-    bool                allocd;
+	enum e_bool			allocd;
 }						t_camera;
 
 typedef struct s_ambient
 {
 	float				ratio;
 	struct s_vec3		rgb;
-    bool                allocd;
+	enum e_bool			allocd;
 }						t_ambient;
 
 typedef struct s_light
@@ -86,13 +86,13 @@ t_scene					*scene_init(const char *fname, const char *ext);
 void					scene_info(t_scene *scene);
 void					scene_free(t_scene *scene);
 
-bool					camera_init(t_camera *cam, const int width,
+t_bool					camera_init(t_camera *cam, const int width,
 							const int height, const float aspect);
-bool					camera_basis(t_camera *cam);
-bool					camera_rdir(t_camera *cam);
-bool					rdir_init(t_rdir *in, const int width,
+t_bool					camera_basis(t_camera *cam);
+t_bool					camera_rdir(t_camera *cam);
+t_bool					rdir_init(t_rdir *in, const int width,
 							const int height);
-bool					camera_coords(t_camera *cam, const int width,
+t_bool					camera_coords(t_camera *cam, const int width,
 							const int height, const float aspect);
 
 void					camera_free(t_camera *cam);
@@ -100,9 +100,9 @@ void					rdir_free(t_rdir *in);
 void					basis_free(t_basis *basis);
 void					coords_free(t_coord *coords);
 
-bool					light_view(t_array *arr, t_light *head);
-bool					light_append(t_light **head, t_light *light);
-bool					light_prepend(t_light **head, t_light *light);
+t_bool					light_view(t_array *arr, t_light *head);
+t_bool					light_append(t_light **head, t_light *light);
+t_bool					light_prepend(t_light **head, t_light *light);
 size_t					light_len(t_light *head);
 void					light_free(t_light **head);
 

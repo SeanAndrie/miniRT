@@ -12,20 +12,20 @@
 
 #include <elements/object.h>
 
-bool	obj_append(t_object **head, t_object *obj)
+t_bool obj_append(t_object **head, t_object *obj)
 {
 	t_object	*last;
 
 	if (!obj)
-		return (false);
+		return (FALSE);
 	if (!*head)
 	{
 		*head = obj;
-		return (true);
+		return (TRUE);
 	}
 	last = *head;
 	while (last->next)
 		last = last->next;
 	last->next = obj;
-	return (true);
+	return (TRUE);
 }

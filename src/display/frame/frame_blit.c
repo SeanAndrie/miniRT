@@ -45,19 +45,19 @@ static void	tensr_blit(t_tensr *src, t_image *img)
 	}
 }
 
-bool	frame_blit(t_display *disp)
+t_bool frame_blit(t_display *disp)
 {
     t_frame *frame;
 
     if (!disp)
-        return (false);
+        return (FALSE);
     frame = &disp->frame;
     if (!tensr_clamp(frame->buffer, 0.0, 1.0, frame->clamped))
-        return (false);
+        return (FALSE);
     if (!tensr_scale(frame->clamped, 255.0, frame->scaled))
-        return (frame_free(&disp->frame), false);
+        return (frame_free(&disp->frame), FALSE);
     if (!tensr_cast(frame->scaled, DT_U8, frame->out))
-        return (frame_free(&disp->frame), false);
+        return (frame_free(&disp->frame), FALSE);
     tensr_blit(frame->out, &disp->image);
-	return (true);
+	return (TRUE);
 }

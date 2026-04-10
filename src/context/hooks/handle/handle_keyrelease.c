@@ -16,7 +16,7 @@ int handle_keyrelease(int key_code, t_context *ctx)
 {
     if (key_code == XK_SHIFT_L)
     {
-        ctx->extend = false;
+        ctx->extend = FALSE;
         ctx->tw_rotate.curr = NULL;
     }
     return (0);

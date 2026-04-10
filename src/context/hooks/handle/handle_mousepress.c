@@ -77,7 +77,7 @@ int	handle_mousepress(int button, int x, int y, t_context *ctx)
 		ctx->s_lgt = NULL;
 		ctx->tw_rotate.curr = NULL;
 		ctx->tw_trans = tween_translation(&ctx->scene->cam.point);
-		ctx->property = false;
+		ctx->property = FALSE;
 	}
 	if (button == MOUSE_LEFT)
 	{
@@ -85,6 +85,6 @@ int	handle_mousepress(int button, int x, int y, t_context *ctx)
 		object_select(x, y, ctx);
 	}
 	if (ctx->show_ui)
-		ctx->dirty = true;
+		ctx->dirty = TRUE;
 	return (0);
 }

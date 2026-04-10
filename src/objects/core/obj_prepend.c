@@ -12,10 +12,10 @@
 
 #include <elements/object.h>
 
-bool	obj_prepend(t_object **head, t_object *obj)
+t_bool obj_prepend(t_object **head, t_object *obj)
 {
 	if (!obj)
-		return (false);
+		return (FALSE);
 	obj->next = *head;
-	return (true);
+	return (TRUE);
 }

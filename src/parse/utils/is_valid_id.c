@@ -12,12 +12,12 @@
 
 #include <setup/parse.h>
 
-bool	is_valid_id(const char *id)
+t_bool is_valid_id(const char *id)
 {
 	if (*id == ' ' || *id == 'A' || *id == 'C' || *id == 'L')
-		return (true);
+		return (TRUE);
 	if (ft_strcmp(id, "sp") == 0 || ft_strcmp(id, "pl") == 0 || ft_strcmp(id,
 			"cy") == 0 || ft_strcmp(id, "co") == 0)
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
 }

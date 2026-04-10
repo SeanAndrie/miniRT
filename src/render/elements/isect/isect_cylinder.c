@@ -55,14 +55,14 @@ static void	isect_cylinder_caps(t_ray *ray, t_surface *hit_loc, t_cylinder *cy,
 	}
 }
 
-static bool	is_between_caps(float l_ax, float d_ax, float half_h, float t)
+static t_bool is_between_caps(float l_ax, float d_ax, float half_h, float t)
 {
 	float	h;
 
 	h = l_ax + d_ax * t;
 	if (h >= -half_h && h <= half_h)
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
 }
 
 static float	solve_quadratic(t_vec3 quad, float l_ax, float d_ax,

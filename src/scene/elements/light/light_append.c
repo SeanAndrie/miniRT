@@ -11,23 +11,23 @@
 /* ************************************************************************** */
 
 #include <libft.h>
-#include <libtensr_rt.h>
+#include <libvec3.h>
 #include <elements/scene.h>
 
-bool    light_append(t_light **head, t_light *light)
+t_bool light_append(t_light **head, t_light *light)
 {
     t_light *last;
 
     if (!light)
-        return (false);
+        return (FALSE);
     if (!*head)
     {
         *head = light;
-        return (true);
+        return (TRUE);
     }
     last = *head;
     while (last->next)
         last = last->next;
     last->next = light;
-    return (true);
+    return (TRUE);
 }

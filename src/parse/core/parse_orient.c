@@ -10,20 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtensr_rt.h>
+#include <libvec3.h>
 #include <math.h>
 #include <setup/parse.h>
 
-bool	parse_orient(const char *nptr, t_vec3 *vec)
+t_bool parse_orient(const char *nptr, t_vec3 *vec)
 {
 	t_vec3	temp;
 
 	if (!nptr || !vec)
-		return (false);
+		return (FALSE);
 	if (!parse_vector(nptr, -INFINITY, INFINITY, &temp))
-		return (false);
+		return (FALSE);
 	if (vec3_dot(temp, temp) < 1e-6f)
-		return (false);
+		return (FALSE);
 	*vec = vec3_normalize(temp);
-	return (true);
+	return (TRUE);
 }

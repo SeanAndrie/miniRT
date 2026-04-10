@@ -16,7 +16,7 @@
 #include <setup/parse.h>
 #include <elements/scene.h>
 
-static bool	has_valid_extension(const char *fname, const char *fext)
+static t_bool has_valid_extension(const char *fname, const char *fext)
 {
 	char	*dot;
 
@@ -24,22 +24,22 @@ static bool	has_valid_extension(const char *fname, const char *fext)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n");
 		log_error(ERR_WARNING, ERR_BASE, "missing file extension.\n");
-		return (false);
+		return (FALSE);
 	}
 	dot = ft_strrchr(fname, '.');
 	if (!dot || dot == fname)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n");
 		log_error(ERR_WARNING, ERR_BASE, ERR_MISSING_EXT, fname, fext);
-		return (false);
+		return (FALSE);
 	}
 	if (ft_strcmp(dot, fext) != 0)
 	{
 		ft_dprintf(STDERR_FILENO, "Error\n");
 		log_error(ERR_WARNING, ERR_BASE, ERR_INVALID_EXT, fname, dot, fext);
-		return (false);
+		return (FALSE);
 	}
-	return (true);
+	return (TRUE);
 }
 
 static int	read_file(const char *fname, const char *fext)
@@ -66,7 +66,7 @@ static int	read_file(const char *fname, const char *fext)
 		log_error(ERR_WARNING, ERR_BASE, "%s: no such file found\n", fname);
 	}
 	if (!has_valid_extension(fname, fext))
-		return (false);
+		return (FALSE);
 	return (fd);
 }
 
@@ -74,7 +74,7 @@ t_scene	*scene_init(const char *fname, const char *fext)
 {
 	int		fd;
 	t_scene	*scene;
-	bool	success;
+	t_bool success;
 
 	if (!fname || !fext)
 		return (NULL);

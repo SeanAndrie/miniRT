@@ -13,17 +13,17 @@
 #include <core/render.h>
 #include <float.h>
 #include <libft.h>
-#include <libtensr_rt.h>
+#include <libvec3.h>
 #include <math.h>
 
-static bool	is_inside_cone(float l_ax, float d_ax, float height, float t)
+static t_bool is_inside_cone(float l_ax, float d_ax, float height, float t)
 {
 	float	h;
 
 	h = l_ax + d_ax * t;
 	if (h >= 0.0f && h <= height)
-		return (true);
-	return (false);
+		return (TRUE);
+	return (FALSE);
 }
 
 static float	isect_disk(t_ray *ray, t_plane pl, float radius)

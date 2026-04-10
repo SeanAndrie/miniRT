@@ -18,9 +18,9 @@ void	context_reset(t_context *ctx)
 		return ;
 	ctx->s_obj = NULL;
 	ctx->s_lgt = NULL;
-	ctx->extend = false;
-	ctx->property = false;
-	ctx->dirty = true;
+	ctx->extend = FALSE;
+	ctx->property = FALSE;
+	ctx->dirty = TRUE;
 	ctx->tw_trans = tween_translation(&ctx->scene->cam.point);
 	ctx->tw_rotate.target = ctx->scene->cam.basis.forward;
 	ctx->tw_rotate.curr = NULL;

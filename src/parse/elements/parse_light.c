@@ -13,26 +13,26 @@
 #include <elements/scene.h>
 #include <setup/parse.h>
 
-bool	parse_light(char *line, const size_t n_params, t_scene *scene)
+t_bool parse_light(char *line, const size_t n_params, t_scene *scene)
 {
 	t_light	*light;
 	char	**params;
 
 	if (!line || !scene || n_params == 0)
-		return (false);
+		return (FALSE);
 	light = malloc(sizeof(t_light));
 	if (!light)
-		return (false);
+		return (FALSE);
 	params = parse_data(line, n_params);
 	if (!params)
-		return (free(light), false);
+		return (free(light), FALSE);
 	light->next = NULL;
 	if (!parse_vector(params[0], -INFINITY, INFINITY, &light->point))
-		return (tok_free(params, n_params), free(light), false);
+		return (tok_free(params, n_params), free(light), FALSE);
 	if (!parse_scalar(params[1], 0.0f, 1.0f, &light->ratio))
-		return (tok_free(params, n_params), free(light), false);
+		return (tok_free(params, n_params), free(light), FALSE);
 	if (!parse_vector(params[2], 0.0f, 255.0f, &light->rgb))
-		return (tok_free(params, n_params), free(light), false);
+		return (tok_free(params, n_params), free(light), FALSE);
 	tok_free(params, n_params);
 	return (light_append(&scene->lights, light));
 }

@@ -33,64 +33,64 @@ static void	dispatch_error(const char *id)
 		ft_dprintf(STDERR_FILENO, "cone");
 }
 
-static bool	parse_dispatch(char *line, const char *id, t_scene *scene)
+static t_bool parse_dispatch(char *line, const char *id, t_scene *scene)
 {
 	if (!line || !id || !scene)
-		return (false);
+		return (FALSE);
 	if (*id != ' ' && !is_valid_id(id))
 	{
 		ft_dprintf(STDERR_FILENO, "invalid identifier '%s'", id);
-		return (false);
+		return (FALSE);
 	}
 	if (*id == 'A' && !parse_ambient(++line, 2, scene))
-		return (dispatch_error(id), false);
+		return (dispatch_error(id), FALSE);
 	else if (*id == 'C' && !parse_camera(++line, 3, scene))
-		return (dispatch_error(id), false);
+		return (dispatch_error(id), FALSE);
 	else if (*id == 'L' && !parse_light(++line, 3, scene))
-		return (dispatch_error(id), false);
+		return (dispatch_error(id), FALSE);
 	else if (ft_strcmp(id, "sp") == 0 && !parse_sphere(++line, 3, scene))
-		return (dispatch_error(id), false);
+		return (dispatch_error(id), FALSE);
 	else if (ft_strcmp(id, "pl") == 0 && !parse_plane(++line, 3, scene))
-		return (dispatch_error(id), false);
+		return (dispatch_error(id), FALSE);
 	else if (ft_strcmp(id, "cy") == 0 && !parse_cylinder(++line, 5, scene))
-		return (dispatch_error(id), false);
+		return (dispatch_error(id), FALSE);
 	else if (ft_strcmp(id, "co") == 0 && !parse_cone(++line, 5, scene))
-		return (dispatch_error(id), false);
-	return (true);
+		return (dispatch_error(id), FALSE);
+	return (TRUE);
 }
 
-static bool	parse_line(char *line, t_scene *scene)
+static t_bool parse_line(char *line, t_scene *scene)
 {
 	char	*id;
 	char	*end;
-	bool	result;
+	t_bool result;
 
 	if (!line || !scene)
-		return (false);
+		return (FALSE);
 	while (*line && ft_isspace(*line))
 		line++;
 	if (*line == '\0' || *line == '/' || *line == '#')
-		return (true);
+		return (TRUE);
 	end = line;
 	while (*end && ft_isalpha(*end))
 		end++;
 	id = ft_substr(line, 0, (end - line));
 	if (!id)
-		return (false);
+		return (FALSE);
 	result = parse_dispatch(line, id, scene);
 	free(id);
 	return (result);
 }
 
-bool	parse_scene(int fd, t_scene *scene)
+t_bool parse_scene(int fd, t_scene *scene)
 {
 	char	*line;
 	int		line_no;
 
 	if (fd < 0 || !scene)
-		return (false);
+		return (FALSE);
 	line_no = 0;
-	while (true)
+	while (TRUE)
 	{
 		line_no++;
 		line = get_next_line(fd);
@@ -101,10 +101,10 @@ bool	parse_scene(int fd, t_scene *scene)
 			free(line);
 			close(fd);
 			ft_dprintf(STDERR_FILENO, " | line no. %d\n", line_no);
-			return (false);
+			return (FALSE);
 		}
 		free(line);
 	}
 	close(fd);
-	return (true);
+	return (TRUE);
 }

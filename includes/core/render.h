@@ -6,20 +6,16 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 23:12:45 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/08 02:40:21 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/10 23:04:17 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_H
 # define RENDER_H
 
-# define MULTITHREADED true
-# define N_THREADS 8
-# define SPECULAR_SHINE 45.0f
-
 # include <pthread.h>
+# include <libvec3.h>
 # include <semaphore.h>
-# include <libtensr_rt.h>
 # include <setup/display.h>
 # include <elements/scene.h>
 
@@ -84,11 +80,11 @@ typedef struct s_pool
 	size_t			worker_tiles;
 }					t_pool;
 
-bool				render(t_display *disp, t_scene *scene);
-bool				render_threaded(t_pool *pool, t_display *disp,
+t_bool				render(t_display *disp, t_scene *scene);
+t_bool				render_threaded(t_pool *pool, t_display *disp,
 						t_scene *scene);
-bool				render_init(t_pool *pool, t_display *disp, t_scene *scene);
-bool				render_trace(t_ray ray, t_hit *hit, t_scene *scene);
+t_bool				render_init(t_pool *pool, t_display *disp, t_scene *scene);
+t_bool				render_trace(t_ray ray, t_hit *hit, t_scene *scene);
 
 float				isect_obj(t_ray *ray, t_surface *hit_loc, t_object *obj);
 float				isect_plane(t_ray *ray, t_plane *pl);
@@ -116,13 +112,13 @@ t_vec3				shade_specular(t_scene *scene, t_light *light, t_hit *hit,
 						t_vec3 L_hat);
 void				color_fill(float *ptr, t_vec3 rgb);
 
-bool				tile_create(t_tile *tile, t_tensr *buffer, t_tensr *rdir,
+t_bool				tile_create(t_tile *tile, t_tensr *buffer, t_tensr *rdir,
 						t_tile_map *tm);
 void				tile_free(t_tile *tile, size_t n);
 
-bool				pool_init(t_pool *pool, t_display *disp, t_scene *scene);
-bool				pool_run(t_pool *pool);
-bool				pool_join(t_pool *pool);
+t_bool				pool_init(t_pool *pool, t_display *disp, t_scene *scene);
+t_bool				pool_run(t_pool *pool);
+t_bool				pool_join(t_pool *pool);
 void				pool_free(t_pool *pool);
 
 #endif

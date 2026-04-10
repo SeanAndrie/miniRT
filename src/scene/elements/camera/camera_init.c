@@ -12,16 +12,16 @@
 
 #include <elements/scene.h>
 
-bool	camera_init(t_camera *cam, const int width, const int height,
+t_bool camera_init(t_camera *cam, const int width, const int height,
 		const float aspect)
 {
 	if (!cam)
-		return (false);
+		return (FALSE);
 	if (!camera_basis(cam))
-		return (false);
+		return (FALSE);
 	if (!camera_coords(cam, width, height, aspect))
-		return (false);
+		return (FALSE);
 	if (!rdir_init(&cam->rdir, width, height))
-		return (false);
-	return (true);
+		return (FALSE);
+	return (TRUE);
 }

@@ -12,7 +12,7 @@
 
 #include <core/render.h>
 
-static bool	render_tile(t_tile *tile, t_scene *scene)
+static t_bool render_tile(t_tile *tile, t_scene *scene)
 {
 	int		x;
 	int		y;
@@ -21,7 +21,7 @@ static bool	render_tile(t_tile *tile, t_scene *scene)
 	float	*ptr;
 
 	if (!tile || !tile->buffer || !tile->rdir || !scene)
-		return (false);
+		return (FALSE);
 	y = -1;
 	while (++y < tile->height)
 	{
@@ -37,7 +37,7 @@ static bool	render_tile(t_tile *tile, t_scene *scene)
 				color_fill(ptr, (t_vec3){0, 0, 0});
 		}
 	}
-	return (true);
+	return (TRUE);
 }
 
 static void	*worker_run(void *arg)
@@ -58,19 +58,19 @@ static void	*worker_run(void *arg)
 	return (NULL);
 }
 
-bool	pool_run(t_pool *pool)
+t_bool pool_run(t_pool *pool)
 {
 	size_t	i;
 
 	if (!pool || !pool->workers)
-		return (false);
+		return (FALSE);
 	i = 0;
 	while (i < pool->n_workers)
 	{
 		if (pthread_create(&pool->workers[i]->thread, NULL, worker_run,
 				pool->workers[i]) != 0)
-			return (false);
+			return (FALSE);
 		i++;
 	}
-	return (true);
+	return (TRUE);
 }

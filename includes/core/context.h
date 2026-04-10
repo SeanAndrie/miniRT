@@ -6,27 +6,16 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:59 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/08 03:43:31 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/10 23:04:21 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTEXT_H
 # define CONTEXT_H
 
-# include <core/render.h>
-# include <elements/scene.h>
+# include <config.h>
 # include <pthread.h>
-# include <setup/display.h>
-
-# define SCENE_FILE_EXT ".rt"
-
-# define TEXT_COLOR 0xFFFFFF
-# define LINE_HEIGHT 20
-
-# define TRANS_SPEED 1.0f
-# define ROTATE_ANGLE 0.1f
-# define PROP_INCREMENT 0.5f
-# define TWEEN_FACTOR 0.2f
+# include <core/render.h>
 
 // Close App
 # define XK_ESC 0xff1b
@@ -73,13 +62,13 @@
 # define XK_SHIFT_L 0xffe1
 
 // Toggle UI
-#define XK_U 0x0075
+# define XK_U 0x0075
 
 typedef struct s_tween
 {
-	t_vec3				*curr;
-	t_vec3				target;
-	bool				(*update)(struct s_tween *tw, float t);
+	struct s_vec3		*curr;
+	struct s_vec3		target;
+	enum e_bool			(*update)(struct s_tween *tw, float t);
 }						t_tween;
 
 typedef struct s_context
@@ -91,15 +80,15 @@ typedef struct s_context
 	struct s_light		*s_lgt;
 	char				*fname;
 	size_t				next_i;
-	bool				dirty;
-	bool				extend;
-	bool				property;
-    bool                show_ui;
+	enum e_bool			dirty;
+	enum e_bool			extend;
+	enum e_bool			property;
+	enum e_bool			show_ui;
 	struct s_tween		tw_trans;
 	struct s_tween		tw_rotate;
 }						t_context;
 
-bool					context_init(t_context *ctx, char *fname);
+t_bool					context_init(t_context *ctx, char *fname);
 int						context_loop(t_context *ctx);
 void					context_hooks(t_context *ctx);
 void					context_reset(t_context *ctx);
@@ -117,12 +106,12 @@ void					dispatch_property(int key_code, t_context *ctx);
 int						close_app(t_context *ctx);
 void					reset_app(t_context *ctx);
 
-bool					movement_keys(int key_code);
-bool					property_keys(int key_code);
+t_bool					movement_keys(int key_code);
+t_bool					property_keys(int key_code);
 
 void					tween_update(t_context *ctx, const float t);
-bool					tween_slerp_update(t_tween *tw, float t);
-bool					tween_lerp_update(t_tween *tw, float t);
+t_bool					tween_slerp_update(t_tween *tw, float t);
+t_bool					tween_lerp_update(t_tween *tw, float t);
 t_tween					tween_rotation(t_vec3 *pos);
 t_tween					tween_translation(t_vec3 *pos);
 

@@ -29,7 +29,7 @@ static inline void	update_basis(t_basis *basis)
 	ft_memcpy(basis->up_t->data, &basis->up, sizeof(t_vec3));
 }
 
-static bool	render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
+static t_bool render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
 {
 	int		x;
 	int		y;
@@ -38,7 +38,7 @@ static bool	render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
 	float	*ptr;
 
 	if (!tile_create(&tile, frame->buffer, scene->cam.rdir.out, tm))
-		return (false);
+		return (FALSE);
 	y = -1;
 	while (++y < tm->actual_h)
 	{
@@ -54,16 +54,16 @@ static bool	render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
 				color_fill(ptr, (t_vec3){0, 0, 0});
 		}
 	}
-	return (tile_free(&tile, 1), true);
+	return (tile_free(&tile, 1), TRUE);
 }
 
-bool	render(t_display *disp, t_scene *scene)
+t_bool render(t_display *disp, t_scene *scene)
 {
 	t_tile_map	tm;
 
 	update_basis(&scene->cam.basis);
 	if (!camera_rdir(&scene->cam))
-		return (false);
+		return (FALSE);
 	tm.ty = 0;
 	while (tm.ty < disp->height)
 	{
@@ -73,29 +73,29 @@ bool	render(t_display *disp, t_scene *scene)
 			tm.actual_w = ft_min(disp->frame.tile_dim.width, disp->width - tm.tx);
 			tm.actual_h = ft_min(disp->frame.tile_dim.height, disp->height - tm.ty);
 			if (!render_tile(&disp->frame, scene, &tm))
-				return (false);
+				return (FALSE);
 			tm.tx += disp->frame.tile_dim.width;
 		}
 		tm.ty += disp->frame.tile_dim.height;
 	}
 	if (!frame_blit(disp))
-		return (false);
+		return (FALSE);
 	mlx_put_image_to_window(disp->conn, disp->window, disp->image.image, 0, 0);
-	return (true);
+	return (TRUE);
 }
 
-bool	render_threaded(t_pool *pool, t_display *disp, t_scene *scene)
+t_bool render_threaded(t_pool *pool, t_display *disp, t_scene *scene)
 {
 	if (!pool || !disp || !scene)
-		return (false);
+		return (FALSE);
 	update_basis(&scene->cam.basis);
 	if (!camera_rdir(&scene->cam))
-		return (false);
+		return (FALSE);
 	if (!pool_run(pool))
-		return (false);
+		return (FALSE);
 	pool_join(pool);
 	if (!frame_blit(disp))
-		return (false);
+		return (FALSE);
 	mlx_put_image_to_window(disp->conn, disp->window, disp->image.image, 0, 0);
-	return (true);
+	return (TRUE);
 }

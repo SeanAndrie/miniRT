@@ -13,18 +13,18 @@
 #include <errno.h>
 #include <setup/parse.h>
 
-bool    parse_scalar(const char *nptr, float min, float max, float *n)
+t_bool parse_scalar(const char *nptr, float min, float max, float *n)
 {
     float   v;
     char    *endptr;
 
     if (!nptr || !*nptr)
-        return (false);
+        return (FALSE);
     v = ft_strtof(nptr, &endptr);
     if (*endptr != '\0' || errno == ERANGE)
-        return (false);
+        return (FALSE);
     if (!scalar_in_range(v, min, max))
-        return (false);
+        return (FALSE);
     *n = v;
-    return (true);
+    return (TRUE);
 }

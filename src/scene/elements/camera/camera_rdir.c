@@ -12,13 +12,13 @@
 
 #include <elements/scene.h>
 
-bool	rdir_init(t_rdir *in, const int width, const int height)
+t_bool rdir_init(t_rdir *in, const int width, const int height)
 {
 	int		ndim;
 	size_t	*shape;
 
 	if (!in)
-		return (false);
+		return (FALSE);
 	ndim = 3;
 	shape = (size_t[]){height, width, 3};
 	in->right_s = tensr_full(0.0, ndim, shape, DT_F32);
@@ -29,30 +29,30 @@ bool	rdir_init(t_rdir *in, const int width, const int height)
 	if (!in->out || !in->dir || !in->sum_s || !in->up_s || !in->right_s)
 	{
 		rdir_free(in);
-		return (false);
+		return (FALSE);
 	}
-	return (true);
+	return (TRUE);
 }
 
-bool	camera_rdir(t_camera *cam)
+t_bool camera_rdir(t_camera *cam)
 {
 	t_rdir	*rdir;
 	t_basis	*basis;
 	t_coord	*coords;
 
 	if (!cam)
-		return (false);
+		return (FALSE);
 	rdir = &cam->rdir;
 	basis = &cam->basis;
 	coords = &cam->coords;
 	if (!tensr_mul(basis->right_t, coords->u_range, rdir->right_s))
-		return (false);
+		return (FALSE);
 	if (!tensr_mul(basis->up_t, coords->v_range, rdir->up_s))
-		return (rdir_free(rdir), false);
+		return (rdir_free(rdir), FALSE);
 	if (!tensr_add(rdir->right_s, rdir->up_s, rdir->sum_s))
-		return (rdir_free(rdir), false);
+		return (rdir_free(rdir), FALSE);
 	if (!tensr_add(basis->forward_t, rdir->sum_s, rdir->dir))
-		return (rdir_free(rdir), false);
+		return (rdir_free(rdir), FALSE);
 	tensr_normalize(rdir->dir, rdir->out);
 	return (rdir->out != NULL);
 }

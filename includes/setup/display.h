@@ -6,20 +6,15 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 15:29:14 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/08 02:33:48 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/10 23:03:09 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# define N_TILES 128
-
-# define TITLE "miniRT"
-# define W 800
-# define H 600
-
 # include <libtensr.h>
+# include <config.h>
 # include <mlx.h>
 
 typedef struct s_tile_dim
@@ -62,9 +57,9 @@ typedef struct s_display
 
 t_display				*display_init(const int width, const int height);
 void					display_free(t_display *disp);
-bool					frame_init(t_frame *frame, const int width,
+t_bool					frame_init(t_frame *frame, const int width,
 							const int height);
-bool				    frame_blit(t_display *disp);
+t_bool				    frame_blit(t_display *disp);
 void					frame_free(t_frame *frame);
 
 #endif

@@ -12,13 +12,13 @@
 
 #include <core/render.h>
 
-static bool	create_tiles(t_tile *tiles, t_display *disp, t_tensr *rdir)
+static t_bool create_tiles(t_tile *tiles, t_display *disp, t_tensr *rdir)
 {
 	size_t		i;
 	t_tile_map	tm;
 
 	if (!tiles || !disp || !rdir)
-		return (false);
+		return (FALSE);
 	i = 0;
 	tm.ty = 0;
 	while (tm.ty < disp->height)
@@ -31,21 +31,21 @@ static bool	create_tiles(t_tile *tiles, t_display *disp, t_tensr *rdir)
 			tm.actual_h = ft_min(disp->frame.tile_dim.height, disp->height
 					- tm.ty);
 			if (!tile_create(&tiles[i++], disp->frame.buffer, rdir, &tm))
-				return (tile_free(tiles, i), false);
+				return (tile_free(tiles, i), FALSE);
 			tm.tx += disp->frame.tile_dim.width;
 		}
 		tm.ty += disp->frame.tile_dim.height;
 	}
-	return (true);
+	return (TRUE);
 }
 
-static bool	create_workers(t_pool *pool, t_scene *scene)
+static t_bool create_workers(t_pool *pool, t_scene *scene)
 {
 	size_t		i;
 	t_worker	*block;
 
 	if (!pool || !scene)
-		return (false);
+		return (FALSE);
 	block = (t_worker *)((char *)pool->workers + (sizeof(t_worker *)
 				* pool->n_workers));
 	i = 0;
@@ -61,22 +61,22 @@ static bool	create_workers(t_pool *pool, t_scene *scene)
 			pool->workers[i]->end = (i + 1) * pool->worker_tiles;
 		i++;
 	}
-	return (true);
+	return (TRUE);
 }
 
-bool	pool_init(t_pool *pool, t_display *disp, t_scene *scene)
+t_bool pool_init(t_pool *pool, t_display *disp, t_scene *scene)
 {
 	if (!pool || !disp || !scene)
-		return (false);
+		return (FALSE);
 	pool->n_tiles = disp->frame.tile_dim.count;
 	pool->n_workers = N_THREADS;
 	pool->worker_tiles = pool->n_tiles / pool->n_workers;
 	pool->tiles = malloc(sizeof(t_tile) * pool->n_tiles);
 	if (!pool->tiles || !create_tiles(pool->tiles, disp, scene->cam.rdir.out))
-		return (false);
+		return (FALSE);
 	pool->workers = malloc((sizeof(t_worker *) * pool->n_workers)
 			+ (sizeof(t_worker) * pool->n_workers));
 	if (!pool->workers || !create_workers(pool, scene))
-		return (false);
-	return (true);
+		return (FALSE);
+	return (TRUE);
 }

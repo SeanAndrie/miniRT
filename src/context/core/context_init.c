@@ -14,28 +14,28 @@
 #include <elements/scene.h>
 #include <setup/display.h>
 
-bool	context_init(t_context *ctx, char *fname)
+t_bool context_init(t_context *ctx, char *fname)
 {
 	ctx->scene = scene_init(fname, SCENE_FILE_EXT);
 	if (!ctx->scene)
-		return (false);
+		return (FALSE);
 	ctx->fname = fname;
 	ctx->disp = display_init(W, H);
 	if (!ctx->disp)
 	{
 		scene_free(ctx->scene);
-		return (false);
+		return (FALSE);
 	}
 	ctx->next_i = 0;
 	ctx->s_obj = NULL;
 	ctx->s_lgt = NULL;
-	ctx->extend = false;
-	ctx->property = false;
-	ctx->dirty = true;
-    ctx->show_ui = false;
+	ctx->extend = FALSE;
+	ctx->property = FALSE;
+	ctx->dirty = TRUE;
+    ctx->show_ui = FALSE;
 	ctx->tw_trans = tween_translation(&ctx->scene->cam.point);
     ctx->tw_rotate.curr = NULL;
 	ctx->tw_rotate.target = ctx->scene->cam.basis.forward;
 	ctx->tw_rotate.update = tween_slerp_update;
-	return (true);
+	return (TRUE);
 }

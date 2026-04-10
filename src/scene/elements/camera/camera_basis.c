@@ -12,43 +12,43 @@
 
 #include <elements/scene.h>
 #include <float.h>
-#include <libtensr_rt.h>
+#include <libvec3.h>
 
-static bool	basis_alloc(t_basis *basis)
+static t_bool basis_alloc(t_basis *basis)
 {
 	int		ndim;
 	size_t	*shape;
 
 	if (!basis)
-		return (false);
+		return (FALSE);
 	ndim = 3;
 	shape = (size_t[]){1, 1, 3};
 	basis->forward_t = tensr_alloc(ndim, shape, DT_F32);
 	if (!basis->forward_t)
-		return (false);
+		return (FALSE);
 	basis->right_t = tensr_alloc(ndim, shape, DT_F32);
 	if (!basis->right_t)
 	{
 		tensr_free(basis->forward_t);
-		return (false);
+		return (FALSE);
 	}
 	basis->up_t = tensr_alloc(ndim, shape, DT_F32);
 	if (!basis->up_t)
 	{
 		tensr_free(basis->right_t);
 		tensr_free(basis->forward_t);
-		return (false);
+		return (FALSE);
 	}
-	return (true);
+	return (TRUE);
 }
 
-bool	camera_basis(t_camera *cam)
+t_bool camera_basis(t_camera *cam)
 {
 	t_basis	*basis;
 	t_vec3	world_up;
 
 	if (!cam)
-		return (false);
+		return (FALSE);
 	basis = &cam->basis;
 	world_up = (t_vec3){0, 1, 0};
 	if (fabsf(vec3_dot(basis->forward, world_up)) > 0.9999f)
@@ -58,6 +58,6 @@ bool	camera_basis(t_camera *cam)
 	basis->right = vec3_normalize(vec3_cross(world_up, basis->forward));
 	basis->up = vec3_normalize(vec3_cross(basis->forward, basis->right));
 	if (!basis_alloc(basis))
-		return (false);
-	return (true);
+		return (FALSE);
+	return (TRUE);
 }

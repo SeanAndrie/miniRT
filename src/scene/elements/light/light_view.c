@@ -13,17 +13,17 @@
 #include <libtensr.h>
 #include <elements/scene.h>
 
-bool	light_view(t_array *arr, t_light *head)
+t_bool light_view(t_array *arr, t_light *head)
 {
 	size_t	i;
 	t_light	*curr;
     
 	if (!arr || !head)
-		return (false);
+		return (FALSE);
 	arr->len = light_len(head);
 	arr->data = malloc(sizeof(t_light *) * arr->len);
 	if (!arr->data)
-		return (false);
+		return (FALSE);
 	i = 0;
 	curr = head;
 	while (curr && i < arr->len)
@@ -32,5 +32,5 @@ bool	light_view(t_array *arr, t_light *head)
 		curr = curr->next;
 	}
     arr->dtype = DT_CUSTOM;
-	return (true);
+	return (TRUE);
 }

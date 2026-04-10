@@ -12,7 +12,7 @@
 
 #include <core/context.h>
 
-bool	tween_lerp_update(t_tween *tw, float t)
+t_bool tween_lerp_update(t_tween *tw, float t)
 {
 	vec3_lerp_ip(tw->curr, tw->target, t);
 	return (vec3_equal_eps(*tw->curr, tw->target, 1e-4f));
