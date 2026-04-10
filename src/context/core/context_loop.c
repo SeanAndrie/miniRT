@@ -27,5 +27,6 @@ int	context_loop(t_context *ctx)
 		render(ctx->disp, ctx->scene);
 	if (ctx->show_ui)
 		interface_render(ctx, LINE_HEIGHT);
+	camera_basis(&ctx->scene->cam);
 	return (0);
 }
