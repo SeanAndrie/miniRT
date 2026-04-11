@@ -13,8 +13,8 @@
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# include <libtensr.h>
 # include <config.h>
+# include <libtensr.h>
 # include <mlx.h>
 
 typedef struct s_tile_dim
@@ -59,7 +59,7 @@ t_display				*display_init(const int width, const int height);
 void					display_free(t_display *disp);
 t_bool					frame_init(t_frame *frame, const int width,
 							const int height);
-t_bool				    frame_blit(t_display *disp);
+t_bool					frame_blit(t_display *disp);
 void					frame_free(t_frame *frame);
 
 #endif

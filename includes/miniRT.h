@@ -13,8 +13,8 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include <setup/parse.h>
 # include <core/context.h>
 # include <core/render.h>
+# include <setup/parse.h>
 
 #endif

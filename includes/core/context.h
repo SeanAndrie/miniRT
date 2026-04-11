@@ -14,8 +14,8 @@
 # define CONTEXT_H
 
 # include <config.h>
-# include <pthread.h>
 # include <core/render.h>
+# include <pthread.h>
 
 // Close App
 # define XK_ESC 0xff1b

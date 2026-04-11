@@ -20,13 +20,13 @@
 /*                      1. SCENE OBJECTS                               */
 /*---------------------------------------------------------------------*/
 
-typedef struct s_array t_array;
+typedef struct s_array	t_array;
 
 typedef struct s_options
 {
-    float               cb_scale;
-    float               reflectivity;
-}                       t_options;
+	float				cb_scale;
+	float				reflectivity;
+}						t_options;
 
 typedef struct s_sphere
 {
@@ -83,7 +83,7 @@ typedef struct s_object
 {
 	enum e_type			type;
 	union u_data		data;
-    struct s_options    opt;
+	struct s_options	opt;
 	struct s_object		*next;
 }						t_object;
 
@@ -97,7 +97,7 @@ void					obj_cylinder(t_object *obj, t_cylinder *params);
 void					obj_cone(t_object *obj, t_cone *params);
 
 t_object				*obj_alloc(t_type obj_type);
-t_bool	                obj_view(t_array *arr, t_object *head);
+t_bool					obj_view(t_array *arr, t_object *head);
 
 size_t					obj_len(t_object *head);
 t_bool					obj_append(t_object **head, t_object *obj);
