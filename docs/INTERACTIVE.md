@@ -6,7 +6,7 @@ miniRT provides real-time interactive controls for manipulating the scene. When 
 
 ## Keyboard Controls
 
-### Movement
+### Translation (Normal Mode)
 
 | Key | Action |
 |-----|-------|
@@ -14,78 +14,69 @@ miniRT provides real-time interactive controls for manipulating the scene. When 
 | `S` | Move backward |
 | `A` | Strafe left |
 | `D` | Strafe right |
-| `Space` | Move up |
-| `Ctrl` | Move down |
+| `Q` | Move up |
+| `E` | Move down |
 
-### Rotation
+### Rotation (Extend Mode)
 
-| Key | Action |
-|-----|-------|
-| `Q` | Rotate left (yaw) |
-| `E` | Rotate right (yaw) |
-
-Hold `Shift` for faster rotation.
-
-### Property Modes
-
-| Key | Mode |
-|-----|------|
-| `P` | Position mode |
-| `H` | Hue/color mode |
-| `T` | Transform mode |
-
-### Light Selection
+Hold `Shift` to enable rotation mode:
 
 | Key | Action |
 |-----|-------|
-| `L` | Cycle through lights |
-| `N` | Next light |
-| `Keypad +/-` | Adjust light intensity |
+| `W` / `S` | Pitch up/down (rotate around right axis) |
+| `A` / `D` | Roll left/right (rotate around up axis) |
+| `Q` / `E` | Yaw left/right (rotate around forward axis) |
+
+### Property Mode
+
+Press `P` to toggle property mode. In property mode, the following keys modify the selected object's properties:
+
+| Key | Action |
+|-----|-------|
+| `R` | Modify object-specific property |
+| `H` | Modify object-specific property |
+| `T` | Modify object-specific property |
+
+The R, H, T keys behave differently based on the selected object type:
+
+| Object | R key | H key | T key |
+|--------|-------|-------|-------|
+| Sphere | Modify radius | - | - |
+| Cylinder | Modify radius | Modify height | - |
+| Cone | - | Modify height | Modify theta |
 
 ### Other Controls
 
 | Key | Action |
 |-----|-------|
-| `R` | Reset scene to initial state |
+| `P` | Toggle property mode |
+| `Shift+L` | Cycle through lights |
 | `U` | Toggle UI overlay |
+| `R` | Reset scene to initial state |
 | `ESC` | Exit application |
+
+**Note**: When not in property mode, `R` resets the scene.
 
 ## Mouse Controls
 
 | Button | Action |
-|--------|-------|
+|--------|--------|
 | Left Click | Select object at cursor |
-| Right Click | Context menu |
-| Scroll Up | Zoom in |
-| Scroll Down | Zoom out |
+| Right Click | Deselect and select camera |
 
-## Property Modes
+## Modes
 
-### Position Mode (P)
+### Normal Mode (Default)
 
-Manipulate object position in 3D space using movement keys.
+Translation controls move the selected object (or camera if no object selected) using WASD+QE keys.
 
-### Hue Mode (H)
+### Extend Mode (Shift Held)
 
-Adjust object color. Current color is shown in UI.
+When Shift is held, WASD+QE keys rotate the selected object or camera using Rodrigues' rotation formula around the camera's basis vectors.
 
-### Transform Mode (T)
+### Property Mode (P Toggled)
 
-Apply transformation matrix (rotation/scale).
-
-## UI Overlay
-
-Press `U` to toggle an on-screen display:
-
-```
-+------------------------------------------+
-|  FILE: 01_mandatory_basic.rt         |
-|  OBJECTS: 3                      |
-|  LIGHTS: 1                      |
-|  SELECTED: sphere (0,0,10) r=6    |
-|  POSITION: X=0 Y=0 Z=10          |
-+------------------------------------------+
-```
+When property mode is enabled, R/H/T keys modify specific properties of the selected object based on its type. This mode does not affect translation or rotation.
 
 ## Implementation
 
@@ -118,6 +109,16 @@ typedef struct s_tween
     t_bool (*update)(t_tween *tw, float t);  // Interpolation function
 } t_tween;
 ```
+
+### Rodrigues Rotation
+
+Rotation uses the Rodrigues rotation formula:
+
+```
+v_rot = v*cos(θ) + (k × v)*sin(θ) + k*(k·v)*(1 - cos(θ))
+```
+
+where `k` is the rotation axis and `θ` is the rotation angle.
 
 ## Configuration
 

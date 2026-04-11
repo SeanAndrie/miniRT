@@ -11,7 +11,7 @@ Defined in `includes/config.h`:
 ```c
 #define MULTITHREADED TRUE
 #define N_THREADS    8
-#define N_TILES      256    // Tile dimension (256x256 = full frame)
+#define N_TILES      256     // Used to calculate tile dimensions
 ```
 
 ## Architecture
@@ -19,21 +19,21 @@ Defined in `includes/config.h`:
 ```
 ┌─────────────────────────────────────────┐
 │              Main Thread                │
-│  context_loop()                        │
-│  ├─ render_init() → pool_init()       │
-│  ├─ mlx_loop()                         │
-│  └─ Handle events (keyboard/mouse)     │
+│  context_loop()                         │
+│  ├─ render_init() → pool_init()         │
+│  ├─ mlx_loop()                          │
+│  └─ Handle events (keyboard/mouse)      │
 └─────────────────────────────────────────┘
                     │
                     ▼ (render triggered)
 ┌─────────────────────────────────────────┐
 │           Worker Threads                │
-│  pool_run()                            │
-│  ├─ Worker 0: tiles[0..31]             │
-│  ├─ Worker 1: tiles[32..63]           │
-│  ├─ Worker 2: tiles[64..95]            │
-│  ├─ ...                                │
-│  └─ Worker 7: tiles[224..255]          │
+│  pool_run()                             │
+│  ├─ Worker 0: tiles[0..31]              │
+│  ├─ Worker 1: tiles[32..63]             │
+│  ├─ Worker 2: tiles[64..95]             │
+│  ├─ ...                                 │
+│  └─ Worker 7: tiles[224..255]           │
 └─────────────────────────────────────────┘
 ```
 
@@ -42,8 +42,8 @@ Defined in `includes/config.h`:
 The frame is divided into tiles for parallel processing:
 
 - **Default canvas**: 800x600 pixels
-- **Tile size**: 16x16 pixels (configured via `tile_dim`)
-- **Total tiles**: `(800/16) * (600/16) = 50 * 37.5 ≈ 1875` tiles
+- **Tile size**: Configured via `tile_dim` based on frame dimensions
+- **Total tiles**: Computed dynamically based on canvas size (width/tile_w × height/tile_h)
 
 Actually computed dynamically based on canvas dimensions.
 
