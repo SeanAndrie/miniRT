@@ -15,10 +15,10 @@
 
 t_vec3	normal_cone(t_hit *hit, t_cone *co)
 {
-	float	h;
+	float		h;
 	t_project	l;
 	t_project	d;
-	t_vec3	p_on_axis;
+	t_vec3		p_on_axis;
 
 	if (hit->loc == SURF_BOT)
 		return (co->axis);

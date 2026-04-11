@@ -33,7 +33,7 @@ static void	dispatch_error(const char *id)
 		ft_dprintf(STDERR_FILENO, "cone");
 }
 
-static t_bool parse_dispatch(char *line, const char *id, t_scene *scene)
+static t_bool	parse_dispatch(char *line, const char *id, t_scene *scene)
 {
 	if (!line || !id || !scene)
 		return (FALSE);
@@ -59,11 +59,11 @@ static t_bool parse_dispatch(char *line, const char *id, t_scene *scene)
 	return (TRUE);
 }
 
-static t_bool parse_line(char *line, t_scene *scene)
+static t_bool	parse_line(char *line, t_scene *scene)
 {
 	char	*id;
 	char	*end;
-	t_bool result;
+	t_bool	result;
 
 	if (!line || !scene)
 		return (FALSE);
@@ -82,7 +82,7 @@ static t_bool parse_line(char *line, t_scene *scene)
 	return (result);
 }
 
-t_bool parse_scene(int fd, t_scene *scene)
+t_bool	parse_scene(int fd, t_scene *scene)
 {
 	char	*line;
 	int		line_no;

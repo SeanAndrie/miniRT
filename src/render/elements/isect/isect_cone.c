@@ -6,17 +6,16 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 03:08:09 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 04:28:08 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:09:45 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
 #include <libft.h>
 #include <libvec3.h>
 #include <math.h>
 
-static t_bool is_inside_cone(float l_ax, float d_ax, float height, float t)
+static t_bool	is_inside_cone(float l_ax, float d_ax, float height, float t)
 {
 	float	h;
 
@@ -88,15 +87,13 @@ float	isect_cone(t_ray *ray, t_surface *hit_loc, t_cone *co)
 	*hit_loc = SURF_SIDE;
 	l = vec3_project(vec3_sub(ray->orig, co->apex), co->axis);
 	d = vec3_project(ray->dir, co->axis);
-	quad.x = vec3_dot(d.perp, d.perp) - (co->k2 * (d.axial
-				* d.axial));
+	quad.x = vec3_dot(d.perp, d.perp) - (co->k2 * (d.axial * d.axial));
 	t = 0.0f;
 	if (fabsf(quad.x) > 1e-6f)
 	{
-		quad.y = 2.0f * (vec3_dot(l.perp, d.perp) - (co->k2
-					* (l.axial * d.axial)));
-		quad.z = vec3_dot(l.perp, l.perp) - (co->k2 * (l.axial
-					* l.axial));
+		quad.y = 2.0f * (vec3_dot(l.perp, d.perp) - (co->k2 * (l.axial
+						* d.axial)));
+		quad.z = vec3_dot(l.perp, l.perp) - (co->k2 * (l.axial * l.axial));
 		t = solve_quadratic(quad, l.axial, d.axial, co);
 	}
 	isect_cone_cap(ray, hit_loc, co, &t);

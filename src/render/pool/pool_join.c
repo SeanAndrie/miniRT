@@ -12,18 +12,18 @@
 
 #include <core/render.h>
 
-t_bool pool_join(t_pool *pool)
+t_bool	pool_join(t_pool *pool)
 {
-    size_t  i;
+	size_t	i;
 
-    if (!pool || !pool->workers)
-        return (FALSE);
-    i = 0;
-    while (i < pool->n_workers)
-    {
-        if (pthread_join(pool->workers[i]->thread, NULL) != 0)
-            return (FALSE);
-        i++;
-    }
-    return (TRUE);
+	if (!pool || !pool->workers)
+		return (FALSE);
+	i = 0;
+	while (i < pool->n_workers)
+	{
+		if (pthread_join(pool->workers[i]->thread, NULL) != 0)
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
 }

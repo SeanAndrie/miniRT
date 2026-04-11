@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <setup/display.h>
 #include <libtensr.h>
 #include <mlx.h>
+#include <setup/display.h>
 
 void	display_free(t_display *disp)
 {

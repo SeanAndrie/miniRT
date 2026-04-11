@@ -12,7 +12,7 @@
 
 #include <core/render.h>
 
-t_vec3  ray_reflect(t_vec3 dir, t_vec3 normal)
+t_vec3	ray_reflect(t_vec3 dir, t_vec3 normal)
 {
-    return (vec3_sub(dir, vec3_scale(normal, vec3_dot(dir, normal) * 2)));
+	return (vec3_sub(dir, vec3_scale(normal, vec3_dot(dir, normal) * 2)));
 }

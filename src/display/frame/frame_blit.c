@@ -1,11 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   frame_blit.c                                       :+:      :+:    ::::   */
-/*                                                    By: sgadinga <sgadinga@student.42abudhabi.ae>  +#  +:     +#           */
-/*                                                +#    +#    +#            */
-/*   Created: 2026/03/24 23:27:50 by sgadinga          #+#   #+    #+#        */
-/*   Updated: 2026/03/31 00:38:40 by sgadinga         ###   ########.fr       */
+/*   frame_blit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/12 00:53:10 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/12 00:53:11 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +46,19 @@ static void	tensr_blit(t_tensr *src, t_image *img)
 	}
 }
 
-t_bool frame_blit(t_display *disp)
+t_bool	frame_blit(t_display *disp)
 {
-    t_frame *frame;
+	t_frame	*frame;
 
-    if (!disp)
-        return (FALSE);
-    frame = &disp->frame;
-    if (!tensr_clamp(frame->buffer, 0.0, 1.0, frame->clamped))
-        return (FALSE);
-    if (!tensr_scale(frame->clamped, 255.0, frame->scaled))
-        return (frame_free(&disp->frame), FALSE);
-    if (!tensr_cast(frame->scaled, DT_U8, frame->out))
-        return (frame_free(&disp->frame), FALSE);
-    tensr_blit(frame->out, &disp->image);
+	if (!disp)
+		return (FALSE);
+	frame = &disp->frame;
+	if (!tensr_clamp(frame->buffer, 0.0, 1.0, frame->clamped))
+		return (FALSE);
+	if (!tensr_scale(frame->clamped, 255.0, frame->scaled))
+		return (frame_free(&disp->frame), FALSE);
+	if (!tensr_cast(frame->scaled, DT_U8, frame->out))
+		return (frame_free(&disp->frame), FALSE);
+	tensr_blit(frame->out, &disp->image);
 	return (TRUE);
 }

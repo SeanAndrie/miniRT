@@ -33,8 +33,8 @@ static void	handle_translate(int key_code, t_tween *tw, t_basis *b)
 
 void	dispatch_translate(int key_code, t_context *ctx)
 {
-	t_basis		*basis;
+	t_basis	*basis;
 
 	basis = &ctx->scene->cam.basis;
-    handle_translate(key_code, &ctx->tw_trans, basis);
+	handle_translate(key_code, &ctx->tw_trans, basis);
 }

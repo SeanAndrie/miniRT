@@ -6,15 +6,14 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 21:35:06 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/03 17:12:45 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:14:58 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <elements/scene.h>
-#include <float.h>
 #include <libvec3.h>
 
-static t_bool basis_alloc(t_basis *basis)
+static t_bool	basis_alloc(t_basis *basis)
 {
 	int		ndim;
 	size_t	*shape;
@@ -42,7 +41,7 @@ static t_bool basis_alloc(t_basis *basis)
 	return (TRUE);
 }
 
-t_bool camera_basis(t_camera *cam)
+t_bool	camera_basis(t_camera *cam)
 {
 	t_basis	*basis;
 	t_vec3	world_up;

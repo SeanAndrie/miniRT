@@ -110,8 +110,8 @@ void	interface_object(t_context *ctx, int x, int *y, const int line_h)
 			object_params(ctx, x, y, line_h);
 	}
 	else
-    {
+	{
 		light_select(ctx, x, y, offset);
-        *y += line_h;
-    }
+		*y += line_h;
+	}
 }

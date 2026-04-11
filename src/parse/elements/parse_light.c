@@ -13,7 +13,7 @@
 #include <elements/scene.h>
 #include <setup/parse.h>
 
-t_bool parse_light(char *line, const size_t n_params, t_scene *scene)
+t_bool	parse_light(char *line, const size_t n_params, t_scene *scene)
 {
 	t_light	*light;
 	char	**params;

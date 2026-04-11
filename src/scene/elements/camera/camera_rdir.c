@@ -12,7 +12,7 @@
 
 #include <elements/scene.h>
 
-t_bool rdir_init(t_rdir *in, const int width, const int height)
+t_bool	rdir_init(t_rdir *in, const int width, const int height)
 {
 	int		ndim;
 	size_t	*shape;
@@ -34,7 +34,7 @@ t_bool rdir_init(t_rdir *in, const int width, const int height)
 	return (TRUE);
 }
 
-t_bool camera_rdir(t_camera *cam)
+t_bool	camera_rdir(t_camera *cam)
 {
 	t_rdir	*rdir;
 	t_basis	*basis;

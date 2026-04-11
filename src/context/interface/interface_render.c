@@ -15,7 +15,7 @@
 static void	interface_translate(t_display *disp, const int x, int *y,
 		const int line_h)
 {
-    *y += line_h;
+	*y += line_h;
 	mlx_string_put(disp->conn, disp->window, x, *y, TEXT_COLOR,
 		"+------ TRANSLATION ------+");
 	*y += line_h;

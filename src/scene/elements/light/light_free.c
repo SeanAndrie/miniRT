@@ -10,17 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <elements/scene.h>
+#include <libft.h>
 
-void    light_free(t_light **head)
+void	light_free(t_light **head)
 {
-    t_light *next;
+	t_light	*next;
 
-    while (*head)
-    {
-        next = (*head)->next;
-        free(*head);
-        *head = next;
-    }
+	while (*head)
+	{
+		next = (*head)->next;
+		free(*head);
+		*head = next;
+	}
 }

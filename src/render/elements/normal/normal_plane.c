@@ -6,12 +6,11 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:03:53 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/23 17:44:29 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:11:52 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
 
 t_vec3	normal_plane(t_vec3 ray_dir, t_plane *pl)
 {

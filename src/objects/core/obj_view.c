@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtensr.h>
 #include <elements/object.h>
+#include <libtensr.h>
 
-t_bool obj_view(t_array *arr, t_object *head)
+t_bool	obj_view(t_array *arr, t_object *head)
 {
 	size_t		i;
 	t_object	*curr;

@@ -12,17 +12,17 @@
 
 #include <elements/scene.h>
 
-size_t  light_len(t_light *head)
+size_t	light_len(t_light *head)
 {
-    size_t  len;
-    t_light *curr;
+	size_t	len;
+	t_light	*curr;
 
-    len = 0;
-    curr = head;
-    while (curr)
-    {
-        len++;
-        curr = curr->next;
-    }
-    return (len);
+	len = 0;
+	curr = head;
+	while (curr)
+	{
+		len++;
+		curr = curr->next;
+	}
+	return (len);
 }

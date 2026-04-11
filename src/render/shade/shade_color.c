@@ -6,12 +6,11 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#  +:     +#           */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 03:21:19 by sgadinga          #+#   #+    #+#        */
-/*   Updated: 2026/04/05 17:13:44 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:12:33 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
 
 void	color_fill(float *ptr, t_vec3 rgb)
 {
@@ -20,7 +19,8 @@ void	color_fill(float *ptr, t_vec3 rgb)
 	ptr[2] = rgb.z;
 }
 
-static t_bool in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light)
+static t_bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat,
+		t_light *light)
 {
 	size_t		i;
 	float		hit_t;
@@ -46,7 +46,7 @@ static t_bool in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat, t_light *light
 	return (FALSE);
 }
 
-t_vec3  shade_color(t_scene *scene, t_hit *hit)
+t_vec3	shade_color(t_scene *scene, t_hit *hit)
 {
 	size_t	i;
 	t_vec3	rgb;
@@ -71,5 +71,5 @@ t_vec3  shade_color(t_scene *scene, t_hit *hit)
 			vec3_add_ip(&rgb, shade_specular(scene, curr, hit, l_hat));
 		}
 	}
-    return (rgb);
+	return (rgb);
 }

@@ -29,7 +29,7 @@ static inline void	update_basis(t_basis *basis)
 	ft_memcpy(basis->up_t->data, &basis->up, sizeof(t_vec3));
 }
 
-static t_bool render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
+static t_bool	render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
 {
 	int		x;
 	int		y;
@@ -57,7 +57,7 @@ static t_bool render_tile(t_frame *frame, t_scene *scene, t_tile_map *tm)
 	return (tile_free(&tile, 1), TRUE);
 }
 
-t_bool render(t_display *disp, t_scene *scene)
+t_bool	render(t_display *disp, t_scene *scene)
 {
 	t_tile_map	tm;
 
@@ -70,8 +70,10 @@ t_bool render(t_display *disp, t_scene *scene)
 		tm.tx = 0;
 		while (tm.tx < disp->width)
 		{
-			tm.actual_w = ft_min(disp->frame.tile_dim.width, disp->width - tm.tx);
-			tm.actual_h = ft_min(disp->frame.tile_dim.height, disp->height - tm.ty);
+			tm.actual_w = ft_min(disp->frame.tile_dim.width, disp->width
+					- tm.tx);
+			tm.actual_h = ft_min(disp->frame.tile_dim.height, disp->height
+					- tm.ty);
 			if (!render_tile(&disp->frame, scene, &tm))
 				return (FALSE);
 			tm.tx += disp->frame.tile_dim.width;
@@ -84,7 +86,7 @@ t_bool render(t_display *disp, t_scene *scene)
 	return (TRUE);
 }
 
-t_bool render_threaded(t_pool *pool, t_display *disp, t_scene *scene)
+t_bool	render_threaded(t_pool *pool, t_display *disp, t_scene *scene)
 {
 	if (!pool || !disp || !scene)
 		return (FALSE);

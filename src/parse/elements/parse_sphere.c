@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include <elements/object.h>
-#include <setup/parse.h>
 #include <elements/scene.h>
+#include <setup/parse.h>
 
 static inline void	quick_free(char **params, t_object *obj)
 {
@@ -22,7 +22,7 @@ static inline void	quick_free(char **params, t_object *obj)
 		tok_free(params, -1);
 }
 
-t_bool parse_sphere(char *line, const size_t n_params, t_scene *scene)
+t_bool	parse_sphere(char *line, const size_t n_params, t_scene *scene)
 {
 	t_sphere	sp;
 	t_object	*obj;
@@ -42,7 +42,7 @@ t_bool parse_sphere(char *line, const size_t n_params, t_scene *scene)
 	if (!parse_vector(params[2], 0.0f, 255.0f, &sp.rgb))
 		return (quick_free(params, obj), FALSE);
 	tok_free(params, n_params);
-    parse_optional(ft_strchr(line, '|'), &obj->opt);
+	parse_optional(ft_strchr(line, '|'), &obj->opt);
 	obj_sphere(obj, &sp);
 	return (obj_append(&scene->objects, obj));
 }

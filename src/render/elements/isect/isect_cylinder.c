@@ -6,12 +6,11 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:09:36 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 04:20:57 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:10:01 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
-#include <float.h>
 #include <libft.h>
 #include <math.h>
 
@@ -55,7 +54,7 @@ static void	isect_cylinder_caps(t_ray *ray, t_surface *hit_loc, t_cylinder *cy,
 	}
 }
 
-static t_bool is_between_caps(float l_ax, float d_ax, float half_h, float t)
+static t_bool	is_between_caps(float l_ax, float d_ax, float half_h, float t)
 {
 	float	h;
 

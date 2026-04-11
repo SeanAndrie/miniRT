@@ -6,13 +6,12 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/24 02:09:21 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/03 23:13:10 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 00:58:09 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <elements/object.h>
 #include <elements/scene.h>
-#include <float.h>
 #include <math.h>
 #include <setup/parse.h>
 
@@ -30,13 +29,13 @@ static inline void	calculate_k(t_cone *co)
 	co->k2 = co->k * co->k;
 }
 
-static t_bool create_and_append(t_scene *scene, t_object *obj, t_cone *params)
+static t_bool	create_and_append(t_scene *scene, t_object *obj, t_cone *params)
 {
 	obj_cone(obj, params);
 	return (obj_append(&scene->objects, obj));
 }
 
-t_bool parse_cone(char *line, const size_t n_params, t_scene *scene)
+t_bool	parse_cone(char *line, const size_t n_params, t_scene *scene)
 {
 	t_cone		co;
 	t_object	*obj;

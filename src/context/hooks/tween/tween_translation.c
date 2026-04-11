@@ -12,11 +12,8 @@
 
 #include <core/context.h>
 
-t_tween tween_translation(t_vec3 *pos)
+t_tween	tween_translation(t_vec3 *pos)
 {
-    return ((t_tween){
-        .curr = pos,
-        .target = *pos,
-        .update = tween_lerp_update
-    });
+	return ((t_tween){.curr = pos, .target = *pos,
+		.update = tween_lerp_update});
 }

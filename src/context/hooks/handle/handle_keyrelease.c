@@ -12,12 +12,12 @@
 
 #include <core/context.h>
 
-int handle_keyrelease(int key_code, t_context *ctx)
+int	handle_keyrelease(int key_code, t_context *ctx)
 {
-    if (key_code == XK_SHIFT_L)
-    {
-        ctx->extend = FALSE;
-        ctx->tw_rotate.curr = NULL;
-    }
-    return (0);
+	if (key_code == XK_SHIFT_L)
+	{
+		ctx->extend = FALSE;
+		ctx->tw_rotate.curr = NULL;
+	}
+	return (0);
 }

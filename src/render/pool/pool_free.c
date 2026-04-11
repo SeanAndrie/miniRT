@@ -12,12 +12,12 @@
 
 #include <core/render.h>
 
-void    pool_free(t_pool *pool)
+void	pool_free(t_pool *pool)
 {
-    if (!pool)
-        return ;
-    if (pool->workers)
-        free(pool->workers);
-    if (pool->tiles)
-        tile_free(pool->tiles, pool->n_tiles);
+	if (!pool)
+		return ;
+	if (pool->workers)
+		free(pool->workers);
+	if (pool->tiles)
+		tile_free(pool->tiles, pool->n_tiles);
 }

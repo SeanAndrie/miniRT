@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_init.c                                     :(        :+    */
-/*                                                    By: sgadinga <sgadinga@student.42abudhabi.ae>  +#  +:     +#           */
-/*                                                +#    +#    +#            */
-/*   Created: 2026/03/15 15:40:27 by sgadinga          #+#   #+    #+#        */
-/*   Updated: 2026/03/30 23:30:47 by sgadinga         ###   ########.fr       */
+/*   display_init.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/12 00:50:17 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/12 00:52:04 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
-#include <math.h>
 #include <libft.h>
 #include <libtensr.h>
+#include <math.h>
+#include <mlx.h>
 #include <setup/display.h>
 
 t_display	*display_init(const int width, const int height)

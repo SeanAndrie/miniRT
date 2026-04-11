@@ -12,7 +12,7 @@
 
 #include <elements/scene.h>
 
-t_bool camera_init(t_camera *cam, const int width, const int height,
+t_bool	camera_init(t_camera *cam, const int width, const int height,
 		const float aspect)
 {
 	if (!cam)

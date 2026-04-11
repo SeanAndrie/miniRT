@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <setup/parse.h>
 #include <elements/scene.h>
+#include <setup/parse.h>
 
-t_bool parse_ambient(char *line, const size_t n_params, t_scene *scene)
+t_bool	parse_ambient(char *line, const size_t n_params, t_scene *scene)
 {
 	char	**params;
 
@@ -27,6 +27,6 @@ t_bool parse_ambient(char *line, const size_t n_params, t_scene *scene)
 	if (!parse_vector(params[1], 0.0f, 255.0f, &scene->amb.rgb))
 		return (tok_free(params, n_params), FALSE);
 	tok_free(params, n_params);
-    scene->amb.allocd = TRUE;
+	scene->amb.allocd = TRUE;
 	return (TRUE);
 }

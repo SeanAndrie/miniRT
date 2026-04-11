@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <elements/scene.h>
 #include <fcntl.h>
 #include <libft.h>
-#include <sys/stat.h>
 #include <setup/parse.h>
-#include <elements/scene.h>
+#include <sys/stat.h>
 
-static t_bool has_valid_extension(const char *fname, const char *fext)
+static t_bool	has_valid_extension(const char *fname, const char *fext)
 {
 	char	*dot;
 
@@ -74,7 +74,7 @@ t_scene	*scene_init(const char *fname, const char *fext)
 {
 	int		fd;
 	t_scene	*scene;
-	t_bool success;
+	t_bool	success;
 
 	if (!fname || !fext)
 		return (NULL);

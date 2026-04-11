@@ -12,7 +12,7 @@
 
 #include <core/render.h>
 
-static t_bool create_tiles(t_tile *tiles, t_display *disp, t_tensr *rdir)
+static t_bool	create_tiles(t_tile *tiles, t_display *disp, t_tensr *rdir)
 {
 	size_t		i;
 	t_tile_map	tm;
@@ -39,7 +39,7 @@ static t_bool create_tiles(t_tile *tiles, t_display *disp, t_tensr *rdir)
 	return (TRUE);
 }
 
-static t_bool create_workers(t_pool *pool, t_scene *scene)
+static t_bool	create_workers(t_pool *pool, t_scene *scene)
 {
 	size_t		i;
 	t_worker	*block;
@@ -64,7 +64,7 @@ static t_bool create_workers(t_pool *pool, t_scene *scene)
 	return (TRUE);
 }
 
-t_bool pool_init(t_pool *pool, t_display *disp, t_scene *scene)
+t_bool	pool_init(t_pool *pool, t_display *disp, t_scene *scene)
 {
 	if (!pool || !disp || !scene)
 		return (FALSE);

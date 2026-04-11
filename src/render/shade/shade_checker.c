@@ -12,15 +12,15 @@
 
 #include <core/render.h>
 
-static t_basis sphere_basis(void)
+static t_basis	sphere_basis(void)
 {
-    t_basis b;
+	t_basis	b;
 
-    ft_memset(&b, 0, sizeof(t_basis));
-    b.right = (t_vec3){1, 0, 0};
-    b.up= (t_vec3){0, 1, 0};
-    b.forward = (t_vec3){0, 0, 1};
-    return (b);
+	ft_memset(&b, 0, sizeof(t_basis));
+	b.right = (t_vec3){1, 0, 0};
+	b.up = (t_vec3){0, 1, 0};
+	b.forward = (t_vec3){0, 0, 1};
+	return (b);
 }
 
 static t_basis	obj_basis(t_object *obj)
@@ -29,9 +29,9 @@ static t_basis	obj_basis(t_object *obj)
 	t_vec3	tmp;
 	t_vec3	axis;
 
-    ft_memset(&b, 0, sizeof(t_basis));
+	ft_memset(&b, 0, sizeof(t_basis));
 	if (obj->type == OBJ_SPHERE)
-        return (sphere_basis());
+		return (sphere_basis());
 	if (obj->type == OBJ_CYLINDER)
 		axis = obj->data.cylinder.axis;
 	else if (obj->type == OBJ_PLANE)

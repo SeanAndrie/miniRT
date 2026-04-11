@@ -12,7 +12,7 @@
 
 #include <core/context.h>
 
-t_bool property_keys(int key_code)
+t_bool	property_keys(int key_code)
 {
 	return (key_code == XK_R || key_code == XK_H || key_code == XK_T);
 }

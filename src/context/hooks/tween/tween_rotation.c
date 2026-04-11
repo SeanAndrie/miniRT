@@ -12,11 +12,8 @@
 
 #include <core/context.h>
 
-t_tween tween_rotation(t_vec3 *dir)
+t_tween	tween_rotation(t_vec3 *dir)
 {
-    return ((t_tween){
-        .curr = dir,
-        .target = *dir,
-        .update = tween_slerp_update
-    });
+	return ((t_tween){.curr = dir, .target = *dir,
+		.update = tween_slerp_update});
 }

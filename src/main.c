@@ -23,13 +23,13 @@ int	main(int ac, char **av)
 	}
 	if (!context_init(&ctx, av[1]))
 		return (1);
-    if (!render_init(&ctx.pool, ctx.disp, ctx.scene))
-    {
-        context_free(&ctx);
-        return (1);
-    }
+	if (!render_init(&ctx.pool, ctx.disp, ctx.scene))
+	{
+		context_free(&ctx);
+		return (1);
+	}
 	context_hooks(&ctx);
 	mlx_loop(ctx.disp->conn);
-    context_free(&ctx);
+	context_free(&ctx);
 	return (0);
 }

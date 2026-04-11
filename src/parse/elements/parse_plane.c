@@ -23,7 +23,7 @@ static inline void	quick_free(char **params, t_object *obj)
 		tok_free(params, -1);
 }
 
-t_bool parse_plane(char *line, const size_t n_params, t_scene *scene)
+t_bool	parse_plane(char *line, const size_t n_params, t_scene *scene)
 {
 	t_plane		pl;
 	t_object	*obj;

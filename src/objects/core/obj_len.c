@@ -12,17 +12,17 @@
 
 #include <elements/object.h>
 
-size_t  obj_len(t_object *head)
+size_t	obj_len(t_object *head)
 {
-    size_t  len;
-    t_object *curr;
+	size_t		len;
+	t_object	*curr;
 
-    len = 0;
-    curr = head;
-    while (curr)
-    {
-        len++;
-        curr = curr->next;
-    }
-    return (len);
+	len = 0;
+	curr = head;
+	while (curr)
+	{
+		len++;
+		curr = curr->next;
+	}
+	return (len);
 }

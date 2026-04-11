@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtensr.h>
 #include <elements/scene.h>
+#include <libtensr.h>
 
-t_bool light_view(t_array *arr, t_light *head)
+t_bool	light_view(t_array *arr, t_light *head)
 {
 	size_t	i;
 	t_light	*curr;
-    
+
 	if (!arr || !head)
 		return (FALSE);
 	arr->len = light_len(head);
@@ -31,6 +31,6 @@ t_bool light_view(t_array *arr, t_light *head)
 		((t_light **)arr->data)[i++] = curr;
 		curr = curr->next;
 	}
-    arr->dtype = DT_CUSTOM;
+	arr->dtype = DT_CUSTOM;
 	return (TRUE);
 }

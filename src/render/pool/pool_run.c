@@ -12,7 +12,7 @@
 
 #include <core/render.h>
 
-static t_bool render_tile(t_tile *tile, t_scene *scene)
+static t_bool	render_tile(t_tile *tile, t_scene *scene)
 {
 	int		x;
 	int		y;
@@ -32,7 +32,7 @@ static t_bool render_tile(t_tile *tile, t_scene *scene)
 				+ tensr_offset(&tile->buffer->layout, (size_t[]){y, x, 0});
 			ray = ray_create(scene->cam.point, tile->rdir, x, y);
 			if (render_trace(ray, &hit, scene))
-                color_fill(ptr, shade_apply(scene, &hit));
+				color_fill(ptr, shade_apply(scene, &hit));
 			else
 				color_fill(ptr, (t_vec3){0, 0, 0});
 		}
@@ -58,7 +58,7 @@ static void	*worker_run(void *arg)
 	return (NULL);
 }
 
-t_bool pool_run(t_pool *pool)
+t_bool	pool_run(t_pool *pool)
 {
 	size_t	i;
 

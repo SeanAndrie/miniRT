@@ -14,7 +14,7 @@
 #include <math.h>
 #include <setup/parse.h>
 
-t_bool parse_orient(const char *nptr, t_vec3 *vec)
+t_bool	parse_orient(const char *nptr, t_vec3 *vec)
 {
 	t_vec3	temp;
 

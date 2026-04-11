@@ -12,7 +12,7 @@
 
 #include <setup/parse.h>
 
-t_bool is_valid_id(const char *id)
+t_bool	is_valid_id(const char *id)
 {
 	if (*id == ' ' || *id == 'A' || *id == 'C' || *id == 'L')
 		return (TRUE);

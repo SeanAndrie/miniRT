@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <elements/object.h>
+#include <libft.h>
 
 t_object	*obj_alloc(t_type obj_type)
 {
@@ -22,7 +22,7 @@ t_object	*obj_alloc(t_type obj_type)
 	obj = malloc(sizeof(t_object));
 	if (!obj)
 		return (NULL);
-    ft_memset(&obj->opt, 0, sizeof(t_options));
+	ft_memset(&obj->opt, 0, sizeof(t_options));
 	obj->type = obj_type;
 	obj->next = NULL;
 	return (obj);

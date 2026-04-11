@@ -12,9 +12,9 @@
 
 #include <core/context.h>
 
-int close_app(t_context *ctx)
+int	close_app(t_context *ctx)
 {
-    context_free(ctx);
-    exit(EXIT_SUCCESS);
-    return (0);
+	context_free(ctx);
+	exit(EXIT_SUCCESS);
+	return (0);
 }

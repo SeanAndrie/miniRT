@@ -12,7 +12,7 @@
 
 #include <elements/object.h>
 
-t_bool obj_append(t_object **head, t_object *obj)
+t_bool	obj_append(t_object **head, t_object *obj)
 {
 	t_object	*last;
 

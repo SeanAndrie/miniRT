@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <libtensr.h>
 #include <elements/object.h>
 #include <elements/scene.h>
+#include <libft.h>
+#include <libtensr.h>
 
 void	scene_free(t_scene *scene)
 {
 	if (!scene)
 		return ;
-    camera_free(&scene->cam);
+	camera_free(&scene->cam);
 	if (scene->objects)
 	{
 		free(scene->obj_view.data);

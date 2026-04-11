@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libtensr.h>
 #include <core/render.h>
-#include <setup/display.h>
 #include <elements/scene.h>
+#include <libtensr.h>
+#include <setup/display.h>
 
 static void	normalize_rgb(t_scene *scene)
 {
@@ -44,20 +44,20 @@ static void	normalize_rgb(t_scene *scene)
 	}
 }
 
-t_bool render_init(t_pool *pool, t_display *disp, t_scene *scene)
+t_bool	render_init(t_pool *pool, t_display *disp, t_scene *scene)
 {
 	if (!pool || !disp || !scene)
 		return (FALSE);
 	normalize_rgb(scene);
 	if (!camera_init(&scene->cam, disp->width, disp->height, disp->aspect))
 		return (FALSE);
-    if (!frame_init(&disp->frame, disp->width, disp->height))
-        return (FALSE);
-    if (MULTITHREADED)
-    {
-        ft_printf("Multithreading : ON\n");
-        if (!pool_init(pool, disp, scene))
-            return (FALSE);
-    }
-    return (TRUE);
+	if (!frame_init(&disp->frame, disp->width, disp->height))
+		return (FALSE);
+	if (MULTITHREADED)
+	{
+		ft_printf("Multithreading : ON\n");
+		if (!pool_init(pool, disp, scene))
+			return (FALSE);
+	}
+	return (TRUE);
 }

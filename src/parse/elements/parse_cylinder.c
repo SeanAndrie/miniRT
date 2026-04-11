@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <elements/object.h>
+#include <elements/scene.h>
 #include <libtensr.h>
 #include <setup/parse.h>
-#include <elements/scene.h>
-#include <elements/object.h>
 
 static inline void	quick_free(char **params, t_object *obj)
 {
@@ -23,13 +23,14 @@ static inline void	quick_free(char **params, t_object *obj)
 		tok_free(params, -1);
 }
 
-static t_bool create_and_append(t_scene *scene, t_object *obj, t_cylinder *params)
+static t_bool	create_and_append(t_scene *scene, t_object *obj,
+		t_cylinder *params)
 {
 	obj_cylinder(obj, params);
 	return (obj_append(&scene->objects, obj));
 }
 
-t_bool parse_cylinder(char *line, const size_t n_params, t_scene *scene)
+t_bool	parse_cylinder(char *line, const size_t n_params, t_scene *scene)
 {
 	t_cylinder	cy;
 	t_object	*obj;
@@ -53,6 +54,6 @@ t_bool parse_cylinder(char *line, const size_t n_params, t_scene *scene)
 	if (!parse_vector(params[4], 0.0f, 255.0f, &cy.rgb))
 		return (quick_free(params, obj), FALSE);
 	tok_free(params, n_params);
-    parse_optional(ft_strchr(line, '|'), &obj->opt);
+	parse_optional(ft_strchr(line, '|'), &obj->opt);
 	return (create_and_append(scene, obj, &cy));
 }

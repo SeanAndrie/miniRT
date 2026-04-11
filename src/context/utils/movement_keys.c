@@ -12,7 +12,7 @@
 
 #include <core/context.h>
 
-t_bool movement_keys(int key_code)
+t_bool	movement_keys(int key_code)
 {
 	return (key_code == XK_A || key_code == XK_S || key_code == XK_W
 		|| key_code == XK_D || key_code == XK_Q || key_code == XK_E);

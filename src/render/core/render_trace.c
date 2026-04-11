@@ -6,13 +6,12 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 02:47:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/05 17:13:11 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:12:42 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
 #include <elements/scene.h>
-#include <float.h>
 #include <math.h>
 
 static void	assign_rgb(t_hit *hit)
@@ -39,7 +38,7 @@ static void	assign_normal(t_hit *hit)
 		hit->normal = normal_cone(hit, &hit->obj->data.cone);
 }
 
-static t_bool fill_hit(t_ray ray, t_hit *hit)
+static t_bool	fill_hit(t_ray ray, t_hit *hit)
 {
 	if (!hit->obj)
 		return (FALSE);
@@ -50,7 +49,7 @@ static t_bool fill_hit(t_ray ray, t_hit *hit)
 	return (TRUE);
 }
 
-t_bool render_trace(t_ray ray, t_hit *hit, t_scene *scene)
+t_bool	render_trace(t_ray ray, t_hit *hit, t_scene *scene)
 {
 	size_t		i;
 	t_array		*arr;
