@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   isect_plane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 00:31:04 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 20:11:10 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:57:50 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

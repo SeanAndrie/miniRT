@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   shade_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#  +:     +#           */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/30 03:21:19 by sgadinga          #+#   #+    #+#        */
-/*   Updated: 2026/04/12 01:12:33 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/12 01:38:10 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/12 01:56:30 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
+#include <setup/texture.h>
 
 void	color_fill(float *ptr, t_vec3 rgb)
 {
@@ -46,30 +47,52 @@ static t_bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat,
 	return (FALSE);
 }
 
-t_vec3	shade_color(t_scene *scene, t_hit *hit)
+static void	surface_modifiers(t_hit *hit)
 {
-	size_t	i;
-	t_vec3	rgb;
-	t_array	*arr;
-	t_light	*curr;
-	t_vec3	l_hat;
+	double	u;
+	double	v;
 
-	arr = &scene->lgt_view;
 	if (hit->obj->opt.cb_scale > 0.0f)
 		hit->rgb = shade_checker(hit, hit->obj->opt.cb_scale);
-	rgb = shade_ambient(&scene->amb, hit->rgb);
+	if (hit->obj->opt.texture)
+	{
+		u = hit->u - floor(hit->u);
+		v = hit->v - floor(hit->v);
+		hit->rgb = texture_color(hit->obj->opt.texture, u, v);
+	}
+}
+
+static void	accumulate_light(t_scene *scene, t_hit *hit, t_vec3 *rgb)
+{
+	size_t	i;
+	t_light	*curr;
+	t_vec3	l_hat;
+	t_array	*arr;
+
+	arr = &scene->lgt_view;
 	i = -1;
 	while (++i < arr->len)
 	{
 		curr = ((t_light **)arr->data)[i];
 		l_hat = vec3_normalize(vec3_sub(curr->point, hit->point));
-		if (vec3_dot(hit->normal, l_hat) > 0.0f && !in_shadow(scene, hit, l_hat,
+		if (vec3_dot(hit->normal, l_hat) <= 0.0f || in_shadow(scene, hit, l_hat,
 				curr))
-		{
-			vec3_add_ip(&rgb, shade_diffuse(curr->ratio, curr->rgb, hit,
-					l_hat));
-			vec3_add_ip(&rgb, shade_specular(scene, curr, hit, l_hat));
-		}
+			continue ;
+		vec3_add_ip(rgb, shade_diffuse(curr->ratio, curr->rgb, hit, l_hat));
+		if (hit->obj->opt.texture && !hit->obj->opt.specularity)
+			break ;
+		vec3_add_ip(rgb, shade_specular(scene, curr, hit, l_hat));
 	}
+}
+
+t_vec3	shade_color(t_scene *scene, t_hit *hit)
+{
+	t_vec3	rgb;
+
+	surface_modifiers(hit);
+	if (hit->obj->opt.bump_texture)
+		hit->normal = bump_normal(hit);
+	rgb = shade_ambient(&scene->amb, hit->rgb);
+	accumulate_light(scene, hit, &rgb);
 	return (rgb);
 }

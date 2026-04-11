@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 23:12:45 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/10 23:04:17 by sgadinga         ###   ########.fr       */
+/*   Created: 2026/04/12 01:42:28 by sgadinga          #+#    #+#             */
+/*   Updated: 2026/04/12 01:42:30 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_ray
 
 typedef struct s_hit
 {
+	float				u;
+	float				v;
 	float				t;
 	enum e_surface		loc;
 	struct s_ray		ray;
@@ -44,6 +46,8 @@ typedef struct s_hit
 	struct s_object		*obj;
 	struct s_vec3		point;
 	struct s_vec3		normal;
+	struct s_vec3		tangent;
+	struct s_vec3		bitangent;
 }						t_hit;
 
 typedef struct s_tile_map
@@ -99,6 +103,10 @@ t_vec3					normal_sphere(t_vec3 point, t_sphere *sp);
 t_vec3					normal_plane(t_vec3 ray_dir, t_plane *pl);
 t_vec3					normal_cylinder(t_hit *hit, t_cylinder *cy);
 t_vec3					normal_cone(t_hit *hit, t_cone *co);
+
+void					uv_plane(t_hit *hit);
+void					uv_sphere(t_hit *hit);
+void					uv_cylinder(t_hit *hit);
 
 t_vec3					ray_at(t_ray ray, float t);
 t_vec3					ray_reflect(t_vec3 dir, t_vec3 normal);

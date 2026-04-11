@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:59 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/10 23:04:21 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:44:57 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define CONTEXT_H
 
 # include <config.h>
-# include <core/render.h>
 # include <pthread.h>
+# include <core/render.h>
 
 // Close App
 # define XK_ESC 0xff1b

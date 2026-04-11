@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   context_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/08 03:45:06 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:35:33 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <context.h>
 #include <elements/scene.h>
 #include <setup/display.h>
+#include <setup/texture.h>
 
 t_bool	context_init(t_context *ctx, char *fname)
 {
@@ -26,6 +27,7 @@ t_bool	context_init(t_context *ctx, char *fname)
 		scene_free(ctx->scene);
 		return (FALSE);
 	}
+	texture_init(ctx);
 	ctx->next_i = 0;
 	ctx->s_obj = NULL;
 	ctx->s_lgt = NULL;

@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   render_trace.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 02:47:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/12 01:12:42 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 01:56:07 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
 #include <elements/scene.h>
 #include <math.h>
+
+static void	assign_uv(t_hit *hit)
+{
+	if (hit->obj->type == OBJ_PLANE)
+		uv_plane(hit);
+	if (hit->obj->type == OBJ_SPHERE)
+		uv_sphere(hit);
+	if (hit->obj->type == OBJ_CYLINDER)
+		uv_cylinder(hit);
+}
 
 static void	assign_rgb(t_hit *hit)
 {
@@ -46,6 +56,7 @@ static t_bool	fill_hit(t_ray ray, t_hit *hit)
 	hit->point = ray_at(hit->ray, hit->t);
 	assign_normal(hit);
 	assign_rgb(hit);
+	assign_uv(hit);
 	return (TRUE);
 }
 
