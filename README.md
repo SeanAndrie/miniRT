@@ -127,4 +127,5 @@ Included as part of this repository.
 - [LearnOpenGL — Normal Mapping](https://learnopengl.com/Advanced-Lighting/Normal-Mapping)  
   Reference for understanding and implementing bump map / normal map textures.
 
-
+- [NumPy Reference](https://numpy.org/doc/stable/user/index.html)  
+NumPy library reference manual, which inspired the design for the libtensr library.
