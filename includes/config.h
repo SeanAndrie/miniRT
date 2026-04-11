@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 23:01:58 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/12 02:40:44 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 03:08:31 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define MULTITHREADED TRUE
 # define N_THREADS 8
 
-// Tile size (N_TILES x N_TILES)
+// Tile size (16x16)
 # define N_TILES 256
 
 // Specular Shine Factor
