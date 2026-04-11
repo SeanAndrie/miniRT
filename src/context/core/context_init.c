@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   context_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/04 00:28:35 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/11 01:37:13 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <context.h>
 #include <elements/scene.h>
 #include <setup/display.h>
+#include <setup/texture.h>
 
 bool	context_init(t_context *ctx, char *fname)
 {
@@ -26,6 +27,7 @@ bool	context_init(t_context *ctx, char *fname)
 		scene_free(ctx->scene);
 		return (false);
 	}
+	texture_init(ctx);
 	ctx->next_i = 0;
 	ctx->s_obj = NULL;
 	ctx->s_lgt = NULL;
@@ -33,7 +35,7 @@ bool	context_init(t_context *ctx, char *fname)
 	ctx->property = false;
 	ctx->dirty = true;
 	ctx->tw_trans = tween_translation(&ctx->scene->cam.point);
-    ctx->tw_rotate.curr = NULL;
+	ctx->tw_rotate.curr = NULL;
 	ctx->tw_rotate.target = ctx->scene->cam.basis.forward;
 	ctx->tw_rotate.update = tween_slerp_update;
 	return (true);

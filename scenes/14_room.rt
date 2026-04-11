@@ -1,0 +1,68 @@
+# ============================================================
+#  DUNGEON — Texture Showcase
+#  Bump maps on stone walls + floor | Checkerboard on ceiling
+#  Pillars: alternating checker and bump
+# ============================================================
+
+# Ambient — very dim, cold blue-green torchlight bleed
+A 0.04 10,20,15
+
+# Camera — low, looking down the corridor
+C 0,-1,-6  0,-0.08,1  72
+
+# Left torch — warm orange flame glow
+L -3,1,0   0.7  255,140,40
+
+# Right torch — slightly cooler, asymmetric feel
+L  3,1,2   0.5  255,160,60
+
+# Deep back glow — faint, mysterious light at the far end
+L  0,0,14  0.3  80,120,255
+
+# ============================================================
+#  WALLS, FLOOR, CEILING
+# ============================================================
+
+# Floor — bump mapped stone slabs
+pl  0,-3,0   0,1,0   60,55,50 | tx:textures/StoneBrick.xpm bm:textures/StoneBrick_Bump.xpm
+
+# Ceiling 
+pl  0,3,0    0,-1,0  30,28,25 | tx:textures/StoneBrick.xpm 
+
+# Left wall — bump mapped rough stone
+pl -5,0,0    1,0,0   55,50,45 | tx:textures/StoneBrick.xpm bm:textures/StoneBrick_Bump.xpm
+
+# Right wall — bump mapped rough stone
+pl  5,0,0   -1,0,0   55,50,45 | tx:textures/StoneBrick.xpm bm:textures/StoneBrick_Bump.xpm
+
+# Back wall — dark, far end of the corridor
+pl  0,0,16   0,0,-1  40,38,35 | tx:textures/StoneBrick.xpm bm:textures/StoneBrick_Bump.xpm
+
+# Behind the camera — closes the scene
+pl  0,0,-10  0,0,1   25,22,20
+
+# ============================================================
+#  PILLARS (cylinders, upright along the corridor)
+# ============================================================
+
+# --- LEFT side pillars ---
+
+# Left pillar 1 (foreground) — checkerboard stone (grey & dark)
+cy -4,-3,0   0,1,0   1.0  15   90,85,80 | tx:textures/StoneBrick.xpm bm:textures/StoneBrick_Bump.xpm
+
+# Left pillar 2 (mid) 
+cy -4,-3,5   0,1,0   1.0  15   70,65,60 | tx:textures/StoneBrick.xpm
+
+# Left pillar 3 (far) — checkerboard
+cy -4,-3,10  0,1,0   1.0  15   90,85,80 | tx:textures/StoneBrick.xpm bm:textures/StoneBrick_Bump.xpm
+
+# --- RIGHT side pillars ---
+
+# Right pillar 1 (foreground) — bump mapped
+cy  4,-3,0   0,1,0   1.0  15   70,65,60 | tx:textures/StoneBrick.xpm bm:textures/StoneBrick_Bump.xpm
+
+# Right pillar 2 (mid) 
+cy  4,-3,5   0,1,0   1.0  15   90,85,80 | tx:textures/StoneBrick.xpm
+
+# Right pillar 3 (far) — bump mapped
+cy  4,-3,10  0,1,0   1.0  15   70,65,60 | tx:textures/StoneBrick.xpm bm:textures/StoneBrick_Bump.xpm

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 23:12:45 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/06 01:44:30 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/11 23:03:13 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ typedef struct s_hit
 	struct s_object	*obj;
 	struct s_vec3	point;
 	struct s_vec3	normal;
+	float			u;
+	float			v;
+	struct s_vec3	tangent;
+	struct s_vec3	bitangent;
 }					t_hit;
 
 typedef struct s_tile_map
@@ -97,6 +101,10 @@ t_vec3				normal_sphere(t_vec3 point, t_sphere *sp);
 t_vec3				normal_plane(t_vec3 ray_dir, t_plane *pl);
 t_vec3				normal_cylinder(t_hit *hit, t_cylinder *cy);
 t_vec3				normal_cone(t_hit *hit, t_cone *co);
+
+void				uv_plane(t_hit *hit);
+void				uv_sphere(t_hit *hit);
+void    			uv_cylinder(t_hit *hit);
 
 t_vec3				ray_at(t_ray ray, float t);
 t_vec3				ray_reflect(t_vec3 dir, t_vec3 normal);

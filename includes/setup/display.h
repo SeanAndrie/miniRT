@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 15:29:14 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/03 22:46:12 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/10 16:31:03 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define W 800
 # define H 600
 
+# include <libft.h>
 # include <libtensr.h>
 # include <mlx.h>
 
@@ -38,6 +39,8 @@ typedef struct s_image
 	int					bpp;
 	int					endian;
 	int					line_len;
+	int					width;
+	int					height;
 }						t_image;
 
 typedef struct s_frame

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   isect_plane.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 00:31:04 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/03/24 20:11:10 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/09 03:12:13 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ float	isect_plane(t_ray *ray, t_plane *pl)
 	float	denom;
 
 	denom = vec3_dot(ray->dir, pl->normal);
+	if (denom > -1e-6f)
+    	return (0.0f);
 	if (fabsf(denom) < 1e-6f)
 		return (0.0f);
 	t = vec3_dot(vec3_sub(pl->point, ray->orig), pl->normal) / denom;

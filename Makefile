@@ -13,7 +13,7 @@
 NAME := minirt
 CC := cc
 INCS := -Iincludes -Iincludes/setup -Iincludes/elements -Iincludes/core -Ilibft/includes -Ilibtensr/includes -Iminilibx-linux
-CFLAGS := -Wall -Wextra -Werror -std=gnu11 $(INCS)
+CFLAGS := -Wall -Wextra -Werror -O3 $(INCS)
 
 MLX_FLAGS := -lXext -lX11 -lm -lz
 
@@ -27,6 +27,7 @@ PARSE_DIR := parse
 RENDER_DIR := render
 OBJECT_DIR := objects
 DISPLAY_DIR := display
+TEXTURE_DIR := texture
 
 CONTEXT_DIR := context
 
@@ -43,6 +44,7 @@ RENDER_SRCS := $(addprefix $(RENDER_DIR)/, \
 	$(addprefix core/, render.c render_init.c render_trace.c) \
 	$(addprefix elements/isect/, isect_obj.c isect_sphere.c isect_plane.c isect_cylinder.c isect_cone.c) \
 	$(addprefix elements/normal/, normal_sphere.c normal_plane.c normal_cylinder.c normal_cone.c) \
+	$(addprefix elements/uv/, uv_plane.c uv_sphere.c uv_cylinder.c) \
 	$(addprefix ray/, ray_at.c ray_reflect.c ray_create.c) \
 	$(addprefix shade/, shade_apply.c shade_color.c shade_ambient.c shade_diffuse.c shade_specular.c shade_checker.c) \
 	$(addprefix pool/, pool_init.c pool_run.c pool_join.c pool_free.c) \
@@ -56,6 +58,10 @@ DISPLAY_SRCS := $(addprefix $(DISPLAY_DIR)/, \
 	$(addprefix core/, display_init.c display_free.c) \
 	$(addprefix frame/, frame_blit.c frame_free.c frame_init.c))
 
+TEXTURE_SRCS := $(addprefix $(TEXTURE_DIR)/, \
+	$(addprefix core/, texture_init.c texture_load.c texture_color.c) \
+	$(addprefix bump/, bump_gradient.c bump_normal.c))
+
 CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
 	$(addprefix core/, context_init.c context_loop.c context_hooks.c context_reset.c context_free.c) \
 	$(addprefix hooks/handle/, handle_keypress.c handle_mousepress.c handle_keyrelease.c) \
@@ -64,10 +70,13 @@ CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
     $(addprefix utils/, close_app.c reset_app.c movement_keys.c property_keys.c) \
 	$(addprefix interface/, interface_render.c interface_object.c))
 
-SRCS := $(addprefix $(SRC_DIR)/, main.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(RENDER_SRCS) $(CONTEXT_SRCS))
+SRCS := $(addprefix $(SRC_DIR)/, main.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(TEXTURE_SRCS) $(RENDER_SRCS) $(CONTEXT_SRCS))
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: libft/libft.a libtensr/libtensr.a minilibx-linux/libmlx.a $(NAME)
+
+debug: CFLAGS += -fsanitize=address -ggdb3
+debug: all
 
 minilibx-linux/libmlx.a:
 	@make -C minilibx-linux

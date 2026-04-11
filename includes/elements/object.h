@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 14:49:47 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/05 16:19:24 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/11 22:31:42 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,17 @@
 /*---------------------------------------------------------------------*/
 
 typedef struct s_array t_array;
+typedef struct s_image t_texture;
 
 typedef struct s_options
 {
     float               cb_scale;
     float               reflectivity;
+    char                *texture_path;
+    t_texture           *texture;
+	char				*bump_path;
+    t_texture	        *bump_texture;
+	char				*specularity;
 }                       t_options;
 
 typedef struct s_sphere
