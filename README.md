@@ -44,7 +44,7 @@ make clean
 To fully clean (including the binary):
 
 ```bash
-make fclean && make
+make fclean
 ```
 
 ### Execution
