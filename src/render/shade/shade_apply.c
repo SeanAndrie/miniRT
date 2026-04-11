@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/05 17:14:11 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/05 17:39:15 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 03:26:54 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ t_vec3	shade_apply(t_scene *scene, t_hit *hit)
 	if (!scene || !hit)
 		return ((t_vec3){0, 0, 0});
 	if (hit->obj->opt.reflectivity > 0.0f)
-		return (render_reflect_hit(hit, scene, 3));
+		return (render_reflect_hit(hit, scene, REFLECT_DEPTH));
 	return (shade_color(scene, hit));
 }

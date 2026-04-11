@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 23:01:58 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/12 03:08:31 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 03:26:31 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 
 // Specular Shine Factor
 # define SPECULAR_SHINE 45.0f
+
+// Number of reflection bounces
+# define REFLECT_DEPTH 3
 
 // Interface Settings
 # define TEXT_COLOR 0xFFFFFF
