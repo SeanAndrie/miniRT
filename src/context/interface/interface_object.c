@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 00:02:12 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/06 03:53:20 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 02:45:25 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	property_mode(t_context *ctx, int x, int *y, const int line_h)
 
 static void	object_params(t_context *ctx, int x, int *y, const int line_h)
 {
+	if (!ctx->s_obj)
+		return ;
 	if (ctx->s_obj->type == OBJ_SPHERE)
 		mlx_string_put(ctx->disp->conn, ctx->disp->window, x, *y, TEXT_COLOR,
 			"(L Shift) + R: Increase/decrease radius");

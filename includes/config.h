@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 23:01:58 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/12 02:04:11 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/12 02:40:44 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # define SCENE_FILE_EXT ".rt"
 
 // Window Dimensions
-# define W 1280
-# define H 720
+# define W 800
+# define H 600
 
 // Multithreading Settings
 # define MULTITHREADED TRUE
