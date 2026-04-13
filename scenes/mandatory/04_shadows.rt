@@ -1,15 +1,11 @@
-# 02_shadows.rt
+# 04_shadows.rt
 # Tests: hard shadows cast by sphere onto a plane, and a cylinder casting shadow
 # Light is positioned to the upper-left so shadows fall to the right
 
 A 0.1 255,255,255
-
 C 0,8,-25 0,-0.25,1 60
-
 L -10,15,-5 0.9 255,255,255
 
 pl 0,-4,0 0,1,0 200,200,200
-
 sp -2,0,8 5 200,80,20
-
 cy 6,0,12 0,1,0 3 14 60,180,60

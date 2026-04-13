@@ -16,11 +16,11 @@
 
 static void	dispatch_error(const char *id)
 {
-	log_error(STDERR_FILENO, ERR_BASE, "parsing failure: ");
+	log_error(ERR_NONE, ERR_BASE, "error: parsing failure: ");
 	if (*id == 'A')
-		ft_dprintf(STDERR_FILENO, "(1 per scene) ambient light");
+		ft_dprintf(STDERR_FILENO, "ambient light");
 	else if (*id == 'C')
-		ft_dprintf(STDERR_FILENO, "(1 per scene) camera");
+		ft_dprintf(STDERR_FILENO, "camera");
 	else if (*id == 'L')
 		ft_dprintf(STDERR_FILENO, "light");
 	else if (ft_strcmp(id, "sp") == 0)
@@ -82,6 +82,27 @@ static t_bool	parse_line(char *line, t_scene *scene)
 	return (result);
 }
 
+static t_bool	required_elements_allocd(t_scene *scene)
+{
+	t_bool	ret;
+
+	ret = TRUE;
+	if (!scene->cam.allocd)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\n");
+		log_error(ERR_WARNING, ERR_BASE, "camera is missing (1 per scene)\n");
+		ret = FALSE;
+	}
+	if (!scene->amb.allocd)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\n");
+		log_error(ERR_WARNING, ERR_BASE,
+			"ambient light is missing (1 per scene)\n");
+		ret = FALSE;
+	}
+	return (ret);
+}
+
 t_bool	parse_scene(int fd, t_scene *scene)
 {
 	char	*line;
@@ -106,5 +127,7 @@ t_bool	parse_scene(int fd, t_scene *scene)
 		free(line);
 	}
 	close(fd);
+	if (!required_elements_allocd(scene))
+		return (FALSE);
 	return (TRUE);
 }

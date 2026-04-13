@@ -1,0 +1,15 @@
+# 02_trans_rot.rt
+# Tests: two spheres, one cylinder — one light, one ambient
+# Expected: two spheres in the same position, cylinder on the side
+
+A 0.4 255,255,255
+C 0,0,-10 0,0,1 70
+L 0,10,0 0.5 255,255,255
+
+# Translate either sphere oriented in a direction parallel to the camera's
+# and outside the other's sphere diameter.
+sp 0,0,0 4 255,0,0
+sp 0,0,0 4 255,0,0
+
+# Rotate cylinder 90 degrees along its y axis.
+cy -4,0,0 0,1,0 2 10 0,255,180

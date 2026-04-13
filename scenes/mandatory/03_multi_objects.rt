@@ -1,0 +1,25 @@
+# 03_multi_objects.rt
+# Tests: spheres, cylinder, cone, plane — multiple objects intersecting each other
+# Expected: objects visibly cutting through one another
+
+A 0.3 255,255,255
+C 0,8,-10 0,-0.3,1 70
+L -5,15,-10 0.9 255,255,255
+
+# Ground plane
+pl 0,-5,0 0,1,0 180,180,180
+
+# Central large sphere
+sp 0,0,10 5 255,60,60
+
+# Intersects the central sphere from the upper-left
+sp -4,3,8 3 60,120,255
+
+# Intersects the central sphere from the right
+sp 4,-1,10 3 80,220,80
+
+# Cylinder piercing vertically through the central sphere
+cy 0,0,10 0,1,0 1.5 14 255,220,50
+
+# Cone pointing downward, base overlapping the green sphere
+co 4,8,10 0,-1,0 8 3 255,140,30

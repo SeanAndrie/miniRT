@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <libvec3.h>
-#include <math.h>
 #include <setup/parse.h>
 
 t_bool	parse_orient(const char *nptr, t_vec3 *vec)
@@ -20,7 +19,7 @@ t_bool	parse_orient(const char *nptr, t_vec3 *vec)
 
 	if (!nptr || !vec)
 		return (FALSE);
-	if (!parse_vector(nptr, -INFINITY, INFINITY, &temp))
+	if (!parse_vector(nptr, -1.0f, 1.0f, &temp))
 		return (FALSE);
 	if (vec3_dot(temp, temp) < 1e-6f)
 		return (FALSE);

@@ -100,16 +100,16 @@ pl 0,-3,0 0,1,0 100,100,100
 
 ### Cylinder
 
+cy <position> <axis> <radius> <height> R,G,B>
 ```
-cy <position> <axis> <height> <radius> <R,G,B>
 ```
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | position | vec3 | Base center |
 | axis | vec3 | Height direction (normalized) |
-| height | float | Cylinder height |
 | radius | float | Cylinder radius |
+| height | float | Cylinder height |
 | R,G,B | int | RGB color |
 
 **Example**:
