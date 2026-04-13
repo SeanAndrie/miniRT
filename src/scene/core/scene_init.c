@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 22:30:29 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/02 03:02:25 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/13 23:27:34 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	read_file(const char *fname, const char *fext)
 		log_error(ERR_WARNING, ERR_BASE, "%s: no such file found\n", fname);
 	}
 	if (!has_valid_extension(fname, fext))
-		return (FALSE);
+		return (-1);
 	return (fd);
 }
 
