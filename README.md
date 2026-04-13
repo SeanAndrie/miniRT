@@ -59,7 +59,7 @@ make fclean
 ./minirt scene/15_earth.rt
 ```
 
-Scene files describe the camera, lights, and objects in the scene. They must follow the `.rt` format defined by the project specification.
+Scene files describe the camera, lights, and objects in the scene. They must follow the `.rt` format defined by the project specification (see [Scene Format documentation](docs/SCENE_FORMAT.md))
 
 ---
 
@@ -108,6 +108,18 @@ Included as part of this repository.
 
 ---
 
+## Documentation
+
+For a deeper understanding of the project architecture and implementation details:
+
+- [Architecture Overview](docs/ARCHITECTURE.md)
+- [Rendering Pipeline](docs/RENDERING.md)
+- [Scene File Format](docs/SCENE_FORMAT.md)
+- [Threading Model](docs/THREADING.md)
+- [User Interactive Settings](docs/INTERACTIVE.md)
+
+---
+
 ## Resources
 
 ### Ray Tracing & Mathematics
@@ -129,3 +141,4 @@ Included as part of this repository.
 
 - [NumPy Reference](https://numpy.org/doc/stable/user/index.html)  
 NumPy library reference manual, which inspired the design for the libtensr library.
+
