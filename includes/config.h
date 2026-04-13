@@ -17,8 +17,8 @@
 # define SCENE_FILE_EXT ".rt"
 
 // Window Dimensions
-# define W 800
-# define H 600
+# define W 854
+# define H 480
 
 // Multithreading Settings
 # define MULTITHREADED TRUE
