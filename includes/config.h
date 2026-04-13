@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 23:01:58 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/12 03:26:31 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/13 18:10:40 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@
 # define LUMA_RED 0.299
 # define LUMA_GREEN 0.587
 # define LUMA_BLUE 0.114
+
+// Bump Mapping Settings
+# define BUMP_SCALE 1.5f
 
 #endif

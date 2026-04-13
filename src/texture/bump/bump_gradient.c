@@ -6,7 +6,7 @@
 /*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 01:47:07 by zsalih            #+#    #+#             */
-/*   Updated: 2026/04/11 23:08:42 by zsalih           ###   ########.fr       */
+/*   Updated: 2026/04/13 18:11:09 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec3	bump_gradient(t_texture *tex, double u, double v)
 	u = u - floor(u);
 	v = v - floor(v);
 	height = get_height(tex, u, v);
-	u_height = (get_height(tex, u + (1.0 / tex->width), v) - height) * 1.5;
-	v_height = (get_height(tex, u, v + (1.0 / tex->height)) - height) * 1.5;
+	u_height = (get_height(tex, u + (1.0 / tex->width), v) - height) * BUMP_SCALE;
+	v_height = (get_height(tex, u, v + (1.0 / tex->height)) - height) * BUMP_SCALE;
 	return ((t_vec3){u_height, v_height, 0.0});
 }
