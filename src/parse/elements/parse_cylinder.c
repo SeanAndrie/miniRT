@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 01:49:59 by sgadinga          #+#   #+        #+#    */
-/*   Updated: 2026/04/03 23:12:51 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 02:09:48 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ t_bool	parse_cylinder(char *line, const size_t n_params, t_scene *scene)
 		return (quick_free(params, obj), FALSE);
 	if (!parse_orient(params[1], &cy.axis))
 		return (quick_free(params, obj), FALSE);
-	if (!parse_scalar(params[2], 0.0f, INFINITY, &cy.radius))
+	if (!parse_scalar(params[2], 1.0f, INFINITY, &cy.radius))
 		return (quick_free(params, obj), FALSE);
 	cy.radius /= 2.0;
-	if (!parse_scalar(params[3], 0.0f, INFINITY, &cy.height))
+	if (!parse_scalar(params[3], 1.0f, INFINITY, &cy.height))
 		return (quick_free(params, obj), FALSE);
 	if (!parse_vector(params[4], 0.0f, 255.0f, &cy.rgb))
 		return (quick_free(params, obj), FALSE);

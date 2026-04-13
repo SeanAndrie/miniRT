@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:32:32 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/05 17:04:00 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 02:01:46 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static t_bool	parse_dispatch(char *line, const char *id, t_scene *scene)
 		return (FALSE);
 	if (*id != ' ' && !is_valid_id(id))
 	{
-		ft_dprintf(STDERR_FILENO, "invalid identifier '%s'", id);
+        ft_dprintf(STDERR_FILENO, "Error\n");
+        log_error(ERR_NONE, ERR_BASE, "error: invalid identifier '%s'", id);
 		return (FALSE);
 	}
 	if (*id == 'A' && !parse_ambient(++line, 2, scene))

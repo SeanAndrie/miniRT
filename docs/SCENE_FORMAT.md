@@ -73,7 +73,7 @@ sp <position> <radius> <R,G,B>
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | position | vec3 | Sphere center |
-| radius | float | Sphere radius |
+| diameter | float | Sphere radius |
 | R,G,B | int | RGB color |
 
 **Example**:
@@ -108,7 +108,7 @@ cy <position> <axis> <radius> <height> R,G,B>
 |-----------|------|-------------|
 | position | vec3 | Base center |
 | axis | vec3 | Height direction (normalized) |
-| radius | float | Cylinder radius |
+| diameter | float | Cylinder radius |
 | height | float | Cylinder height |
 | R,G,B | int | RGB color |
 
