@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/26 12:58:35 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/08 03:45:24 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 12:10:16 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,6 @@
 #include <core/render.h>
 #include <libtensr.h>
 #include <mlx.h>
-
-static void	print_type(t_object *obj)
-{
-	if (!obj)
-		return ;
-	if (obj->type == OBJ_SPHERE)
-		ft_printf("Sphere");
-	if (obj->type == OBJ_PLANE)
-		ft_printf("Plane");
-	if (obj->type == OBJ_CYLINDER)
-		ft_printf("Cylinder");
-	if (obj->type == OBJ_CONE)
-		ft_printf("Cone");
-	ft_printf("\n");
-}
 
 static void	dispatch_selection(t_object *obj, t_context *ctx)
 {
@@ -66,7 +51,6 @@ static void	object_select(int x, int y, t_context *ctx)
 		return ;
 	ctx->s_obj = hit.obj;
 	dispatch_selection(ctx->s_obj, ctx);
-	print_type(hit.obj);
 }
 
 int	handle_mousepress(int button, int x, int y, t_context *ctx)

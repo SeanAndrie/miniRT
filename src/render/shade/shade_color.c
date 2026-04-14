@@ -6,12 +6,13 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 01:38:10 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/14 10:16:19 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 11:52:50 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/render.h>
 #include <setup/texture.h>
+#include <stdio.h>
 
 void	color_fill(float *ptr, t_vec3 rgb)
 {
@@ -77,13 +78,16 @@ static void	accumulate_light(t_scene *scene, t_hit *hit, t_vec3 *rgb)
 		l_hat = vec3_normalize(vec3_sub(curr->point, hit->point));
 		if (vec3_dot(hit->normal, l_hat) <= 0.0f || in_shadow(scene, hit, l_hat,
 				curr))
+        {
+            i++;
 			continue ;
+        }
 		vec3_add_ip(rgb, shade_diffuse(curr->ratio, curr->rgb, hit, l_hat));
 		if (hit->obj->opt.texture && !hit->obj->opt.specularity)
 			break ;
 		if (scene->bonus->specular)
 			vec3_add_ip(rgb, shade_specular(scene, curr, hit, l_hat));
-		i++;
+        i++;
 	}
 }
 
