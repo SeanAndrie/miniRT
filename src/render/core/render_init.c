@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 17:11:46 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/03 17:51:47 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 03:24:06 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ t_bool	render_init(t_pool *pool, t_display *disp, t_scene *scene)
 		return (FALSE);
 	if (!frame_init(&disp->frame, disp->width, disp->height))
 		return (FALSE);
-	if (MULTITHREADED)
+	if (scene->bonus->multithreaded)
 	{
-		ft_printf("Multithreading : ON\n");
 		if (!pool_init(pool, disp, scene))
 			return (FALSE);
 	}

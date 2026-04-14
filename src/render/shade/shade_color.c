@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 01:38:10 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/12 01:56:30 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:16:19 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ static t_bool	in_shadow(t_scene *scene, t_hit *hit, t_vec3 l_hat,
 	return (FALSE);
 }
 
-static void	surface_modifiers(t_hit *hit)
+static void	surface_modifiers(t_hit *hit, t_scene *scene)
 {
 	double	u;
 	double	v;
 
-	if (hit->obj->opt.cb_scale > 0.0f)
+	if (scene->bonus->checkerboard && hit->obj->opt.cb_scale > 0.0f)
 		hit->rgb = shade_checker(hit, hit->obj->opt.cb_scale);
-	if (hit->obj->opt.texture)
+	if (scene->bonus->bump_map && hit->obj->opt.texture)
 	{
 		u = hit->u - floor(hit->u);
 		v = hit->v - floor(hit->v);
@@ -70,8 +70,8 @@ static void	accumulate_light(t_scene *scene, t_hit *hit, t_vec3 *rgb)
 	t_array	*arr;
 
 	arr = &scene->lgt_view;
-	i = -1;
-	while (++i < arr->len)
+	i = 0;
+	while (i < arr->len)
 	{
 		curr = ((t_light **)arr->data)[i];
 		l_hat = vec3_normalize(vec3_sub(curr->point, hit->point));
@@ -81,7 +81,9 @@ static void	accumulate_light(t_scene *scene, t_hit *hit, t_vec3 *rgb)
 		vec3_add_ip(rgb, shade_diffuse(curr->ratio, curr->rgb, hit, l_hat));
 		if (hit->obj->opt.texture && !hit->obj->opt.specularity)
 			break ;
-		vec3_add_ip(rgb, shade_specular(scene, curr, hit, l_hat));
+		if (scene->bonus->specular)
+			vec3_add_ip(rgb, shade_specular(scene, curr, hit, l_hat));
+		i++;
 	}
 }
 
@@ -89,8 +91,8 @@ t_vec3	shade_color(t_scene *scene, t_hit *hit)
 {
 	t_vec3	rgb;
 
-	surface_modifiers(hit);
-	if (hit->obj->opt.bump_texture)
+	surface_modifiers(hit, scene);
+	if (scene->bonus->bump_map && hit->obj->opt.bump_texture)
 		hit->normal = bump_normal(hit);
 	rgb = shade_ambient(&scene->amb, hit->rgb);
 	accumulate_light(scene, hit, &rgb);

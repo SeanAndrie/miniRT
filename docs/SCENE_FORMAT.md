@@ -67,13 +67,13 @@ L 0,10,-10 0.8 255,255,255
 ### Sphere
 
 ```
-sp <position> <radius> <R,G,B>
+sp <position> <diameter> <R,G,B>
 ```
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | position | vec3 | Sphere center |
-| diameter | float | Sphere radius |
+| diameter | float | Sphere diameter|
 | R,G,B | int | RGB color |
 
 **Example**:
@@ -100,7 +100,7 @@ pl 0,-3,0 0,1,0 100,100,100
 
 ### Cylinder
 
-cy <position> <axis> <radius> <height> R,G,B>
+cy <position> <axis> <diameter> <height> R,G,B>
 ```
 ```
 
@@ -108,7 +108,7 @@ cy <position> <axis> <radius> <height> R,G,B>
 |-----------|------|-------------|
 | position | vec3 | Base center |
 | axis | vec3 | Height direction (normalized) |
-| diameter | float | Cylinder radius |
+| diameter | float | Cylinder diameter|
 | height | float | Cylinder height |
 | R,G,B | int | RGB color |
 

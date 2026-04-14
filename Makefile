@@ -6,11 +6,13 @@
 #    By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/04/12 02:09:00 by sgadinga          #+#    #+#              #
-#    Updated: 2026/04/12 02:09:01 by sgadinga         ###   ########.fr        #
+#    Updated: 2026/04/14 03:46:43 by sgadinga         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := minirt
+BNAME := minirt_bonus
+
 CC := cc
 INCS := -Iincludes -Iincludes/setup -Iincludes/elements -Iincludes/core -Ilibft/includes -Ilibtensr/includes -Iminilibx-linux
 CFLAGS := -Wall -Wextra -Werror -std=gnu11 -O3 -funroll-loops $(INCS)
@@ -70,9 +72,15 @@ CONTEXT_SRCS := $(addprefix $(CONTEXT_DIR)/, \
 	$(addprefix interface/, interface_render.c interface_object.c))
 
 SRCS := $(addprefix $(SRC_DIR)/, main.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(TEXTURE_SRCS) $(RENDER_SRCS) $(CONTEXT_SRCS))
+BSRCS := $(addprefix $(SRC_DIR)/, main_bonus.c $(PARSE_SRCS) $(OBJECT_SRCS) $(SCENE_SRCS) $(DISPLAY_SRCS) $(TEXTURE_SRCS) $(RENDER_SRCS) $(CONTEXT_SRCS))
+
 OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+BOBJS := $(BSRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: libft/libft.a libtensr/libtensr.a minilibx-linux/libmlx.a $(NAME)
+
+bonus: libft/libft.a libtensr/libtensr.a minilibx-linux/libmlx.a $(BOBJS)
+	$(CC) $(CFLAGS) $(BOBJS) -o $(BNAME) $(LIBS) $(MLX_FLAGS)
 
 debug: CFLAGS += -fsanitize=address -ggdb3
 debug: all
@@ -99,11 +107,11 @@ clean:
 	@make -C libtensr clean
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(BNAME)
 	@make -C libft fclean
 	@make -C libtensr fclean
 	@make -C minilibx-linux clean
 
 re: fclean all
 
-.PHONY: re fclean clean all
+.PHONY: re fclean clean all bonus

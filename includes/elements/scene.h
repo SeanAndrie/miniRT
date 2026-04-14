@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 20:29:16 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/08 14:10:55 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:24:44 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,28 @@ typedef struct s_light
 	struct s_light		*next;
 }						t_light;
 
+typedef struct s_bonus
+{
+	t_bool				bump_map;
+	t_bool				specular;
+	t_bool				multi_lights;
+	t_bool				checkerboard;
+	t_bool				multithreaded;
+}						t_bonus;
+
 typedef struct s_scene
 {
 	struct s_ambient	amb;
 	struct s_camera		cam;
+	struct s_bonus		*bonus;
 	struct s_light		*lights;
 	struct s_object		*objects;
 	struct s_array		obj_view;
 	struct s_array		lgt_view;
 }						t_scene;
 
-t_scene					*scene_init(const char *fname, const char *ext);
+t_scene					*scene_init(const char *fname, const char *fext,
+							t_bonus *bonus);
 void					scene_info(t_scene *scene);
 void					scene_free(t_scene *scene);
 

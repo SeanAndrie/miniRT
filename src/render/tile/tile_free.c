@@ -22,15 +22,15 @@ void	tile_free(t_tile *tile, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		if (tile->buffer)
+		if (tile[i].buffer)
 		{
-			tensr_free(tile->buffer);
-			tile->buffer = NULL;
+			tensr_free(tile[i].buffer);
+			tile[i].buffer = NULL;
 		}
-		if (tile->rdir)
+		if (tile[i].rdir)
 		{
-			tensr_free(tile->rdir);
-			tile->rdir = NULL;
+			tensr_free(tile[i].rdir);
+			tile[i].rdir = NULL;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:44:32 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/03 17:51:39 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 04:47:31 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	context_free(t_context *ctx)
 {
-	if (MULTITHREADED)
-		pool_free(&ctx->pool);
+	if (!ctx)
+		return ;
 	if (ctx->disp)
 		display_free(ctx->disp);
 	if (ctx->scene)
+	{
+		if (ctx->scene->bonus && ctx->scene->bonus->multithreaded)
+			pool_free(&ctx->pool);
 		scene_free(ctx->scene);
+	}
 }

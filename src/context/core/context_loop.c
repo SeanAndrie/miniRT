@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 01:19:48 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/08 03:45:13 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 03:23:59 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	context_loop(t_context *ctx)
 	tween_update(ctx, TWEEN_FACTOR);
 	if (ctx->show_ui)
 		mlx_clear_window(ctx->disp->conn, ctx->disp->window);
-	if (MULTITHREADED)
+	if (ctx->scene->bonus->multithreaded)
 		render_threaded(&ctx->pool, ctx->disp, ctx->scene);
 	else
 		render(ctx->disp, ctx->scene);

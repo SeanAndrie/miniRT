@@ -6,18 +6,18 @@
 /*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:13 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/12 01:35:33 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 03:19:54 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <context.h>
-#include <elements/scene.h>
 #include <setup/display.h>
 #include <setup/texture.h>
+#include <elements/scene.h>
 
-t_bool	context_init(t_context *ctx, char *fname)
+t_bool	context_init(t_context *ctx, char *fname, t_bonus *bonus)
 {
-	ctx->scene = scene_init(fname, SCENE_FILE_EXT);
+	ctx->scene = scene_init(fname, SCENE_FILE_EXT, bonus);
 	if (!ctx->scene)
 		return (FALSE);
 	ctx->fname = fname;

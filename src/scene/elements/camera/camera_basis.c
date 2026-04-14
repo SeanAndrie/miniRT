@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 21:35:06 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/12 01:14:58 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:19:25 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,14 @@ t_bool	camera_basis(t_camera *cam)
 		world_up = (t_vec3){1, 0, 0};
 	basis->right = vec3_normalize(vec3_cross(world_up, basis->forward));
 	basis->up = vec3_normalize(vec3_cross(basis->forward, basis->right));
-	if (!basis_alloc(basis))
+	if (basis->forward_t && basis->right_t && basis->up_t)
+	{
+		tensr_fill(basis->forward_t, 0.0);
+		tensr_fill(basis->right_t, 0.0);
+		tensr_fill(basis->up_t, 0.0);
+		return (TRUE);
+	}
+	else if (!basis_alloc(basis))
 		return (FALSE);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 23:32:32 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/14 02:01:46 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:15:55 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static t_bool	parse_dispatch(char *line, const char *id, t_scene *scene)
 		return (FALSE);
 	if (*id != ' ' && !is_valid_id(id))
 	{
-        ft_dprintf(STDERR_FILENO, "Error\n");
-        log_error(ERR_NONE, ERR_BASE, "error: invalid identifier '%s'", id);
+		ft_dprintf(STDERR_FILENO, "Error\n");
+		log_error(ERR_NONE, ERR_BASE, "error: invalid identifier '%s'", id);
 		return (FALSE);
 	}
 	if (*id == 'A' && !parse_ambient(++line, 2, scene))
@@ -83,27 +83,6 @@ static t_bool	parse_line(char *line, t_scene *scene)
 	return (result);
 }
 
-static t_bool	required_elements_allocd(t_scene *scene)
-{
-	t_bool	ret;
-
-	ret = TRUE;
-	if (!scene->cam.allocd)
-	{
-		ft_dprintf(STDERR_FILENO, "Error\n");
-		log_error(ERR_WARNING, ERR_BASE, "camera is missing (1 per scene)\n");
-		ret = FALSE;
-	}
-	if (!scene->amb.allocd)
-	{
-		ft_dprintf(STDERR_FILENO, "Error\n");
-		log_error(ERR_WARNING, ERR_BASE,
-			"ambient light is missing (1 per scene)\n");
-		ret = FALSE;
-	}
-	return (ret);
-}
-
 t_bool	parse_scene(int fd, t_scene *scene)
 {
 	char	*line;
@@ -128,7 +107,5 @@ t_bool	parse_scene(int fd, t_scene *scene)
 		free(line);
 	}
 	close(fd);
-	if (!required_elements_allocd(scene))
-		return (FALSE);
 	return (TRUE);
 }
