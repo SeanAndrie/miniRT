@@ -6,7 +6,7 @@
 /*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 23:01:58 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/13 18:10:40 by zsalih           ###   ########.fr       */
+/*   Updated: 2026/04/14 10:38:58 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define H 480
 
 // Multithreading Settings
-# define MULTITHREADED TRUE
 # define N_THREADS 8
 
 // Tile size (16x16)
