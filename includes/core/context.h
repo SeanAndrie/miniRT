@@ -6,7 +6,7 @@
 /*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 15:19:59 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/14 03:16:20 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/14 10:37:57 by sgadinga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_context
 	enum e_bool			show_ui;
 	struct s_tween		tw_trans;
 	struct s_tween		tw_rotate;
-	t_bool				multi_lights;
 }						t_context;
 
 t_bool					context_init(t_context *ctx, char *fname,
