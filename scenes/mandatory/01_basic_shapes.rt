@@ -3,7 +3,7 @@
 # Expected: sphere floating above a floor plane, cylinder to the side
 
 A 0.2 255,255,255
-C 0,0,-10 0,1,0 70
+C 0,0,-10 0,0,1 70
 L 0,10,-15 0.8 255,255,255
 
 sp 0,0,0 4 255,0,0
