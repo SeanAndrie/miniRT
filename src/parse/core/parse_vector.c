@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <elements/scene.h>
 #include <libvec3.h>
 #include <setup/parse.h>
-#include <elements/scene.h>
 
 t_bool	parse_vector(const char *nptr, double min, double max, t_vec3 *vec)
 {

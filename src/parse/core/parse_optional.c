@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <elements/object.h>
 #include <errno.h>
 #include <setup/parse.h>
-#include <elements/object.h>
 
 static int	parse_float_param(char *value, float *dest)
 {

@@ -24,7 +24,7 @@ static void	range_error(const char *nptr, double min, double max)
 
 t_bool	parse_scalar(const char *nptr, double min, double max, float *n)
 {
-	double  v;
+	double	v;
 	char	*endptr;
 
 	if (!nptr || !*nptr)
