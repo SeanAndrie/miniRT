@@ -51,9 +51,9 @@ t_bool	parse_cone(char *line, const size_t n_params, t_scene *scene)
 		return (quick_free(params, obj), FALSE);
 	if (!parse_orient(params[1], &co.axis))
 		return (quick_free(params, obj), FALSE);
-	if (!parse_scalar(params[2], 0.2, INT_MAX, &co.height))
+	if (!parse_scalar(params[2], 0.1, INT_MAX, &co.height))
 		return (quick_free(params, obj), FALSE);
-	if (!parse_scalar(params[3], 0.2, 180.0, &co.theta))
+	if (!parse_scalar(params[3], 0.1, 180.0, &co.theta))
 		return (quick_free(params, obj), FALSE);
 	calculate_k(&co);
 	if (!parse_vector(params[4], 0.0, 255.0, &co.rgb))
