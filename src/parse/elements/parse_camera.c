@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parse_camera.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 18:25:26 by sgadinga          #+#   #+        #+#    */
 /*   Updated: 2026/04/03 23:38:33 by sgadinga         ###   ########.fr       */
@@ -36,7 +36,7 @@ t_bool	parse_camera(char *line, const size_t n_params, t_scene *scene)
 		return (tok_free(params, n_params), FALSE);
 	if (!parse_orient(params[1], &scene->cam.basis.forward))
 		return (tok_free(params, n_params), FALSE);
-	if (!parse_scalar(params[2], 0.0f, 180.0f, &fov))
+	if (!parse_scalar(params[2], 0.2, 180.0, &fov))
 		return (tok_free(params, n_params), FALSE);
 	scene->cam.fov = fov * (M_PI / 180.0);
 	tok_free(params, n_params);

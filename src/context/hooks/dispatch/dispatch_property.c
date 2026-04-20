@@ -17,7 +17,7 @@ static void	modify_property(float *v_ptr, t_bool extend)
 {
 	if (extend)
 	{
-		if ((*v_ptr - PROP_INCREMENT) < 0.0f)
+		if ((*v_ptr - PROP_INCREMENT) < 0.2f)
 			return ;
 		*v_ptr -= PROP_INCREMENT;
 	}

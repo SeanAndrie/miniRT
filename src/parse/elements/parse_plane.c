@@ -41,7 +41,7 @@ t_bool	parse_plane(char *line, const size_t n_params, t_scene *scene)
 		return (quick_free(params, obj), FALSE);
 	if (!parse_orient(params[1], &pl.normal))
 		return (quick_free(params, obj), FALSE);
-	if (!parse_vector(params[2], 0.0f, 255.0f, &pl.rgb))
+	if (!parse_vector(params[2], 0.0, 255.0, &pl.rgb))
 		return (quick_free(params, obj), FALSE);
 	tok_free(params, n_params);
 	obj_plane(obj, &pl);

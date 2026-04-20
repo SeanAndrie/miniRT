@@ -36,10 +36,10 @@ t_bool	parse_sphere(char *line, const size_t n_params, t_scene *scene)
 		return (quick_free(params, obj), FALSE);
 	if (!parse_vector(params[0], INT_MIN, INT_MAX, &sp.center))
 		return (quick_free(params, obj), FALSE);
-	if (!parse_scalar(params[1], 0.0f, INT_MAX, &sp.radius))
+	if (!parse_scalar(params[1], 0.2, INT_MAX, &sp.radius))
 		return (quick_free(params, obj), FALSE);
 	sp.radius /= 2.0;
-	if (!parse_vector(params[2], 0.0f, 255.0f, &sp.rgb))
+	if (!parse_vector(params[2], 0.0, 255.0, &sp.rgb))
 		return (quick_free(params, obj), FALSE);
 	tok_free(params, n_params);
 	parse_optional(ft_strchr(line, '|'), &obj->opt);

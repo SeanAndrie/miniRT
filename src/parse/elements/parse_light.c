@@ -29,9 +29,9 @@ t_bool	parse_light(char *line, const size_t n_params, t_scene *scene)
 	light->next = NULL;
 	if (!parse_vector(params[0], INT_MIN, INT_MAX, &light->point))
 		return (tok_free(params, n_params), free(light), FALSE);
-	if (!parse_scalar(params[1], 0.0f, 1.0f, &light->ratio))
+	if (!parse_scalar(params[1], 0.0, 1.0, &light->ratio))
 		return (tok_free(params, n_params), free(light), FALSE);
-	if (!parse_vector(params[2], 0.0f, 255.0f, &light->rgb))
+	if (!parse_vector(params[2], 0.0, 255.0, &light->rgb))
 		return (tok_free(params, n_params), free(light), FALSE);
 	tok_free(params, n_params);
 	return (light_append(&scene->lights, light));
