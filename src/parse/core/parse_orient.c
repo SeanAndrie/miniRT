@@ -19,7 +19,7 @@ t_bool	parse_orient(const char *nptr, t_vec3 *vec)
 
 	if (!nptr || !vec)
 		return (FALSE);
-	if (!parse_vector(nptr, -1.0f, 1.0f, &temp))
+	if (!parse_vector(nptr, -1.0, 1.0, &temp))
 		return (FALSE);
 	if (vec3_dot(temp, temp) < 1e-6f)
 		return (FALSE);

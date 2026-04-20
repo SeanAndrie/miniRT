@@ -47,16 +47,16 @@ t_bool	parse_cone(char *line, const size_t n_params, t_scene *scene)
 	obj = obj_alloc(OBJ_CONE);
 	if (!params || !obj)
 		return (quick_free(params, obj), FALSE);
-	if (!parse_vector(params[0], -INFINITY, INFINITY, &co.apex))
+	if (!parse_vector(params[0], INT_MIN, INT_MAX, &co.apex))
 		return (quick_free(params, obj), FALSE);
 	if (!parse_orient(params[1], &co.axis))
 		return (quick_free(params, obj), FALSE);
-	if (!parse_scalar(params[2], 1.0f, INFINITY, &co.height))
+	if (!parse_scalar(params[2], 0.0, INT_MAX, &co.height))
 		return (quick_free(params, obj), FALSE);
-	if (!parse_scalar(params[3], 1.0f, 180.0f, &co.theta))
+	if (!parse_scalar(params[3], 0.0, 180.0, &co.theta))
 		return (quick_free(params, obj), FALSE);
 	calculate_k(&co);
-	if (!parse_vector(params[4], 0.0f, 255.0f, &co.rgb))
+	if (!parse_vector(params[4], 0.0, 255.0, &co.rgb))
 		return (quick_free(params, obj), FALSE);
 	tok_free(params, n_params);
 	parse_optional(ft_strchr(line, '|'), &obj->opt);

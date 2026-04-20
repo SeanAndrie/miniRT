@@ -42,14 +42,14 @@ t_bool	parse_cylinder(char *line, const size_t n_params, t_scene *scene)
 	obj = obj_alloc(OBJ_CYLINDER);
 	if (!params || !obj)
 		return (quick_free(params, obj), FALSE);
-	if (!parse_vector(params[0], -INFINITY, INFINITY, &cy.point))
+	if (!parse_vector(params[0], INT_MIN, INT_MAX, &cy.point))
 		return (quick_free(params, obj), FALSE);
 	if (!parse_orient(params[1], &cy.axis))
 		return (quick_free(params, obj), FALSE);
-	if (!parse_scalar(params[2], 1.0f, INFINITY, &cy.radius))
+	if (!parse_scalar(params[2], 0.0f, INT_MAX, &cy.radius))
 		return (quick_free(params, obj), FALSE);
 	cy.radius /= 2.0;
-	if (!parse_scalar(params[3], 1.0f, INFINITY, &cy.height))
+	if (!parse_scalar(params[3], 0.0f, INT_MAX, &cy.height))
 		return (quick_free(params, obj), FALSE);
 	if (!parse_vector(params[4], 0.0f, 255.0f, &cy.rgb))
 		return (quick_free(params, obj), FALSE);

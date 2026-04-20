@@ -12,7 +12,7 @@
 
 #include <setup/parse.h>
 
-t_bool	scalar_in_range(float n, float min, float max)
+t_bool	scalar_in_range(double n, double min, double max)
 {
 	return (n >= min && n <= max);
 }

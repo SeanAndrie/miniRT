@@ -26,10 +26,10 @@ typedef struct s_options	t_options;
 t_bool						parse_scene(int fd, t_scene *scene);
 char						**parse_data(char *line, const size_t n_params);
 t_bool						parse_orient(const char *nptr, t_vec3 *vec);
-t_bool						parse_vector(const char *nptr, float min, float max,
-								t_vec3 *vec);
-t_bool						parse_scalar(const char *nptr, float min, float max,
-								float *n);
+t_bool						parse_vector(const char *nptr, double min,
+								double max, t_vec3 *vec);
+t_bool						parse_scalar(const char *nptr, double min,
+								double max, float *n);
 void						parse_optional(char *line, t_options *opt);
 
 t_bool						parse_camera(char *line, size_t n_params,
@@ -47,7 +47,7 @@ t_bool						parse_cylinder(char *line, const size_t n_params,
 t_bool						parse_cone(char *line, const size_t n_params,
 								t_scene *scene);
 
-t_bool						scalar_in_range(float n, float min, float max);
+t_bool						scalar_in_range(double n, double min, double max);
 void						tok_free(char **tok, int n);
 t_bool						is_valid_id(const char *id);
 

@@ -20,12 +20,19 @@ t_bool	parse_camera(char *line, const size_t n_params, t_scene *scene)
 	char	**params;
 	float	fov;
 
-	if (!line || !scene || scene->cam.allocd || n_params == 0)
+	if (!line || !scene || n_params == 0)
 		return (FALSE);
+	if (scene->cam.allocd)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\n");
+		log_error(ERR_WARNING, ERR_BASE,
+			"there can only one ambient light per scene\n");
+		return (FALSE);
+	}
 	params = parse_data(line, n_params);
 	if (!params)
 		return (FALSE);
-	if (!parse_vector(params[0], -INFINITY, INFINITY, &scene->cam.point))
+	if (!parse_vector(params[0], INT_MIN, INT_MAX, &scene->cam.point))
 		return (tok_free(params, n_params), FALSE);
 	if (!parse_orient(params[1], &scene->cam.basis.forward))
 		return (tok_free(params, n_params), FALSE);

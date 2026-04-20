@@ -18,18 +18,18 @@ static void	range_error(const char *nptr, double min, double max)
 {
 	ft_dprintf(STDERR_FILENO, "Error\n");
 	ft_dprintf(STDERR_FILENO, "%s: warning: ", ERR_BASE);
-	ft_dprintf(STDERR_FILENO, "value '%s' is out of range [%.2f, %.2f]\n", nptr,
+	ft_dprintf(STDERR_FILENO, "value '%s' is out of range [%.1f, %.1f]\n", nptr,
 		min, max);
 }
 
-t_bool	parse_scalar(const char *nptr, float min, float max, float *n)
+t_bool	parse_scalar(const char *nptr, double min, double max, float *n)
 {
-	float	v;
+	double  v;
 	char	*endptr;
 
 	if (!nptr || !*nptr)
 		return (FALSE);
-	v = ft_strtof(nptr, &endptr);
+	v = ft_strtod(nptr, &endptr);
 	if (*endptr != '\0' || errno == ERANGE)
 		return (FALSE);
 	if (!scalar_in_range(v, min, max))
@@ -37,6 +37,6 @@ t_bool	parse_scalar(const char *nptr, float min, float max, float *n)
 		range_error(nptr, min, max);
 		return (FALSE);
 	}
-	*n = v;
+	*n = (float)v;
 	return (TRUE);
 }

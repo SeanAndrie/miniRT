@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parse_ambient.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:      */
+/*   By: sgadinga <sgadinga@student.42abudhabi.ae>  +:++:+         +:         */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 02:05:02 by sgadinga          #+#   #+        #+#    */
 /*   Updated: 2026/04/03 23:37:33 by sgadinga         ###   ########.fr       */
@@ -17,8 +17,15 @@ t_bool	parse_ambient(char *line, const size_t n_params, t_scene *scene)
 {
 	char	**params;
 
-	if (!line || !scene || scene->amb.allocd || n_params == 0)
+	if (!line || !scene || n_params == 0)
 		return (FALSE);
+	if (scene->amb.allocd)
+	{
+		ft_dprintf(STDERR_FILENO, "Error\n");
+		log_error(ERR_WARNING, ERR_BASE,
+			" there can only one ambient light per scene\n");
+		return (FALSE);
+	}
 	params = parse_data(line, n_params);
 	if (!params)
 		return (FALSE);

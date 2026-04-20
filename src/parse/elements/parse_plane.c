@@ -37,7 +37,7 @@ t_bool	parse_plane(char *line, const size_t n_params, t_scene *scene)
 	obj = obj_alloc(OBJ_PLANE);
 	if (!obj)
 		return (quick_free(params, obj), FALSE);
-	if (!parse_vector(params[0], -INFINITY, INFINITY, &pl.point))
+	if (!parse_vector(params[0], INT_MIN, INT_MAX, &pl.point))
 		return (quick_free(params, obj), FALSE);
 	if (!parse_orient(params[1], &pl.normal))
 		return (quick_free(params, obj), FALSE);
