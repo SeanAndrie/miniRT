@@ -36,7 +36,7 @@ t_bool	parse_camera(char *line, const size_t n_params, t_scene *scene)
 		return (tok_free(params, n_params), FALSE);
 	if (!parse_orient(params[1], &scene->cam.basis.forward))
 		return (tok_free(params, n_params), FALSE);
-	if (!parse_scalar(params[2], 0.1, 180.0, &fov))
+	if (!parse_scalar(params[2], 0.0, 180.0, &fov))
 		return (tok_free(params, n_params), FALSE);
 	scene->cam.fov = fov * (M_PI / 180.0);
 	tok_free(params, n_params);

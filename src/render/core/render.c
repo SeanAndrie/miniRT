@@ -14,14 +14,6 @@
 #include <libft.h>
 #include <math.h>
 
-static inline t_vec3	extract_dir(const t_tensr *rdir, int x, int y)
-{
-	size_t	offset;
-
-	offset = tensr_offset(&rdir->layout, (size_t[]){x, y, 0});
-	return (*(t_vec3 *)((float *)rdir->data + offset));
-}
-
 static inline void	update_basis(t_basis *basis)
 {
 	ft_memcpy(basis->forward_t->data, &basis->forward, sizeof(t_vec3));
