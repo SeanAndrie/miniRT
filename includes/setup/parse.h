@@ -14,6 +14,7 @@
 # define PARSE_H
 
 # include <libft.h>
+# include <config.h>
 
 # define ERR_BASE "miniRT"
 # define ERR_MISSING_EXT "%s: missing file extension '%s'\n"

@@ -26,6 +26,9 @@
 // Tile size (16x16)
 # define N_TILES 256
 
+// Object Property Minimum
+# define PROP_MIN 0.0
+
 // Specular Shine Factor
 # define SPECULAR_SHINE 45.0f
 

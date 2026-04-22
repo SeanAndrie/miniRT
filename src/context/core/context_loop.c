@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/context.h>
+#include <setup/texture.h>
 
 int	context_loop(t_context *ctx)
 {
@@ -21,6 +22,7 @@ int	context_loop(t_context *ctx)
 	tween_update(ctx, TWEEN_FACTOR);
 	if (ctx->show_ui)
 		mlx_clear_window(ctx->disp->conn, ctx->disp->window);
+	texture_init(ctx);
 	if (ctx->scene->bonus->multithreaded)
 		render_threaded(&ctx->pool, ctx->disp, ctx->scene);
 	else
