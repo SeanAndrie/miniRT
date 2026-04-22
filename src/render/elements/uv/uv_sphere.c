@@ -18,7 +18,7 @@ void	uv_sphere(t_hit *hit)
 	t_vec3		n;
 
 	sp = &hit->obj->data.sphere;
-	n = vec3_normalize(vec3_sub(hit->point, sp->center));
+    n = hit->normal;
 	hit->u = 0.5 + atan2(n.z, n.x) / (2.0 * M_PI) + 0.3;
 	hit->v = 1.0 - (0.5 - asin(n.y) / M_PI);
 	hit->tangent = vec3_normalize((t_vec3){-n.z, 0, n.x});

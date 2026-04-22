@@ -26,7 +26,7 @@ static void	tensr_blit(t_tensr *src, t_image *img)
 	uint8_t			*s_ptr;
 	char			*d_row;
 	unsigned int	*d_pixel;
-
+    
 	s_ptr = (uint8_t *)src->data;
 	d_row = (char *)img->addr;
 	y = 0;
@@ -34,6 +34,7 @@ static void	tensr_blit(t_tensr *src, t_image *img)
 	{
 		x = 0;
 		d_pixel = (unsigned int *)d_row;
+
 		while (x < src->layout.shape[1])
 		{
 			*d_pixel = rgb_to_argb(s_ptr);
