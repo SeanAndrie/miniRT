@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   config.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
+/*   By: zsalih <zsalih@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/10 23:01:58 by sgadinga          #+#    #+#             */
-/*   Updated: 2026/04/14 10:38:58 by sgadinga         ###   ########.fr       */
+/*   Updated: 2026/04/24 14:09:03 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,8 @@
 
 // Bump Mapping Settings
 # define BUMP_SCALE 1.5f
+
+// Texture Scale
+# define TEXTURE_SCALE 0.2f
 
 #endif
