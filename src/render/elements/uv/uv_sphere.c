@@ -6,7 +6,7 @@
 /*   By: zsalih <zsalih@student.42abudhabi.ae>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/09 18:31:35 by zsalih            #+#    #+#             */
-/*   Updated: 2026/04/10 23:36:09 by zsalih           ###   ########.fr       */
+/*   Updated: 2026/04/24 07:55:33 by zsalih           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	uv_sphere(t_hit *hit)
 {
-	t_sphere	*sp;
-	t_vec3		n;
+	t_vec3	n;
 
-	sp = &hit->obj->data.sphere;
-    n = hit->normal;
-	hit->u = 0.5 + atan2(n.z, n.x) / (2.0 * M_PI) + 0.3;
-	hit->v = 1.0 - (0.5 - asin(n.y) / M_PI);
+	n = hit->normal;
+	hit->u = atan2(n.z, n.x) / (2.0 * M_PI) + 0.5f;
+	hit->v = asin(n.y) / M_PI + 0.5f;
 	hit->tangent = vec3_normalize((t_vec3){-n.z, 0, n.x});
 	hit->bitangent = vec3_cross(hit->normal, hit->tangent);
 }
